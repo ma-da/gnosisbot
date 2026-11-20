@@ -6,6 +6,8 @@ Gnosis is a browser-based oracle and research observatory that compares traditio
 
 The I Ching engine uses six groups of three coin qubits and six coherently computed moving flags. The Elder Futhark experiments use a 15-qubit strict rank sampler and a screened 64-active-qubit circular geometry sampler. Classical interpretation is separate from entropy, hardware records and authenticated transactions.
 
+The conceptual basis for this project is articulated in the preprint [Towards Understanding the Relationship Between Human Intention and Quantum Processes](https://zenodo.org/records/24381907).
+
 ## Quick start (Ubuntu / WSL, Python 3.12)
 
 Use the pinned environment from the working project; Node 22+ is only needed for frontend tests. No frontend build, provider token, account database or hardware job is required for public demos. Do not use a real state directory for tests.
