@@ -1,0 +1,12 @@
+{
+  "engine": "iching",
+  "backend": "ibm_marrakesh",
+  "artifact": "preflight.qpy",
+  "sha256": "6e0ebc37ca5cd1ec906e18996ee1143567d8eb4961389eea2f9d88a364559ff4",
+  "artifact_role": "retained_preflight_not_exact_submitted",
+  "historical_inventory_job_id": "dbt5dv7q0h0s73bkc5q0",
+  "recorded_submission_sha256": "e813d95573e2a1c43782be827af13d17e78ae0a35612f8cd5e36ad8a0702e5bc",
+  "exact_submission_artifact_included": false,
+  "qiskit_release_environment": "2.6.2",
+  "notes": "Historical operator evidence, not new QPU validation. No raw commercial data included."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 0,
+    "name": "Fehu",
+    "glyph": "ᚠ"
+  },
+  {
+    "id": 1,
+    "name": "Uruz",
+    "glyph": "ᚢ"
+  },
+  {
+    "id": 2,
+    "name": "Thurisaz",
+    "glyph": "ᚦ"
+  },
+  {
+    "id": 3,
+    "name": "Ansuz",
+    "glyph": "ᚨ"
+  },
+  {
+    "id": 4,
+    "name": "Raidho",
+    "glyph": "ᚱ"
+  },
+  {
+    "id": 5,
+    "name": "Kenaz",
+    "glyph": "ᚲ"
+  },
+  {
+    "id": 6,
+    "name": "Gebo",
+    "glyph": "ᚷ"
+  },
+  {
+    "id": 7,
+    "name": "Wunjo",
+    "glyph": "ᚹ"
+  },
+  {
+    "id": 8,
+    "name": "Hagalaz",
+    "glyph": "ᚺ"
+  },
+  {
+    "id": 9,
+    "name": "Nauthiz",
+    "glyph": "ᚾ"
+  },
+  {
+    "id": 10,
+    "name": "Isa",
+    "glyph": "ᛁ"
+  },
+  {
+    "id": 11,
+    "name": "Jera",
+    "glyph": "ᛃ"
+  },
+  {
+    "id": 12,
+    "name": "Eihwaz",
+    "glyph": "ᛇ"
+  },
+  {
+    "id": 13,
+    "name": "Perthro",
+    "glyph": "ᛈ"
+  },
+  {
+    "id": 14,
+    "name": "Algiz",
+    "glyph": "ᛉ"
+  },
+  {
+    "id": 15,
+    "name": "Sowilo",
+    "glyph": "ᛊ"
+  },
+  {
+    "id": 16,
+    "name": "Tiwaz",
+    "glyph": "ᛏ"
+  },
+  {
+    "id": 17,
+    "name": "Berkano",
+    "glyph": "ᛒ"
+  },
+  {
+    "id": 18,
+    "name": "Ehwaz",
+    "glyph": "ᛖ"
+  },
+  {
+    "id": 19,
+    "name": "Mannaz",
+    "glyph": "ᛗ"
+  },
+  {
+    "id": 20,
+    "name": "Laguz",
+    "glyph": "ᛚ"
+  },
+  {
+    "id": 21,
+    "name": "Ingwaz",
+    "glyph": "ᛜ"
+  },
+  {
+    "id": 22,
+    "name": "Dagaz",
+    "glyph": "ᛞ"
+  },
+  {
+    "id": 23,
+    "name": "Othala",
+    "glyph": "ᛟ"
+  }
+]

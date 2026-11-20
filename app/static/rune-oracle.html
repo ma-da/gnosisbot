@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#faf9f5">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/global.css">
+<link rel="stylesheet" href="/assets/css/rune-oracle.css?v=0.2.7">
+<script defer src="/assets/js/rune-fixtures.js?v=0.2.2"></script>
+<script defer src="/assets/js/rune-meanings.js?v=0.2.2"></script>
+<script defer src="/assets/js/rune-consultation.js?v=0.2.7"></script>
+<script defer src="/assets/js/rune-oracle.js?v=0.2.6"></script>
+
+  <!-- GNOSIS SITE SEO V1 BEGIN -->
+  <title>Elder Futhark Rune Oracle — Pouch Draw &amp; Stick Casting | Gnosis.bot</title>
+  <meta name="description" content="Explore the 24 Elder Futhark runes through three-rune pouch draws and circular stick castings, with interactive formations, rune meanings and archetypal pathways.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://gnosis.bot/rune-oracle.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gnosis.bot">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Elder Futhark Rune Oracle — Pouch Draw &amp; Stick Casting | Gnosis.bot">
+  <meta property="og:description" content="Explore the 24 Elder Futhark runes through three-rune pouch draws and circular stick castings, with interactive formations, rune meanings and archetypal pathways.">
+  <meta property="og:url" content="https://gnosis.bot/rune-oracle.html">
+  <meta property="og:image" content="https://gnosis.bot/assets/images/social/gnosis-runes.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gnosis.bot — Elder Futhark Rune Oracle — Pouch Draw &amp; Stick Casting">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Elder Futhark Rune Oracle — Pouch Draw &amp; Stick Casting | Gnosis.bot">
+  <meta name="twitter:description" content="Explore the 24 Elder Futhark runes through three-rune pouch draws and circular stick castings, with interactive formations, rune meanings and archetypal pathways.">
+  <meta name="twitter:image" content="https://gnosis.bot/assets/images/social/gnosis-runes.png">
+  <meta name="twitter:image:alt" content="Gnosis.bot — Elder Futhark Rune Oracle — Pouch Draw &amp; Stick Casting">
+  <meta name="referrer" content="strict-origin">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <!-- GNOSIS SITE SEO V1 END -->
+  <!-- GNOSIS SHARED SHELL V2 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=1"></script>
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <!-- GNOSIS SHARED SHELL V2 END -->
+</head>
+<body class="rune-page" id="top">
+<a class="skip-link" href="#rune-main">Skip to reading</a>
+<header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+						<a href="/rune-oracle.html" aria-current="page">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+						<a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
+			
+  </header>
+
+<div class="gnosis-page-tools" aria-label="Page controls">
+<div class="topbar-actions"><span class="topnote">ELDER FUTHARK / VISUAL ALPHA 0.2.7</span><a class="rune-account-link" href="/account.html">Your Gnosis</a><span class="rune-demo-tag" hidden>DEMO</span></div>
+</div>
+<main id="rune-main">
+<section class="rune-intro"><div><p class="eyebrow">THE RUNIC ORACLE</p><h1>Elder Futhark</h1><p class="rune-deck">Twenty-four symbols. Two ways to reveal a reading.</p></div><div class="rune-mode-wrap"><span class="mode-label">READING METHOD</span><div class="switcher rune-mode" role="group" aria-label="Reading method"><button class="reading-btn" data-mode="pouch" disabled aria-pressed="false">Pouch Draw</button><button class="reading-btn active" data-mode="sticks" disabled aria-pressed="true">Stick Casting</button></div></div></section>
+<div class="rune-provider-bar">
+  <div class="rune-provider-copy">
+    <p id="rune-provider-status" role="status" aria-live="polite">
+      Preparing the Oracle…
+    </p>
+    <div class="rune-provider-meta mono">
+      <span id="rune-source">SYNTHETIC DEMONSTRATION · RC1</span>
+      <span id="rune-sample-divider" aria-hidden="true">·</span>
+      <label class="rune-sample-inline" for="rune-sample">
+        <span>Sample</span>
+        <select class="mode-select" id="rune-sample"></select>
+      </label>
+    </div>
+  </div>
+
+  <div class="rune-provider-actions">
+    <label class="rune-color-inline" for="rune-emerge-color">
+      <span class="mono">Rune color</span>
+      <input id="rune-emerge-color" type="color" value="#b04a4a" aria-label="Emerging rune color">
+    </label>
+    <button type="button" id="rune-new-reading" class="reading-btn rune-new-reading" hidden>New reading</button>
+    <a id="rune-gallery-link" href="/rune-oracle.html?gallery=local">Local gallery ↗</a>
+  </div>
+</div>
+<div id="rune-load-error" role="alert" hidden><p id="rune-load-message"></p><a href="/rune-oracle.html?gallery=demo">Retry server demo</a> · <a href="/rune-oracle.html?gallery=local">Open local examples</a></div>
+<section id="rune-production-status" class="rune-production-status" hidden>
+  <p id="rune-production-message" role="status" aria-live="polite"></p>
+  <button type="button" id="rune-status-retry" class="reading-btn" hidden>Check status</button>
+  <a href="/account.html">Your Gnosis ↗</a>
+  <button type="button" id="rune-unlock" class="reading-btn" hidden>Resolve previous request</button>
+</section>
+<dialog id="rune-consultation" class="consultation-dialog" aria-label="Consult the Elder Futhark Oracle">
+  <button type="button" class="consultation-x" id="rune-close" aria-label="Close consultation form">&times;</button>
+  <p class="eyebrow consultation-eyebrow">GNOSIS.BOT · ELDER FUTHARK</p>
+  <form id="rune-consultation-form" novalidate>
+    <fieldset id="rune-dialog-mode" class="consultation-toggle rune-method-toggle" aria-label="Reading method">
+      <label class="consultation-toggle-choice"><input type="radio" name="rune-method" value="pouch"><span>Pouch Draw</span></label>
+      <label class="consultation-toggle-choice"><input type="radio" name="rune-method" value="sticks" checked><span>Stick Casting</span></label>
+    </fieldset>
+    <textarea id="rune-question" class="consultation-question" rows="3" maxlength="2000" aria-label="Optional question" placeholder="Ask a question if you want, or leave this blank to tune into quantum vibe directly"></textarea>
+    <fieldset id="rune-inquiry-style" class="consultation-toggle" aria-label="How are you inquiring?">
+      <label class="consultation-toggle-choice"><input type="radio" name="rune-style" value="direct" checked><span>Just Tell Me What the Qubits Say</span></label>
+      <label class="consultation-toggle-choice"><input type="radio" name="rune-style" value="meditative"><span>Meditative Contemplation</span></label>
+    </fieldset>
+    <p class="consultation-fineprint">Your inquiry style is contextual only. It does not affect the casting or measurement.</p>
+    <fieldset id="rune-service-options" class="consultation-modes" aria-label="Casting source"></fieldset>
+    <fieldset id="rune-qrng" class="consultation-provider" aria-label="Quantum randomness provider" hidden>
+      <label class="consultation-provider-choice"><input type="radio" name="rune-provider" value="qrng_private" checked><span>QCI Quantum Noise</span></label>
+      <label class="consultation-provider-choice"><input type="radio" name="rune-provider" value="qrng_public"><span>NIST Public Beacon</span></label>
+      <p id="rune-provider-detail" class="consultation-fineprint"></p>
+    </fieldset>
+    <div class="consultation-auth">
+      <p id="rune-balance" class="consultation-balance" role="status" aria-live="polite"></p>
+      <a id="rune-login-link" href="/account.html" target="_blank" rel="noopener">Sign in / Your Gnosis ↗</a>
+    </div>
+    <label class="rune-consent"><input id="rune-consent" type="checkbox"> Allow this question to be included in research publication (optional)</label>
+    <div class="consultation-submit-row">
+      <span id="rune-cost" class="consultation-price"></span>
+      <button id="rune-submit" class="consultation-submit" type="submit" disabled>Consult the Oracle</button>
+    </div>
+    <p id="rune-inventory-status" class="consultation-fineprint" hidden></p>
+    <p id="rune-consultation-message" class="consultation-message" role="status" aria-live="polite" hidden></p>
+  </form>
+</dialog>
+<div id="rune-reading-body" hidden>
+<section class="instrument rune-instrument" aria-label="Rune reading instrument">
+
+<div class="rune-stage" id="rune-stick-stage">
+  <aside class="rune-results-rail" aria-label="Recognized runes">
+    <div class="rune-results-head rune-results-head--rail">
+      <p class="eyebrow" id="rune-result-label">RECOGNIZED SYMBOLS</p>
+      <span class="mono" id="rune-result-count"></span>
+    </div>
+    <div id="rune-results" class="rune-results rune-results--rail" role="group" aria-label="Select a recognized rune"></div>
+  </aside>
+
+  <div class="rune-circle-wrap">
+    <svg id="rune-circle" class="rune-circle" viewBox="0 0 600 600" role="img" aria-label="Circular stick casting">
+      <g id="rune-ring"></g>
+      <g id="rune-chords"></g>
+      <g id="rune-emergence"></g>
+      <g id="rune-highlight"></g>
+    </svg>
+    <div class="rune-stage-foot mono">
+      <span>256 CIRCUMFERENCE POINTS</span>
+      <span id="rune-stick-readout">72 / 72 SLOTS</span>
+    </div>
+  </div>
+
+  <aside class="rune-focus" aria-label="Selected rune">
+    <p class="eyebrow" id="rune-focus-label">SELECTED FORMATION</p>
+    <svg id="rune-isolated" viewBox="0 0 200 200" role="img" aria-label="Isolated recognized geometry"></svg>
+    <h2 id="rune-focus-name">—</h2>
+    <p id="rune-focus-sub" class="subtle"></p>
+    <div class="rune-metrics" id="rune-metrics"></div>
+    <p class="rune-focus-note" id="rune-focus-note"></p>
+  </aside>
+</div>
+<div class="rune-pouch-stage" id="rune-pouch-stage" hidden><div class="rune-pouch-mark mono">THREE ORDERED DRAWS · WITHOUT REPLACEMENT</div><div id="rune-pouch-draws" class="rune-pouch-draws"></div><p class="rune-pouch-caption" id="rune-pouch-caption"></p></div>
+<div class="rune-controls"><div class="rune-transport" role="group" aria-label="Replay controls"><button type="button" class="reading-btn" id="rune-back" aria-label="Previous step">←</button><button type="button" class="reading-btn rune-play" id="rune-play">Replay</button><button type="button" class="reading-btn" id="rune-forward" aria-label="Next step">→</button><button type="button" class="reading-btn" id="rune-end">Final</button></div><div class="rune-scrub"><label for="rune-step" class="visually-hidden">Casting replay position</label><input type="range" min="0" max="72" step="1" value="72" id="rune-step"><output id="rune-progress" for="rune-step" class="mono">72 / 72</output><div id="rune-event-ticks" class="rune-event-ticks" aria-hidden="true"></div></div></div>
+<p id="rune-status" class="rune-status" role="status" aria-live="polite"></p>
+<div id="rune-compounds" class="rune-compounds" hidden></div>
+</section>
+
+<section class="content rune-content" aria-label="Reading details and provenance"><div class="reading-text">
+<div id="rune-meaning-selector" class="rune-meaning-selector" role="group" aria-label="Explore recognized rune meanings" hidden></div>
+<p class="eyebrow">READING · <span id="rune-detail-phase"></span></p><h3 id="rune-detail-title" class="rune-detail-title">—</h3><p id="rune-detail-meta" class="rune-detail-meta mono"></p><div id="rune-meaning" hidden><p class="rune-essence" id="rune-essence"></p><p id="rune-archetype"></p><p class="small-lead">SYNCRETIC INTERPRETATION</p><p id="rune-interpretation"></p><p class="small-lead">REFLECTION</p><p class="reflection" id="rune-reflection"></p><div id="rune-keywords" class="rune-keywords"></div><details class="detail" id="rune-meaning-further"><summary>Traditional meaning and further contemplation</summary><div id="rune-meaning-more" class="details-inner"></div></details></div><p id="rune-detail-copy" class="rune-geometry-note">—</p><details class="detail"><summary>Mathematical grammar</summary><div id="rune-grammar" class="details-inner"></div></details><details class="detail" id="rune-history-wrap"><summary>Emergence history</summary><div class="details-inner" id="rune-history"></div></details></div><aside class="provenance">
+<section class="rune-cosmology" aria-labelledby="rune-cosmology-title">
+<div class="rune-cosmology-head"><div><p class="eyebrow">GNOSIS · RUNE COSMOLOGY</p><h2 id="rune-cosmology-title">Three worlds</h2></div><span id="rune-world-stage" class="mono"></span></div>
+<div id="rune-worlds" class="rune-worlds"></div><p id="rune-world-summary" class="rune-world-summary"></p>
+<div class="rune-pathway-head"><h3>Archetypal pathways</h3><span class="mono" id="rune-pathway-count"></span></div><div id="rune-pathways" class="rune-pathways"></div><p id="rune-pathway-note" class="subtle rune-pathway-note"></p>
+</section>
+<section class="technology-employed"><p class="eyebrow">TECHNOLOGY EMPLOYED</p><h3 id="rune-technology-title"></h3><p class="technology-employed__copy" id="rune-technology-copy"></p></section><details class="detail"><summary>Source and recognition metadata</summary><div class="details-inner" id="rune-provenance"></div></details><details class="detail"><summary>How to read this visualization</summary><div class="details-inner" id="rune-method"></div></details></aside></section>
+<p class="disclaimer" id="rune-disclaimer">Visual alpha. All examples on this page are constructed or classically simulated demonstrations, not IBM measurements. Replay timing is illustrative. No account, payment or quantum hardware request is made. The Gnosis syncretic interpretation is a contemporary reflective framework, not a historical reconstruction or prediction. World shares describe the recognized symbols, not measured physical realms.</p>
+</div>
+</main>
+<div class="gnosis-page-footer-note"><span>GNOSIS.BOT · ELDER FUTHARK · VISUAL ALPHA</span><span>Mathematical recognition RC1 · <a href="/">Gnosis</a></span></div>
+
+<footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span>
+				<a href="https://markbailey.love">CREATOR</a>
+				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+				
+				
+    <a href="#top">TOP ↑</a>
+  </footer>
+</body></html>

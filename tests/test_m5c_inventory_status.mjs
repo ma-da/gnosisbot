@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const source=await readFile(process.argv[2]||'app/static/js/inventory-status.js','utf8');
+const {stockText,createInventoryStatus}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const entry=(service_id,available,pending_release,approved_available=available,service_enabled=true)=>({service_id,service_enabled,counts:{available,pending_release,approved_available}});
+assert.equal(stockText(entry('iching.quantum_past',0,116)), '0 available now — 116 committed · awaiting release');
+assert.equal(stockText(entry('runes.pouch.quantum_past',124,0)), '124 available now');
+assert.equal(stockText(entry('runes.sticks.quantum_past',0,0,128,false)), '0 available now — 128 approved · service disabled');
+assert.equal(stockText(null),'Inventory status unavailable');
+let selected='runes.pouch.quantum_past';const node={setAttribute(){},hidden:false,textContent:''};
+const requests=[];const refresh=createInventoryStatus({node,getServiceId:()=>selected,fetcher:()=>new Promise(resolve=>requests.push(resolve))});
+const first=refresh();selected='runes.sticks.quantum_past';const second=refresh();
+requests[1]({engines:[entry(selected,128,0)]});await second;
+requests[0]({engines:[entry('runes.pouch.quantum_past',124,0)]});await first;
+assert.equal(node.textContent,'128 available now');
+selected='runes.sticks.classic';await refresh();assert.equal(node.hidden,true);assert.equal(node.textContent,'');
+console.log('PASS: counts, disabled stock, unknown stock, stale selection, non-Past hiding');

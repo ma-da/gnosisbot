@@ -1,0 +1,10 @@
+{
+  "shots": 128,
+  "job_id": "dbqc109abdes73fo08b0",
+  "physical_projection_sha256_before": "6aa07d3f98b91d2374fc0bed1412b1e1c55e884e41002b519df644ded9973d6a",
+  "physical_projection_sha256_after": "6aa07d3f98b91d2374fc0bed1412b1e1c55e884e41002b519df644ded9973d6a",
+  "physical_projection_unchanged": true,
+  "removed_phase_fields_total": 1536,
+  "source_archive_sha256": "ec42dfa7f277bc5a25e3ada222c725438454ec8d9aa7ed47a4c6bcc9a54ee0fe",
+  "clean_archive_sha256": "6790cc5655435ff8a2806a3c9de06fcb2a0c85bbd04de528f4fca5aaea5eae3b"
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/research.css?v=layout2">
+
+  <!-- GNOSIS SITE SEO V1 BEGIN -->
+  <title>Research Observatory — Quantum Readings &amp; Transparency | Gnosis.bot</title>
+  <meta name="description" content="Explore aggregate I Ching reading distributions, observed and expected probabilities, and Gnosis quantum inventory and transparency data.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://gnosis.bot/research.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gnosis.bot">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Research Observatory — Quantum Readings &amp; Transparency | Gnosis.bot">
+  <meta property="og:description" content="Explore aggregate I Ching reading distributions, observed and expected probabilities, and Gnosis quantum inventory and transparency data.">
+  <meta property="og:url" content="https://gnosis.bot/research.html">
+  <meta property="og:image" content="https://gnosis.bot/assets/images/social/gnosis-research.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gnosis.bot — Research Observatory — Quantum Readings &amp; Transparency">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Research Observatory — Quantum Readings &amp; Transparency | Gnosis.bot">
+  <meta name="twitter:description" content="Explore aggregate I Ching reading distributions, observed and expected probabilities, and Gnosis quantum inventory and transparency data.">
+  <meta name="twitter:image" content="https://gnosis.bot/assets/images/social/gnosis-research.png">
+  <meta name="twitter:image:alt" content="Gnosis.bot — Research Observatory — Quantum Readings &amp; Transparency">
+  <meta name="theme-color" content="#faf9f5">
+  <meta name="referrer" content="strict-origin">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <!-- GNOSIS SITE SEO V1 END -->
+  <!-- GNOSIS SHARED SHELL V2 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=1"></script>
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <!-- GNOSIS SHARED SHELL V2 END -->
+</head>
+<body id="top" class="research-page">
+<a class="skip-link" href="#gnosis-main">Skip to content</a>
+<header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+						<a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+						<a href="/research.html" aria-current="page">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
+			
+  </header>
+
+  <main class="research-shell" id="gnosis-main">
+    <div class="gnosis-page-tools" aria-label="Page controls">
+
+</div>
+    <div class="research-intro"><div class="research-kicker">QUANTUM / CLASSICAL / OBSERVATION</div><h1>Research Observatory</h1>
+      <p>See how often each I Ching hexagram appears versus how often it is likely to appear. To learn more about the methodology and conceptual basis for Gnosis Bot, see <a href="https://doi.org/10.5281/zenodo.24381907" target="_blank" rel="noopener noreferrer"><em>Towards Understanding the Relationship Between Human Intention and Quantum Processes</em></a></p>
+      <p class="research-disclaimer">Exploratory statistics are not proof that consciousness influences quantum measurements.</p>
+    </div>
+
+    <div id="research-error" role="alert" hidden></div>
+    <div id="research-loading" aria-live="polite">Loading published aggregate observations…</div>
+    <section class="research-panel" aria-labelledby="matrix-title">
+      <div class="research-section-head"><div><h2 id="matrix-title">The 64 Hexagrams</h2><p>Lower trigram × upper trigram. Select a hexagram to inspect its history.</p></div>
+        </div>
+      <div class="research-grid-wrap"><div class="research-matrix" id="hexagram-matrix" role="group" aria-label="64 hexagrams"></div></div>
+      <div class="research-legend"><span>Lower</span><div class="research-gradient" aria-hidden="true"></div><span>Higher</span></div>
+      <p class="research-footnote" id="grid-footnote">Counts include one primary or relating hexagram per completed reading. In count mode, the fixed grayscale darkens as appearances accumulate; hover or select a glyph for exact counts.</p>
+    </section>
+
+    <!-- Aggregate distribution and controls share one compact row. -->
+    <div class="research-analysis">
+    <section class="research-panel" aria-labelledby="frequency-title"><div class="research-section-head"><div><h2 id="frequency-title">Occurrence distribution</h2><p>All 64 outcomes against an equal-probability null model.</p></div>
+      <label>Order <select id="sort-filter"><option value="most">Most frequent</option><option value="king">King Wen</option><option value="deviation">Largest deviation</option><option value="least">Least frequent</option></select></label></div>
+      <div id="research-bars" class="research-bars"></div><p class="research-footnote">Thin vertical markers indicate expected counts. The full distribution, not an individually selected extreme, is used for the global goodness-of-fit statistic.</p>
+    </section>
+      <aside class="research-sidebar" aria-label="Statistics and filters">
+        <h2>Summary statistics</h2>
+    <section class="research-metrics" aria-label="Summary statistics">
+      <div><small>Completed readings</small><strong id="stat-total">—</strong></div>
+      <div><small>Expected per hexagram</small><strong id="stat-expected">—</strong></div>
+      <div><small>Moving-line rate</small><strong id="stat-moving">—</strong></div>
+      <div><small>Global chi-square p-value</small><strong id="stat-p">—</strong></div>
+    </section>
+        <h2>Filters</h2>
+    <section class="research-filters" aria-label="Research filters">
+      <label>Period <select id="time-filter"><option value="all">All time</option><option value="today">Today (UTC)</option><option value="week">Last 7 days (UTC)</option><option value="month">Current month (UTC)</option><option value="custom">Custom range</option></select></label>
+      <label>Shade by <select id="shade-filter"><option value="count">Appearance count</option><option value="ratio">Observed / expected</option></select></label>
+      <label>Source <select id="source-filter"><option value="">All available sources</option></select></label>
+      <label>Reading phase <select id="phase-filter"><option value="primary">Now / primary</option><option value="relating">Becoming / relating</option></select></label>
+      <label>Moving lines <select id="moving-filter"><option value="all">All readings</option><option value="yes">At least one</option><option value="no">No moving lines</option></select></label>
+      <label id="start-holder" hidden>Start (UTC) <input type="date" id="date-start"></label>
+      <label id="end-holder" hidden>End (UTC, exclusive) <input type="date" id="date-end"></label>
+    </section>
+      </aside>
+    </div>
+    <section class="research-panel" aria-labelledby="trend-title"><div class="research-section-head"><div><h2 id="trend-title">Hexagram detail and trend</h2><p id="selected-description">Select a tile or bar to inspect one hexagram.</p></div><label>Resolution <select id="grain-filter"><option value="day">Daily</option><option value="month">Monthly</option></select></label></div>
+      <div id="selected-stats" class="research-selected"></div><div id="trend-chart" class="research-trend" role="img" aria-label="Historical appearances trend"></div>
+      <p class="research-footnote">Trends show observed counts and expected counts for each time bucket. Time buckets with different reading volumes should not be compared using raw counts alone.</p>
+    </section>
+    <section class="research-panel" aria-labelledby="moving-title"><h2 id="moving-title">Changing-line distribution</h2><p>Unfiltered expectation: Binomial(6, 0.25). When filtering by moving-line status, the expected distribution shown is unconditional and is not a valid filtered comparison.</p><div id="moving-bars" class="research-moving-bars"></div></section>
+    <section class="research-panel research-inventory" aria-labelledby="inventory-title">
+      <div class="research-section-head"><div><div class="research-kicker">HARDWARE / PROVENANCE / INVENTORY</div><h2 id="inventory-title">Quantum Past Inventory</h2><p>Previously acquired IBM hardware readings, their verification milestones and current availability.</p></div><button type="button" id="research-inventory-refresh">Refresh inventory</button></div>
+      <p id="research-inventory-status" role="status" aria-live="polite">Loading inventory…</p>
+      <div id="research-inventory-cards" class="inventory-grid"></div>
+      <p class="research-footnote">Committed inventory is not necessarily available for consultation. Release requires recorded Bitcoin proof verification and operator approval. Identical outcomes from different physical measurements remain eligible. Demo and excluded items are never sold. These aggregate counts are current stock, independent of the hexagram filters above. A recorded IBM match is an operator verification, not a public cryptographic proof of hardware origin.</p>
+    </section>
+    <div class="research-footer gnosis-page-footer-note"><p>Methodology: each primary hexagram and each relating hexagram has expected marginal probability 1/64 under fair independent three-coin casting. Primary and relating values are correlated within a reading. Results are exploratory; small samples do not support asymptotic significance tests.</p><p>Aggregate data only. Individual questions, account identifiers, and measurement payloads are not published by this dashboard.</p><a href="/quantum-oracle.html">Return to the Oracle</a></div>
+  </main>
+  <script type="module" src="/assets/js/research.js?v=layout2"></script>
+
+<footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span>
+				<a href="https://markbailey.love">CREATOR</a>
+				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+				
+				
+    <a href="#top">TOP ↑</a>
+  </footer>
+</body>
+</html>

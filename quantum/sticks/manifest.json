@@ -1,0 +1,12 @@
+{
+  "engine": "sticks",
+  "backend": "ibm_marrakesh",
+  "artifact": "marrakesh.qpy",
+  "sha256": "45cd8d510fb3fa481c38a93ce0b3417175b2f753cce2622248f3e278c6da6d8e",
+  "artifact_role": "qualified_physical_reference",
+  "historical_inventory_job_id": "dbtuqnc9po4c73ceaot0",
+  "recorded_submission_sha256": "45cd8d510fb3fa481c38a93ce0b3417175b2f753cce2622248f3e278c6da6d8e",
+  "exact_submission_artifact_included": true,
+  "qiskit_release_environment": "2.6.2",
+  "notes": "Historical operator evidence, not new QPU validation. No raw commercial data included."
+}

@@ -1,0 +1,33 @@
+{
+  "reading_id": "demo-pouch-001",
+  "mode": "pouch",
+  "source": "synthetic_demo",
+  "delivery": "demo",
+  "status": "ready",
+  "provenance": {
+    "engine_version": "strict-v2a-1.0.0",
+    "note": "Constructed rank example; not QPU output"
+  },
+  "payload": {
+    "draws": [
+      {
+        "position": "past",
+        "rune_id": 0,
+        "name": "Fehu",
+        "glyph": "ᚠ"
+      },
+      {
+        "position": "present",
+        "rune_id": 6,
+        "name": "Gebo",
+        "glyph": "ᚷ"
+      },
+      {
+        "position": "future",
+        "rune_id": 21,
+        "name": "Ingwaz",
+        "glyph": "ᛜ"
+      }
+    ]
+  }
+}

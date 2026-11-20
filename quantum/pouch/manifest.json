@@ -1,0 +1,12 @@
+{
+  "engine": "pouch",
+  "backend": "ibm_marrakesh",
+  "artifact": "marrakesh.qpy",
+  "sha256": "f987202e9fc45236ca92aae6c6f2786a30ee656d6c23a2fc0f11d465f741a27a",
+  "artifact_role": "qualified_physical_reference",
+  "historical_inventory_job_id": "dbui90tarooc73fk04fg",
+  "recorded_submission_sha256": "f987202e9fc45236ca92aae6c6f2786a30ee656d6c23a2fc0f11d465f741a27a",
+  "exact_submission_artifact_included": true,
+  "qiskit_release_environment": "2.6.2",
+  "notes": "Historical operator evidence, not new QPU validation. No raw commercial data included."
+}

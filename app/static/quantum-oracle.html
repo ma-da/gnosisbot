@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf9f5">
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/global.css?v=0.6">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" defer></script>
+  <script type="module" src="/assets/js/app.js?v=alpha1"></script>
+
+  <!-- GNOSIS SITE SEO V1 BEGIN -->
+  <title>Quantum I Ching Oracle — The Book of Changes | Gnosis.bot</title>
+  <meta name="description" content="Explore six-line I Ching readings, Now and Becoming hexagrams, quantum randomness and quantum hardware provenance in an interactive Book of Changes oracle.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://gnosis.bot/quantum-oracle.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gnosis.bot">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Quantum I Ching Oracle — The Book of Changes | Gnosis.bot">
+  <meta property="og:description" content="Explore six-line I Ching readings, Now and Becoming hexagrams, quantum randomness and quantum hardware provenance in an interactive Book of Changes oracle.">
+  <meta property="og:url" content="https://gnosis.bot/quantum-oracle.html">
+  <meta property="og:image" content="https://gnosis.bot/assets/images/social/gnosis-iching.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gnosis.bot — Quantum I Ching Oracle — The Book of Changes">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quantum I Ching Oracle — The Book of Changes | Gnosis.bot">
+  <meta name="twitter:description" content="Explore six-line I Ching readings, Now and Becoming hexagrams, quantum randomness and quantum hardware provenance in an interactive Book of Changes oracle.">
+  <meta name="twitter:image" content="https://gnosis.bot/assets/images/social/gnosis-iching.png">
+  <meta name="twitter:image:alt" content="Gnosis.bot — Quantum I Ching Oracle — The Book of Changes">
+  <meta name="referrer" content="strict-origin">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <!-- GNOSIS SITE SEO V1 END -->
+  <!-- GNOSIS SHARED SHELL V2 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=health-v2"></script>
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <!-- GNOSIS SHARED SHELL V2 END -->
+</head>
+<body id="top">
+<a class="skip-link" href="#gnosis-main">Skip to content</a>
+<header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html" aria-current="page">I Ching</a>
+						<a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+						<a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
+			
+  </header>
+
+  <div class="gnosis-page-tools" aria-label="Page controls">
+<div class="topbar-actions">
+
+      <span class="topnote">THE BOOK OF CHANGES / VISUAL ALPHA 0.6</span>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>						
+    </div>
+</div>
+  <main id="gnosis-main">
+    <section class="instrument" aria-label="I Ching reading instrument">
+<span id="source-label" class="visually-hidden">TRUE QUANTUM · IBM MARRAKESH ARCHIVE</span>
+<span id="shot-label" class="visually-hidden">—</span>
+<span id="reading-status" class="visually-hidden" role="status" aria-live="polite">Preparing historical quantum reading demo.</span>
+<h1 id="hero-heading" class="visually-hidden">Quantum hardware I Ching reading</h1>
+<p id="hero-subheading" class="visually-hidden"></p>
+      <div id="visual" class="visual" role="img" aria-label="Decorative unrevealed hexagram field, 64-symbol ring, and 24 computing elements"><div class="visual-fallback">Preparing the reading…</div></div>
+<section
+  id="archive-explorer"
+  class="archive-explorer"
+  aria-label="Explore related archived readings"
+>
+  <!-- D3 owns this container and replaces its contents -->
+  <div
+    id="interference"
+    class="interference"
+    aria-label="Click an unlabeled pulse to investigate another measured reading"
+  ></div>
+
+  <!-- Medoid formula: separate from the D3-managed container -->
+		<div class="medoid-hint">
+				<button
+						id="medoid-formula-trigger"
+						class="medoid-equation"
+						type="button"
+						aria-label="Learn how archived quantum readings are clustered and selected"
+						disabled
+				>
+						<span class="math-token" style="--dx:-80px;--dy:-26px;--rot:-30deg">
+								medoid(C)
+						</span>
+						<span class="math-token" style="--dx:42px;--dy:34px;--rot:40deg">
+								=
+						</span>
+						<span class="math-token" style="--dx:80px;--dy:-28px;--rot:25deg">
+								arg min<sub>x∈C</sub>
+						</span>
+						<span class="math-token" style="--dx:-50px;--dy:32px;--rot:-45deg">
+								∑<sub>y∈C</sub>
+						</span>
+						<span class="math-token" style="--dx:65px;--dy:20px;--rot:30deg">
+								d(x,y)
+						</span>
+				</button>
+		</div>
+</section>
+<p id="unavailable" class="unavailable" hidden>Loading…</p>
+<div id="reading-content">
+  <div class="switcher" role="group" aria-label="Reading controls">
+    <button type="button" class="reading-btn phase-btn active" data-phase="now" aria-pressed="false" disabled>Quantum Reading</button>
+    <button type="button" class="reading-btn phase-btn" data-phase="becoming" aria-pressed="false" disabled>Becoming</button>
+    <button type="button" class="reading-btn replay-btn" id="replay" disabled aria-label="Replay the Now hexagram assembly"><span aria-hidden="true">↻</span> Replay</button>
+    <button type="button" class="reading-btn replay-btn" id="next" hidden>New throw ↗</button>
+  </div>
+</div>
+    </section>
+
+    <section class="content" id="reading-sections" aria-label="Interpretation and provenance">
+      <div class="reading-text"><p class="eyebrow">INTERPRETATION · <span id="interpret-phase">NOW</span></p>
+        <h3 id="interpret-title" class="interpret-title" tabindex="0" aria-describedby="reading-detail-tip"><span id="interpret-title-text">—</span><span class="reading-tooltip" id="reading-detail-tip" role="tooltip">—</span></h3><p id="meaning">—</p>
+        <p class="small-lead">REFLECTION</p><p class="reflection" id="question">—</p>
+        <details class="detail"><summary>Historical context and further guidance</summary><div class="details-inner">
+          <p class="small-lead">HISTORICAL CORE</p><p id="historical">—</p>
+          <p class="small-lead">ADVICE</p><p id="advice">—</p>
+          <p class="small-lead">PITFALL</p><p id="shadow">—</p></div></details>
+      </div>
+      <aside class="provenance">
+        <section class="technology-employed" aria-labelledby="technology-label">
+          <p class="eyebrow" id="technology-label">TECHNOLOGY EMPLOYED</p>
+          <h3 id="technology-heading" class="technology-employed__title">Reading technology</h3>
+          <p id="technology-copy" class="technology-employed__copy">Technology details will appear with the reading.</p>
+        </section>
+        <details class="detail provenance-details">
+          <summary id="provenance-heading">Physical Provenance</summary>
+          <div class="details-inner">
+            <p class="subtle" id="provenance-intro">The physical coin bits are authoritative; the additional measured moving-line flags are audited.</p>
+            <div class="line-audit-head"><span>LINE</span><span>COINS</span><span>VALUE</span><span>STATUS</span></div>
+            <div id="line-audit" class="line-audit" aria-label="Six line results from top to bottom"></div>
+          </div>
+        </details>
+        <details class="detail"><summary>Hardware and source metadata</summary><div class="details-inner" id="hardware"></div></details>
+      </aside>
+    </section>
+    <p class="disclaimer">This alpha replays previously recorded IBM measurements; nothing here submits a new quantum job. The unrevealed, randomly changing lines are decorative animation—not a live computation. Track colors and archival similarity clusters are illustrative encodings, not observed quantum interference or future probabilities.</p>
+  </main>
+  <div class="gnosis-page-footer-note"><span>GNOSIS.BOT · ALPHA</span><span>Interpretations: Gnosis corpus · Taoist (Liu Yiming) and Confucian (Cheng Yi) traditions; editorial review pending</span></div>
+
+<dialog
+  id="medoid-method-dialog"
+  class="medoid-method-dialog"
+  aria-labelledby="medoid-method-title"
+>
+
+<button
+  type="button"
+  class="medoid-dialog-x"
+  aria-label="Close methodology dialog"
+  onclick="this.closest('dialog').close()"
+>
+  &times;
+</button>
+
+  <p class="eyebrow">QUANTUM ARCHIVE · METHODOLOGY</p>
+
+  <h2 id="medoid-method-title">
+    Finding representative quantum readings
+  </h2>
+
+  <p>
+    This visualization explores 128 measurements recorded
+    during an IBM quantum computer experiment. Each measurement
+    contains the outcomes of a six-line I Ching casting.
+  </p>
+
+  <h3>What is a medoid?</h3>
+
+  <p>
+    A medoid is an actual observation that best represents
+    a group of observations. Unlike a mathematical average,
+    it must be one of the original measured readings.
+  </p>
+
+  <p class="method-formula">
+    medoid(C) = arg min<sub>x∈C</sub>
+    ∑<sub>y∈C</sub> d(x,y)
+  </p>
+
+  <p>
+    For each candidate reading x in cluster C, calculate
+    its total distance from the other readings y.
+    The reading with the smallest total is a medoid.
+  </p>
+
+		<h3>How the readings are grouped</h3>
+
+		<p>
+				The 128 archived quantum measurements are grouped into
+				similarity clusters. Differences in yin/yang polarity
+				contribute two distance units per line, while differences
+				in changing-line status contribute one.
+		</p>
+
+		<p>
+				Each cluster is represented by its medoid: the measured
+				reading with the smallest total distance to the other
+				readings in that cluster.
+		</p>
+
+		<h3>How the featured reading is selected</h3>
+
+		<p>
+				The featured demonstration is ranked separately.
+				The ranking emphasizes agreement between the physically
+				measured QPU moving flags and the coin-derived results,
+				rewards readings with a manageable number of changing
+				lines, and considers cluster size and average similarity.
+		</p>
+
+		<p class="subtle">
+				This selection procedure applies only to the archived
+				demonstration. It is not used to choose a visitor's
+				fresh or privately allocated quantum reading.
+		</p>
+
+  <p class="subtle">
+    These are historical physical quantum measurements,
+    not predictions or probabilities of future readings.
+  </p>
+
+  <form method="dialog">
+    <button class="method-close" type="submit">
+      Close
+    </button>
+  </form>
+</dialog>		
+		
+  <!-- GNOSIS CONSULTATION MODAL V2 -->
+<!-- Insert once, near the end of quantum-oracle.html, before closing </body>. -->
+<dialog id="consultation-dialog" class="consultation-dialog" aria-label="Consult the Oracle">
+  <button type="button" class="consultation-x" id="consultation-close" aria-label="Close consultation form">&times;</button>
+  <p class="eyebrow consultation-eyebrow">GNOSIS.BOT · QUANTUM ORACLE</p>
+
+  <form id="consultation-form" novalidate>
+    <textarea
+      id="consultation-question"
+      class="consultation-question"
+      rows="3"
+      maxlength="2000"
+      aria-label="Optional question"
+      placeholder="Ask a question if you want, or leave this blank to tune into quantum vibe directly"
+    ></textarea>
+
+    <!-- Inquiry style affects presentation / recorded context, never the casting. -->
+    <fieldset class="consultation-toggle" aria-label="How are you inquiring?">
+      <label class="consultation-toggle-choice">
+        <input type="radio" name="consultation-style" value="direct" checked>
+        <span>Just Tell Me What the Qubits Say</span>
+      </label>
+      <label class="consultation-toggle-choice">
+        <input type="radio" name="consultation-style" value="meditative">
+        <span>Meditative Contemplation</span>
+      </label>
+    </fieldset>
+    <p class="consultation-fineprint">Your inquiry style is contextual only. It does not affect the casting or measurement.</p>
+
+    <!-- Top: System Random / Quantum Randomness. Bottom: True Quantum Past / Future. -->
+    <fieldset class="consultation-modes" aria-label="Casting method">
+      <label class="consultation-mode" style="--mode-area:system">
+        <input type="radio" name="consultation-mode" value="classic" checked>
+        <span class="consultation-mode-name">System Random</span>
+        <span class="consultation-mode-cost">0 credits · local</span>
+      </label>
+      <label class="consultation-mode" style="--mode-area:quantum">
+        <input type="radio" name="consultation-mode" value="qrng">
+        <span class="consultation-mode-name">Quantum Randomness</span>
+        <span class="consultation-mode-cost">0 credits · account required</span>
+      </label>
+      <label class="consultation-mode" style="--mode-area:past">
+        <input type="radio" name="consultation-mode" value="past">
+        <span class="consultation-mode-name">True Quantum Past</span>
+        <span class="consultation-mode-cost">5 credits · precomputed IBM</span>
+      </label>
+      <label class="consultation-mode" style="--mode-area:future">
+        <input type="radio" name="consultation-mode" value="future">
+        <span class="consultation-mode-name">True Quantum Future</span>
+        <span class="consultation-mode-cost">10 credits · new IBM job</span>
+      </label>
+    </fieldset>
+
+				<fieldset
+						id="consultation-qrng"
+						class="consultation-provider"
+						aria-label="Quantum randomness provider"
+						hidden
+				>
+						<label class="consultation-provider-choice">
+								<input
+										type="radio"
+										name="consultation-qrng-provider"
+										value="qci"
+										checked
+								>
+								<span>QCI (Quantum Computing Inc.)</span>
+						</label>
+
+						<label class="consultation-provider-choice">
+								<input
+										type="radio"
+										name="consultation-qrng-provider"
+										value="nist"
+										disabled
+								>
+								<span>NIST (National Institute of Standards and Technology)</span>
+						</label>
+
+						<p class="consultation-fineprint">
+								QCI generates quantum random numbers on request.
+								Readings cost 0 credits and require at least 1 available credit.
+								NIST public randomness integration is planned.
+						</p>
+				</fieldset>
+
+    <div id="consultation-auth" class="consultation-auth" hidden>
+      <label for="consultation-account" class="consultation-auth-label">Enter your account or upload your key file</label>
+      <div class="consultation-auth-row">
+        <input id="consultation-account" type="text" autocomplete="off" spellcheck="false" placeholder="Unique account code" aria-label="Unique account code">
+        <span class="consultation-or">or</span>
+        <label class="consultation-file-button" for="consultation-key-file">
+          Upload your key file
+          <input id="consultation-key-file" type="file" accept=".json,.key,.txt,application/json,text/plain">
+        </label>
+      </div>
+      <p id="consultation-filename" class="consultation-fineprint" hidden></p>
+      <p id="consultation-balance" class="consultation-balance" role="status" aria-live="polite">Account not yet verified.</p>
+    </div>
+
+    <div id="consultation-email-wrap" class="consultation-email-wrap" hidden>
+      <label for="consultation-email">Email address for your results</label>
+      <input id="consultation-email" type="email" autocomplete="email" placeholder="you@example.com">
+      <p class="consultation-fineprint">We'll notify you when your individual QPU measurement is available.</p>
+    </div>
+
+    <div class="consultation-submit-row">
+      <span id="consultation-price" class="consultation-price">0 credits</span>
+      <button id="consultation-submit" class="consultation-submit" type="submit">Consult the Oracle</button>
+    </div>
+    <p id="consultation-message" class="consultation-message" role="status" aria-live="polite" hidden></p>
+  </form>
+</dialog>
+
+<footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span>
+				<a href="https://markbailey.love">CREATOR</a>
+				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+				
+				
+    <a href="#top">TOP ↑</a>
+  </footer>
+</body>
+</html>

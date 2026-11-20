@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "schema_version": "2.0.0",
+    "dataset_id": "gnosis_iching_dual_v1",
+    "corpus_version": "0.9.0",
+    "title": "Gnosis · Book of Changes",
+    "created_date_utc": "2026-11-19T17:47:19.726816+00:00",
+    "language": "en",
+    "status": "integration-candidate — AI-assisted; final human review pending",
+    "default_perspective": "taoist",
+    "display_credit": "Gnosis Edition · AI-assisted translations and contemporary interpretations based on the Zhouyi and commentaries of Liu Yiming and Cheng Yi. Final human review pending.",
+    "translation_scope": "This edition translates the received hexagram judgment, the six original line statements, and the special use-nine/use-six passages where applicable, plus the Great Image from the Ten Wings. The Tuan (Commentary on the Judgment), individual line Images, and other Wings passages are outside the shared classical translation scope; they may appear in the separately translated historical commentaries. The shared translation is not a complete translation of the Ten Wings.",
+    "models": [
+      "deepseek-v4-pro"
+    ],
+    "human_approved_records": 0,
+    "records_total": 192
+  },
+  "counts": {
+    "classical": 64,
+    "commentaries": 128,
+    "commentary_blocks": 289,
+    "interpretations": 128,
+    "lines": 768,
+    "special_passages": 4,
+    "glossary": 108,
+    "prefaces": 2,
+    "review_findings": 638,
+    "correction_ledger": 596
+  },
+  "files": {
+    "research/data/classical.jsonl": "76c3f3ec19050b107c0f48af5d371c499955504ceb4c55b86867acf8e71d9843",
+    "research/data/commentaries.jsonl": "0236044ecdeb6a1f822a37f6315da4c28fb19b3883378768c17eb030910dc92e",
+    "research/data/commentary_blocks.jsonl": "f2e37cc89f9dc33312042e93efca635e3e9e07dc0a7c908d9d94571895eb3f7e",
+    "research/data/correction_ledger.jsonl": "f2e93f88ac3b88ba4a4cef44177bb5f388a25e58b8dc4f5764fbf6fc7370609b",
+    "research/data/glossary.jsonl": "67d081a6dc4049080b50339ca694fbd687fe271d312dd13e931803aa87d162e8",
+    "research/data/interpretations.jsonl": "349165c59547d3ab9043503dab8699d1a49ecf039c7095b75ad6a4acdaeca120",
+    "research/data/lines.jsonl": "786e250111e61daa2733c347e65e5279816057603ca35320683b90073b3de88b",
+    "research/data/prefaces.jsonl": "ace35cf8422585ab1f9bf5f8ce6de4ce1b6bbf941969083c22ff2b534a9d745a",
+    "research/data/review_findings.jsonl": "b275e9e0e74839c9af6eee2b502474c4f7ed97a563ca7f1b1ba2c7d1e6b7b196",
+    "research/data/special_passages.jsonl": "f9efbdea09cbe5d8c221e858f5adb1ad7c7d135331fad77a9d0342bd89b814cc",
+    "research/dataset_manifest.json": "5f5ea57d52a47f2d8fb4cf6b5df5afbc0eaf00fa2e9d24e493b11f4274546183",
+    "research/iching_master.json": "c901e7d9b12cf72ec2de2289f66ef0ed7ac97ec16e3cacc6c142a9f48bd12bad",
+    "research/README.md": "91819523c30d8a5883bedebc7ef8c65442943f324d58e4654f59bcad211375b7",
+    "research/RIGHTS.md": "e570cc6ae0e0a4ee455536e1c50641325766e707527057f4532cf1c0cd6077eb",
+    "research/source_manifest.json": "4c1dfc402a5875023dd4e92d72376118d667965bcc0607c325e7373fab3de2c1",
+    "site/hexagrams_catalog.json": "cb9789145683311a0ea1ec56cf2a53171e54b47d1f7116047d38af97c1f25b28",
+    "site/interpretations.json": "2a0efc26a53447f396951b3273bf59dc5220254efe3ee6a04494495aa34964f7"
+  }
+}

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f5">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
+  <link rel="stylesheet" href="/assets/css/account-hub.css?v=resonance1">
+  <script type="module" src="/assets/js/account-page.js?v=1"></script>
+
+  <!-- GNOSIS SITE SEO V1 BEGIN -->
+  <title>Your Gnosis — Account &amp; Reading History | Gnosis.bot</title>
+  <meta name="description" content="Sign in to manage your Gnosis account, access your own readings and view consultation activity and credits.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <!-- GNOSIS SITE SEO V1 END -->
+  <!-- GNOSIS SHARED SHELL V2 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=1"></script>
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <!-- GNOSIS SHARED SHELL V2 END -->
+</head>
+<body class="account-page" data-gnosis-session="loading" id="top">
+  <a class="visually-hidden account-skip" href="#account-main">Skip to account content</a>
+<header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+						<a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html" aria-current="page">Account</a>
+						<a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
+			
+  </header>
+
+
+  
+
+  <main id="account-main" class="account-shell">
+
+
+    <p id="account-loading-state" class="account-loading" role="status" aria-live="polite">Checking your account session…</p>
+
+    <!-- This view is shown ONLY when no authenticated session exists. -->
+    <section id="account-auth-view" class="account-auth-view" aria-label="Access your Gnosis account" hidden>
+      <div class="account-auth-intro">
+        <p class="account-eyebrow">YOUR KEY IS YOUR IDENTITY</p>
+        <p>Sign in with an existing key, or create an account to begin.</p>
+      </div>
+
+      <div class="account-auth-grid">
+        <fieldset class="account-auth-card account-auth-login">
+          <legend>Sign in</legend>
+          <label for="login-key">Private account key</label>
+          <textarea id="login-key" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste a gnosis1 key or complete key-file JSON"></textarea>
+										<div id="key-dropzone" class="key-dropzone">
+												<label for="login-file" class="key-dropzone-title">
+														Drop your account key here, or browse for a file
+												</label>
+
+												<input
+														id="login-file"
+														type="file"
+														accept=".key,.json,.txt"
+														aria-describedby="key-drop-feedback"
+												>
+
+												<p id="key-drop-feedback"
+															class="key-drop-feedback"
+															role="status"
+															aria-live="polite">
+														.key, .json, or .txt
+												</p>
+										</div>
+          <button id="login" type="button" class="account-primary-button">Sign in to Your Gnosis</button>
+        </fieldset>
+
+        <fieldset class="account-auth-card account-auth-create">
+          <legend>Create a new account</legend>
+          <label for="invitation">Invitation token <span class="account-optional">(optional)</span></label>
+          <input id="invitation" spellcheck="false" autocomplete="off" placeholder="Paste an invitation token">
+          <button id="create" type="button" class="account-secondary-button">Generate keys locally</button>
+
+          <div id="key-output" hidden>
+            <p class="account-key-warning"><strong>Important:</strong> Download your key now. No server backup exists. Never share this file or paste it into support messages.</p>
+            <label for="key-string">Single-line private credential</label>
+            <textarea id="key-string" rows="3" readonly spellcheck="false"></textarea>
+            <button id="copy-string" type="button" class="account-secondary-button">Copy private key string</button>
+            <label for="key-json">Your key file (shown once)</label>
+            <textarea id="key-json" rows="7" readonly spellcheck="false"></textarea>
+            <div class="account-key-actions">
+              <button id="copy" type="button" class="account-secondary-button">Copy key file</button>
+              <button id="download" type="button" class="account-primary-button">Download .key</button>
+            </div>
+            <label class="confirm" for="saved"><input type="checkbox" id="saved"> I saved my key safely and understand it cannot currently be recovered.</label>
+            <button id="activate" type="button" class="account-primary-button" disabled>Activate account with public key</button>
+          </div>
+        </fieldset>
+      </div>
+      <p id="status" class="account-auth-status" role="status" aria-live="polite"></p>
+      <p class="account-security-note">Accounts use an Ed25519 key that remains under your control. Gnosis stores your public key and a revocable session, not your private key. Anyone who obtains your private key can control your account; keep secure backups.</p>
+    </section>
+
+    <!-- This view is shown ONLY after /api/v1/accounts/hub succeeds. -->
+    <section id="gnosis-account-hub" class="gnosis-hub" aria-labelledby="gnosis-hub-heading" hidden>
+      <div class="gnosis-hub-topline">
+        <div class="gnosis-hub-topline-heading">
+          <p class="account-eyebrow">ACCOUNT OVERVIEW</p>
+          <h2 id="gnosis-hub-heading">Quantum Portal Dashboard</h2>
+        </div>
+        <div class="account-session-tools">
+          <p id="session" role="status" class="account-session-label">Checking session…</p>
+          <button id="copy-account-id" type="button" class="account-copy-button account-quiet-button" aria-label="Copy public account ID" title="Copy public account ID">Copy ID</button>
+          <span id="copy-account-feedback" aria-live="polite" class="visually-hidden"></span>
+          <button id="logout" type="button" class="account-quiet-button" hidden>Log out</button>
+        </div>
+      </div>
+      <p id="gnosis-hub-status" class="gnosis-hub-status" role="status" aria-live="polite">Loading account activity…</p>
+      <div id="gnosis-hub-panel" class="gnosis-hub-panel" hidden>
+        <div class="gnosis-hub-metrics" aria-label="Account credit summary">
+          <div class="gnosis-hub-metric gnosis-hub-metric--available"><span>Available credits</span><strong id="gnosis-hub-available">—</strong></div>
+          <div class="gnosis-hub-metric"><span>Reserved credits</span><strong id="gnosis-hub-reserved">—</strong></div>
+          <div class="gnosis-hub-metric"><span>Total credits</span><strong id="gnosis-hub-total">—</strong></div>
+          <div class="gnosis-hub-metric"><span>Active requests</span><strong id="gnosis-hub-pending-count">—</strong></div>
+        </div>
+
+        <div class="gnosis-hub-layout">
+          <section class="gnosis-hub-card gnosis-hub-activity-card" aria-labelledby="gnosis-hub-activity-title">
+            <div class="gnosis-hub-section-head">
+              <div>
+                <p class="account-eyebrow">PERSONAL ACTIVITY</p>
+                <h3 id="gnosis-hub-activity-title">Consultations &amp; requests</h3>
+              </div>
+              <button type="button" id="gnosis-hub-refresh" class="account-quiet-button">Refresh</button>
+            </div>
+            <p class="gnosis-hub-description">Saved readings and active requests across your Gnosis applications.</p>
+            <div id="gnosis-hub-activity" role="list" aria-live="polite"></div>
+            <div class="gnosis-hub-controls" aria-label="Activity pagination">
+              <button type="button" id="gnosis-hub-prev" class="account-quiet-button" disabled>Previous</button>
+              <span id="gnosis-hub-page" aria-live="polite"></span>
+              <button type="button" id="gnosis-hub-next" class="account-quiet-button" disabled>Next</button>
+            </div>
+          </section>
+
+          <aside class="gnosis-hub-aside" aria-label="Applications and account settings">
+            <section class="gnosis-hub-card" aria-labelledby="gnosis-hub-apps-title">
+              <p class="account-eyebrow">YOUR GNOSIS</p>
+              <h3 id="gnosis-hub-apps-title">Applications</h3>
+              <nav id="gnosis-hub-apps" class="gnosis-hub-nav" aria-label="Your applications">
+                <a href="/quantum-oracle.html">I Ching Oracle</a>
+                <a href="#gnosis-hub-activity-title">Your activity</a>
+                <a href="#gnosis-hub-email-title">Notifications</a>
+              </nav>
+            </section>
+
+            <section class="gnosis-hub-card" aria-labelledby="gnosis-hub-email-title">
+              <p class="account-eyebrow">NOTIFICATIONS</p>
+              <h3 id="gnosis-hub-email-title">Completion email</h3>
+              <p id="gnosis-hub-email-status" class="gnosis-hub-email-status">Checking verified email…</p>
+              <form id="gnosis-hub-email-form" class="gnosis-hub-email-form">
+                <label for="gnosis-hub-email">Verify a notification address</label>
+                <input id="gnosis-hub-email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+                <button id="gnosis-hub-email-send" type="submit" class="account-secondary-button">Send verification link</button>
+                <p id="gnosis-hub-email-message" role="status" aria-live="polite"></p>
+              </form>
+              <div id="gnosis-email-verification" class="gnosis-hub-verify" hidden>
+                <p>Confirm ownership of this email address while signed in with your account key.</p>
+                <button type="button" id="gnosis-email-confirm" class="account-secondary-button">Confirm email address</button>
+                <p id="gnosis-email-verify-message" role="status" aria-live="polite"></p>
+              </div>
+            </section>
+
+            <section class="gnosis-hub-card gnosis-hub-security" aria-labelledby="gnosis-hub-security-title">
+              <p class="account-eyebrow">IDENTITY &amp; SECURITY</p>
+              <h3 id="gnosis-hub-security-title">Your keys</h3>
+              <p>Your Ed25519 private key stays under your control. Keep secure backups. Lost private keys cannot currently be recovered.</p>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/assets/js/account-hub.js?v=resonance1"></script>
+		<script type="module">
+				const zone = document.getElementById('key-dropzone');
+				const input = document.getElementById('login-file');
+				const feedback = document.getElementById('key-drop-feedback');
+
+				if (zone && input) {
+						let dragDepth = 0;
+
+						zone.addEventListener('dragenter', event => {
+								if (!event.dataTransfer.types.includes('Files')) return;
+								event.preventDefault();
+								dragDepth++;
+								zone.classList.add('is-dragover');
+						});
+
+						zone.addEventListener('dragover', event => {
+								event.preventDefault();
+								event.dataTransfer.dropEffect = 'copy';
+						});
+
+						zone.addEventListener('dragleave', () => {
+								dragDepth--;
+								if (dragDepth <= 0) {
+										dragDepth = 0;
+										zone.classList.remove('is-dragover');
+								}
+						});
+
+						zone.addEventListener('drop', event => {
+								event.preventDefault();
+								dragDepth = 0;
+								zone.classList.remove('is-dragover');
+
+								const files = event.dataTransfer.files;
+
+								if (files.length !== 1) {
+										feedback.textContent = 'Please select one account key file.';
+										return;
+								}
+
+								const file = files[0];
+
+								if (!/\.(key|json|txt)$/i.test(file.name)) {
+										feedback.textContent = 'Use a .key, .json, or .txt file.';
+										return;
+								}
+
+								// Transfer the dropped file into the existing input.
+								const transfer = new DataTransfer();
+								transfer.items.add(file);
+								input.files = transfer.files;
+
+								// Trigger the existing file-upload handler.
+								input.dispatchEvent(new Event('change', {
+										bubbles: true
+								}));
+
+								feedback.textContent = `${file.name} selected.`;
+						});
+
+						input.addEventListener('change', () => {
+								if (input.files.length) {
+										feedback.textContent =
+												`${input.files[0].name} selected.`;
+								}
+						});
+				}
+		</script>		
+
+<footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span>
+				<a href="https://markbailey.love">CREATOR</a>
+				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+				
+				
+    <a href="#top">TOP ↑</a>
+  </footer>
+</body>
+</html>

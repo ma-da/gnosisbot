@@ -1,0 +1,96 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.sqlite*
+*.db
+*.db-*
+*.partial
+*.log
+*.bak*
+*~
+.qiskit/
+.gnosis/
+state/
+private/
+backups/
+ibm-*-restricted/
+transparency/public/
+research-exports/
+runs/
+profiles/
+*.zip
+*.tar.gz
+# Only committed QPY artifacts (review explicit additions).
+*.qpy
+!quantum/iching/preflight.qpy
+!quantum/pouch/marrakesh.qpy
+!quantum/sticks/marrakesh.qpy
+# Development
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+node_modules/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# Private credentials and environment
+.env
+.env.*
+!.env.example
+.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Operational databases
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.db
+*.db-wal
+*.db-shm
+
+# Private operational state
+/state/
+/instance/
+/inventory/
+/secrets/
+/private/
+/backups/
+/logs/
+.gnosis/
+
+# Development leftovers
+*.bak
+*.bak.*
+*.log
+*.zip
+*.tar.gz
+
+# Local editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

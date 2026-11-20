@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+.history-shell{max-width:960px;margin:2rem auto;padding:1rem 1.25rem;color:var(--text,#e6eae8)}
+.history-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.history-nav a{color:#00bfb2}
+.history-item{border:1px solid #568d8b55;border-radius:12px;padding:1.1rem;margin:.7rem 0;background:#173d3f16}
+.history-item h2{font-size:1.12rem;margin:0 0 .5rem}
+.history-item .meta{opacity:.72;font-size:.83rem}
+.history-item .question{white-space:pre-wrap;overflow-wrap:anywhere}
+.history-item a{color:#00bfb2}
+.history-controls{display:flex;gap:.6rem;margin:1rem 0;align-items:center}
+.history-controls button{padding:.5rem 1rem;cursor:pointer}
+#history-status[role=status]{margin:1rem 0}
+</style>
+  <!-- GNOSIS SITE SEO V1 BEGIN -->
+  <title>Reading History | Gnosis.bot</title>
+  <meta name="description" content="Access your saved Gnosis consultations securely through your account.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#faf9f5">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <!-- GNOSIS SITE SEO V1 END -->
+  <!-- GNOSIS SHARED SHELL V2 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=1"></script>
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <!-- GNOSIS SHARED SHELL V2 END -->
+</head>
+<body id="top">
+<a class="skip-link" href="#gnosis-main">Skip to content</a>
+<header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+						<a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+						<a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
+			
+  </header>
+<main class="history-shell" id="gnosis-main">
+<nav class="history-nav"><a href="/quantum-oracle.html">Oracle</a><a href="/account.html">Account</a></nav>
+<h1>My readings</h1>
+<p>Your saved server-backed readings and questions. Local Classic casts are not stored on the server.</p>
+<p id="history-status" role="status" aria-live="polite">Loading your readings…</p>
+<section id="history-list" aria-label="Saved readings"></section>
+<div class="history-controls"><button id="history-prev" type="button" disabled>Previous</button>
+<span id="history-page"></span><button id="history-next" type="button" disabled>Next</button></div>
+</main><script type="module" src="/assets/js/reading-history.js?v=1"></script>
+<footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span>
+				<a href="https://markbailey.love">CREATOR</a>
+				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+				
+				
+    <a href="#top">TOP ↑</a>
+  </footer>
+</body></html>

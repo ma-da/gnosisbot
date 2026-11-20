@@ -1,0 +1,25 @@
+[Unit]
+Description=Gnosis durable result and notification worker (no new submissions)
+After=network-online.target gnosis.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gnosis
+Group=gnosis
+WorkingDirectory=/opt/gnosis
+EnvironmentFile=/etc/gnosis/gnosis.env
+Environment=HOME=/var/lib/gnosis PYTHONPATH=/opt/gnosis PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+UMask=0077
+ExecStartPre=/opt/gnosis-venv/bin/python /opt/gnosis/scripts/check_production.py
+ExecStart=/opt/gnosis-venv/bin/python /opt/gnosis/scripts/gnosis_event_worker.py watch --interval 30 --spool /var/lib/gnosis/ibm-results-restricted
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/gnosis
+
+[Install]
+WantedBy=multi-user.target

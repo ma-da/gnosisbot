@@ -1,0 +1,13 @@
+# Merge this site block into an existing reverse proxy instead of replacing it.
+# DNS must point at this host and inbound 80/443 must be allowed for HTTPS.
+gnosis.bot {
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+        X-Frame-Options DENY
+        -Server
+    }
+    # No proxy cache. The API sets private/no-store and query-specific robots tags.
+    reverse_proxy 127.0.0.1:8000
+}

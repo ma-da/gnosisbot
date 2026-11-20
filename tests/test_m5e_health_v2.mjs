@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const source=fs.readFileSync(process.argv[2] || path.join(root,'app/static/js/system-health.js'),'utf8');
+// Avoid initialization; pure view builder accepts real public endpoint payloads.
+globalThis.document={readyState:'loading',addEventListener(){}};
+const {buildHealthView}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const fixture=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/health.json'),'utf8'));
+const {catalog,inventory,diagnostics}=fixture;
+const now=Date.parse(inventory.as_of);
+const view=(c=catalog,i=inventory,d=diagnostics,b=true,t=now)=>buildHealthView(c,i,d,b,t);
+const row=(v,name)=>v.groups.flatMap(x=>x.rows).find(x=>x.name===name);
+let v=view();
+assert.equal(row(v,'QCI Quantum Noise').status,'available');
+assert.match(row(v,'QCI Quantum Noise').detail,/No live entropy probe/);
+assert.equal(row(v,'IBM Quantum Future').status,'unavailable');
+assert.equal(row(v,'AI enhancement').status,'unavailable');
+assert.equal(row(v,'NIST Public Beacon').status,'available');
+assert.match(row(v,'NIST Public Beacon').detail,/stale or unavailable/);
+assert.equal(v.fresh,false);
+for (const [name,total] of [['I Ching',116],['Pouch',124],['Sticks',128]]) {
+  assert.equal(row(v,name).status,'available');assert.match(row(v,name).detail,new RegExp(`${total} available`));
+}
+assert.match(row(v,'Signed inventory & Bitcoin').detail,/3\/3 batches Bitcoin verified/);
+assert.equal(row(v,'Signed inventory & Bitcoin').status,'healthy');
+assert.equal(row(v,'Live backend monitoring').status,'unknown');
+assert.equal(row(view(catalog,inventory,null),'QCI Quantum Noise').status,'available');
+assert.equal(row(view(null,inventory,diagnostics),'QCI Quantum Noise').status,'unknown');
+assert.equal(row(view(null,inventory,diagnostics),'I Ching').status,'unknown');
+assert.equal(row(view(catalog,null,diagnostics),'Signed inventory & Bitcoin').status,'unknown');
+assert.equal(row(view(catalog,inventory,diagnostics,false),'Classic').status,'degraded');
+const pending=structuredClone(inventory);pending.engines[0].counts.available=0;pending.engines[0].counts.pending_release=116;pending.engines[0].check_counts.bitcoin_verified=0;pending.engines[0].check_counts.released=0;
+assert.equal(row(view(catalog,pending),'I Ching').status,'unavailable');
+assert.equal(row(view(catalog,pending),'Signed inventory & Bitcoin').status,'degraded');
+const fresh=structuredClone(diagnostics);fresh.stale=false;fresh.generated_at=new Date(now-1000).toISOString();fresh.services['oracle.public_qrng'].checked_at=fresh.generated_at;fresh.services['oracle.public_qrng'].status='unavailable';
+assert.equal(row(view(catalog,inventory,fresh),'NIST Public Beacon').status,'degraded');
+assert.match(row(view(catalog,inventory,fresh),'NIST Public Beacon').detail,/Unavailable/);
+console.log('PASS: live catalog and inventory fixture, stale/fresh diagnostics, partial outages, browser crypto, held stock and GQTP states');

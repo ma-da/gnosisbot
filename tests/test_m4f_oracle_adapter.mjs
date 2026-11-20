@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const src=fs.readFileSync(process.argv[2]||'app/static/js/app.js','utf8');
+const start=src.indexOf('function qciToOracleWrapper(result){');
+const end=src.indexOf('function presentQciReading(result,consultationId){',start);
+assert(start>=0 && end>start);
+const coins='000111010101001101';
+const sections=Array.from({length:6},(_,i)=>coins.slice(3*i,3*i+3));
+const values=sections.map(bits=>6+[...bits].reduce((n,b)=>n+Number(b),0));
+const now=values.map(v=>String(v%2));
+const becoming=values.map(v=>String((v%2)^Number(v===6||v===9)));
+const moving=values.flatMap((v,i)=>(v===6||v===9)?[i+1]:[]);
+const hex=new Map();for(let i=0;i<64;i++) hex.set(i.toString(2).padStart(6,'0'),{number:i+1,title:'Test',chinese:'易'});
+const adapt=new Function('hexByBits',src.slice(start,end)+'\nreturn qciToOracleWrapper;')(hex);
+const source={reading:{lines:values,coin_bits_bottom_to_top:sections,
+ now_yang_bits_bottom_to_top:now,becoming_yang_bits_bottom_to_top:becoming,moving_positions_bottom_to_top:moving},
+ provenance:{provider:'ibm_inventory',backend:'ibm_marrakesh'}};
+const withFlags=structuredClone(source);withFlags.reading.moving_qpu_bits_bottom_to_top='110000';
+const one=adapt(withFlags);
+assert.equal(one.mode,'ibm_past_hardware');
+assert.deepEqual(one.reading.line_values_bottom_to_top,values);
+assert.equal(one.reading.lines[0].moving_flag_physically_measured,true);
+assert.equal(one.reading.lines[0].moving_flag_agrees,true);
+assert.equal(adapt(source).reading.lines[0].moving_flag_agrees,null);
+const invalid=structuredClone(withFlags);invalid.reading.moving_qpu_bits_bottom_to_top='bad';
+assert.throws(()=>adapt(invalid),/Invalid saved IBM physical/);
+const conflict=structuredClone(withFlags);conflict.reading.lines[0]=7;
+assert.throws(()=>adapt(conflict),/Invalid quantum coin\/line agreement/);
+for (const text of ["if (inquiry.mode === 'past')","import './oracle-account-status.js?v=1'",'function presentIbmHistoryReading(saved)']) assert(src.includes(text));
+console.log('PASS: IBM Past 6-line decoding, measured-flag audit, provenance, null flags and invalid data');

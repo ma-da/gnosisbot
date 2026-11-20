@@ -1,0 +1,987 @@
+{
+  "system": "Gnosis · Elder Futhark",
+  "version": "0.2.0-draft",
+  "status": "provisional; author review required",
+  "language": "en",
+  "description": "Gnosis.bot’s contemporary syncretic interpretation of the Elder Futhark for rune pouch and circular sticks. Independent of quantum execution and RC1 mathematical recognition.",
+  "sources": [
+    {
+      "id": "notes_individual",
+      "type": "author_handwritten",
+      "description": "Individual rune associations, photographed notes (photo_2026-11-14_16-49-48.jpg). Cropped or uncertain text flagged per rune."
+    },
+    {
+      "id": "notes_pathways",
+      "type": "author_handwritten",
+      "description": "Author’s eight handwritten pathway verses (photo_2026-11-14_16-49-56.jpg)."
+    },
+    {
+      "id": "world_mapping",
+      "type": "author_instruction",
+      "description": "First ætt Earthly; second Underworld; third Astral. Deity labels follow the author’s supplied contemporary grouping."
+    },
+    {
+      "id": "traditional_names",
+      "type": "reference",
+      "title": "Elder Runic Orthography",
+      "url": "https://www.academia.edu/8764567/Elder_Runic_Orthography_The_musings_of_an_interdisciplinary_interloper",
+      "description": "Comparative reconstructed name glosses, referencing The Nordic Languages handbook."
+    },
+    {
+      "id": "historical_uncertainty",
+      "type": "reference",
+      "title": "Runological name reconstruction and uncertainty",
+      "url": "https://hrafn-wikinger.com/en/rune-translator/",
+      "description": "Uncertainty of elder rune names including Algiz and Laguz; discussion of Düwel and Nedoma."
+    },
+    {
+      "id": "laguz_alternative",
+      "type": "reference",
+      "title": "Laguz / Laukaz reconstruction",
+      "url": "https://norserunes.com/runes/elder-futhark/laguz/",
+      "description": "Water and competing leek reconstruction."
+    },
+    {
+      "id": "rune_order",
+      "type": "integration",
+      "description": "RC1 contracts/rune_catalog.json; IDs are zero-based and immutable."
+    }
+  ],
+  "editorial_notes": [
+    "Traditional labels are display-friendly combinations of reconstructed lexical glosses and customary or author-requested symbolic associations. The separate traditional_meaning and historical_note fields distinguish these.",
+    "Source notes and verses are transcriptions, not verified historical lore. Newly drafted essence, archetypal meaning, interpretation, reflection, shadow and pathway summaries are contemporary expansions for review.",
+    "Antimatter, cosmic forces and magical will are used as metaphysical imagery, not claims of experimentally established physics.",
+    "No reversed meanings or predictive claims are assigned.",
+    "Preserve canonical name, id, glyph, aett and pathway mappings during content edits. Dagaz precedes Othala to match RC1 and the handwritten triad grid."
+  ],
+  "worlds": [
+    {
+      "aett": 1,
+      "id": "earthly",
+      "name": "Earthly",
+      "aett_name": "Freyr and Freyja's Ætt",
+      "essence": "Manifestation and creation",
+      "description": "The world of embodied existence, material creation, resources, actions and relationships. Read its runes in relation to what is taking form in lived circumstances.",
+      "reflection": "What is taking form?",
+      "runes": [
+        "Fehu",
+        "Uruz",
+        "Thurisaz",
+        "Ansuz",
+        "Raidho",
+        "Kenaz",
+        "Gebo",
+        "Wunjo"
+      ]
+    },
+    {
+      "aett": 2,
+      "id": "underworld",
+      "name": "Underworld",
+      "aett_name": "Heimdall's Ætt",
+      "essence": "Hidden causality and transformation",
+      "description": "The world of unseen formative processes, resistance, cycles, fate, protection and regeneration. Read its runes in relation to what is transforming beneath the surface of experience.",
+      "reflection": "What is transforming beneath the surface?",
+      "runes": [
+        "Hagalaz",
+        "Nauthiz",
+        "Isa",
+        "Jera",
+        "Eihwaz",
+        "Perthro",
+        "Algiz",
+        "Sowilo"
+      ]
+    },
+    {
+      "aett": 3,
+      "id": "astral",
+      "name": "Astral",
+      "aett_name": "Tyr and Zisa's Ætt",
+      "essence": "Spirit and archetypal order",
+      "description": "The world of spiritual principles, justice, divine archetypes, awakening and inheritance. Read its runes in relation to the higher patterns through which experience becomes meaningful.",
+      "reflection": "What higher pattern is expressing itself?",
+      "runes": [
+        "Tiwaz",
+        "Berkano",
+        "Ehwaz",
+        "Mannaz",
+        "Laguz",
+        "Ingwaz",
+        "Dagaz",
+        "Othala"
+      ]
+    }
+  ],
+  "pathways": [
+    {
+      "id": 1,
+      "title": "The Cost of Becoming",
+      "runes": [
+        "Fehu",
+        "Hagalaz",
+        "Tiwaz"
+      ],
+      "verse": [
+        "Everything has its cost",
+        "In the heart of struggle is the seed",
+        "Planted in the soil of universal order"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Energy in exchange, tested by disruption, aligned with justice."
+    },
+    {
+      "id": 2,
+      "title": "The Sacred Cycle",
+      "runes": [
+        "Uruz",
+        "Nauthiz",
+        "Berkano"
+      ],
+      "verse": [
+        "The all patterning spirit’s power",
+        "Flows according to the needs of life",
+        "Protecting and preserving the sacred cycle"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Formative power encounters necessity and is preserved through renewal."
+    },
+    {
+      "id": 3,
+      "title": "The Transformation of Will",
+      "runes": [
+        "Thurisaz",
+        "Isa",
+        "Ehwaz"
+      ],
+      "verse": [
+        "Polarized forces are bound and brought to bear by archtype will",
+        "The void absorbs and silences imbalance",
+        "Spiritual will, once heard, carries itself quickly"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Instinctual will encounters stillness and finds coordinated expression."
+    },
+    {
+      "id": 4,
+      "title": "Divine Embodiment",
+      "runes": [
+        "Ansuz",
+        "Jera",
+        "Mannaz"
+      ],
+      "verse": [
+        "To breath and consider breathing",
+        "To feel and know our cyclic patterned gifts",
+        "Is to experience the divine origin of our true form"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Inspiration matures through cycles into embodied human capacities."
+    },
+    {
+      "id": 5,
+      "title": "The World Tree",
+      "runes": [
+        "Raidho",
+        "Eihwaz",
+        "Laguz"
+      ],
+      "verse": [
+        "Primal order brought to bear in spirit practice",
+        "Bringing life-sap up the world tree",
+        "In from the ocean of universal water"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Ritual order connects the realms and draws upon living waters."
+    },
+    {
+      "id": 6,
+      "title": "Creation from the Deep",
+      "runes": [
+        "Kenaz",
+        "Perthro",
+        "Ingwaz"
+      ],
+      "verse": [
+        "Creative inspiration beams",
+        "Into the mysteries of the chaotic deep",
+        "Giving birth to the consort of the goddess"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Creative fire enters the hidden causal layer and ripens into potential."
+    },
+    {
+      "id": 7,
+      "title": "Divine Illumination",
+      "runes": [
+        "Gebo",
+        "Algiz",
+        "Dagaz"
+      ],
+      "verse": [
+        "Pursuit of divine balance",
+        "Communicated by protective emissary",
+        "Illuminates the whole being"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Reciprocity, sanctuary and awakening form a sequence of illumination."
+    },
+    {
+      "id": 8,
+      "title": "Sacred Belonging",
+      "runes": [
+        "Wunjo",
+        "Sowilo",
+        "Othala"
+      ],
+      "verse": [
+        "Bound inextricably to one another",
+        "Nourished by the sun",
+        "And the lands of those who came before us"
+      ],
+      "verse_world_order": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "source": "Author’s handwritten pathway verses; spelling retained where legible; crossed-out text omitted.",
+      "summary": "Fellowship, solar vitality and inheritance nourish belonging."
+    }
+  ],
+  "runes": [
+    {
+      "id": 0,
+      "name": "Fehu",
+      "glyph": "ᚠ",
+      "position": 1,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 1,
+      "traditional_label": "Cattle / wealth",
+      "traditional_meaning": "Cattle; movable wealth",
+      "alternative_names": [
+        "Feoh"
+      ],
+      "historical_note": null,
+      "source_notes": "Archetypal force driving eternal becoming; mobile power; transferrable wealth; exchangeable value",
+      "transcription_note": "",
+      "essence": "The Force of Becoming",
+      "keywords": [
+        "Archetypal force driving eternal becoming",
+        "mobile power"
+      ],
+      "archetypal_meaning": "Fehu is power in motion: transferable energy through which potential becomes actuality. Everything that takes form draws upon something else; the exchange is part of eternal becoming.",
+      "interpretation": "Consider how your resources, attention and vitality circulate. What you invest or release may enable something new to emerge. Wealth is not merely possession but the capacity to put power into motion.",
+      "reflection": "What am I giving, receiving and bringing into existence?",
+      "shadow": "Hoarding power, exhausting resources, or pursuing gain without recognizing its cost."
+    },
+    {
+      "id": 1,
+      "name": "Uruz",
+      "glyph": "ᚢ",
+      "position": 2,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 2,
+      "traditional_label": "Aurochs",
+      "traditional_meaning": "Aurochs, wild ox",
+      "alternative_names": [
+        "Ur"
+      ],
+      "historical_note": null,
+      "source_notes": "Cosmic seed; formative force; archetypal patterning",
+      "transcription_note": null,
+      "essence": "The Cosmic Seed",
+      "keywords": [
+        "Cosmic seed",
+        "formative force",
+        "archetypal patterning"
+      ],
+      "archetypal_meaning": "Uruz is the formative power of the seed, the impulse by which an archetypal pattern begins to take living shape. Its strength is generative rather than merely forceful.",
+      "interpretation": "Attend to what is beginning to develop and give it the conditions it needs to grow. Work with the emerging pattern rather than forcing a finished form prematurely.",
+      "reflection": "What nascent pattern needs room and nourishment to develop?",
+      "shadow": "Unrestrained force, rigidly imposing a pattern, or confusing strength with domination."
+    },
+    {
+      "id": 2,
+      "name": "Thurisaz",
+      "glyph": "ᚦ",
+      "position": 3,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 3,
+      "traditional_label": "Giant / thorn",
+      "traditional_meaning": "Giant or monstrous being; thorn in the later English tradition",
+      "alternative_names": [
+        "Thurs",
+        "Thorn"
+      ],
+      "historical_note": "The thorn gloss belongs to the later Anglo-Saxon tradition.",
+      "source_notes": "Archetypal instinctual will; projectable applied power; hostile to cosmic order",
+      "transcription_note": null,
+      "essence": "The Force of Instinctual Will",
+      "keywords": [
+        "Archetypal instinctual will",
+        "projectable applied power",
+        "hostile to cosmic order"
+      ],
+      "archetypal_meaning": "Thurisaz is instinctual will directed outward, a concentrated force capable of breaking through existing structures. Its power can oppose the cosmic order when it is not consciously directed.",
+      "interpretation": "Recognize the impulses driving your response to resistance. Deliberate use of force may be appropriate, but discern what the force serves before acting.",
+      "reflection": "What is my will directed against, and what does it ultimately serve?",
+      "shadow": "Reactive aggression, coercion, destructive projection, or conflict for its own sake."
+    },
+    {
+      "id": 3,
+      "name": "Ansuz",
+      "glyph": "ᚨ",
+      "position": 4,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 4,
+      "traditional_label": "God / divine breath",
+      "traditional_meaning": "A god or deity",
+      "alternative_names": [
+        "As",
+        "Os"
+      ],
+      "historical_note": "Divine breath is a symbolic association, not the literal name gloss.",
+      "source_notes": "Animating spirit; inspiration; Divine lineage; ecstatic states",
+      "transcription_note": null,
+      "essence": "The Animating Spirit",
+      "keywords": [
+        "Animating spirit",
+        "inspiration",
+        "Divine lineage",
+        "ecstatic states"
+      ],
+      "archetypal_meaning": "Ansuz is the breath of spirit that animates embodied life and inspires expression. It evokes awareness of a divine lineage, the possibility of inspiration and the opening of ecstatic consciousness.",
+      "interpretation": "Listen to what inspires you and consider how it might find expression in speech, thought or action. Distinguish genuine insight from the desire to be its unquestioned messenger.",
+      "reflection": "What is seeking expression through me?",
+      "shadow": "Mistaking every impulse for revelation, manipulating through words, or losing discernment in ecstatic states."
+    },
+    {
+      "id": 4,
+      "name": "Raidho",
+      "glyph": "ᚱ",
+      "position": 5,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 5,
+      "traditional_label": "Riding / journey",
+      "traditional_meaning": "Ride, journey or conveyance",
+      "alternative_names": [
+        "Raido",
+        "Rad"
+      ],
+      "historical_note": null,
+      "source_notes": "Divine law; Ritual; Rhythm",
+      "transcription_note": null,
+      "essence": "The Rhythm of Divine Order",
+      "keywords": [
+        "Divine law",
+        "Ritual",
+        "Rhythm"
+      ],
+      "archetypal_meaning": "Raidho is the enactment of order through rhythm and ritual. It connects movement with a pattern that gives the journey coherence rather than leaving action to chance.",
+      "interpretation": "Examine the rhythm of your conduct. A well-chosen practice or course of action may bring your everyday movements into greater alignment with your principles.",
+      "reflection": "What rhythm or practice would bring my actions into alignment?",
+      "shadow": "Rigid ritual, blind obedience to rules, or movement without a meaningful direction."
+    },
+    {
+      "id": 5,
+      "name": "Kenaz",
+      "glyph": "ᚲ",
+      "position": 6,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 6,
+      "traditional_label": "Torch / fire",
+      "traditional_meaning": "Torch in the English tradition; sore or ulcer in Scandinavian tradition",
+      "alternative_names": [
+        "Kauna",
+        "Kaunan",
+        "Cen"
+      ],
+      "historical_note": "The reconstructed name and its original gloss are disputed; the fire interpretation follows the torch tradition.",
+      "source_notes": "Fire of regeneration; Controlled ability and will to create; Passion; Creative flashlight beam",
+      "transcription_note": null,
+      "essence": "The Regenerative Fire",
+      "keywords": [
+        "Fire of regeneration",
+        "Controlled ability and will to create",
+        "Passion"
+      ],
+      "archetypal_meaning": "Kenaz is the controlled fire through which the will creates, illuminates and regenerates. Passion provides its heat; skill and attention shape that heat into a creative act.",
+      "interpretation": "Direct your creative energy toward a form that can sustain it. Illuminate what needs understanding, and allow what has become exhausted to be renewed.",
+      "reflection": "What would I create if I tended my passion with care and discipline?",
+      "shadow": "Burnout, uncontrolled passion, destructive cleverness, or treating creation as conquest."
+    },
+    {
+      "id": 6,
+      "name": "Gebo",
+      "glyph": "ᚷ",
+      "position": 7,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 7,
+      "traditional_label": "Gift",
+      "traditional_meaning": "Gift",
+      "alternative_names": [
+        "Gifu",
+        "Gyfu"
+      ],
+      "historical_note": null,
+      "source_notes": "The divine infinite; Psychosexual force; gift of power",
+      "transcription_note": null,
+      "essence": "The Gift of Divine Exchange",
+      "keywords": [
+        "The divine infinite",
+        "Psychosexual force",
+        "gift of power"
+      ],
+      "archetypal_meaning": "Gebo is the meeting of forces through exchange. Within the Gnosis syncretic framework it evokes the divine infinite, psychosexual energy and the mutual granting of power through relationship.",
+      "interpretation": "Consider reciprocity in your relationships and exchanges. A freely given gift can open possibilities neither participant could realize alone.",
+      "reflection": "Where could a freely given and freely received gift restore balance?",
+      "shadow": "Transactional affection, gifts used as leverage, or confusing reciprocity with obligation."
+    },
+    {
+      "id": 7,
+      "name": "Wunjo",
+      "glyph": "ᚹ",
+      "position": 8,
+      "aett": 1,
+      "world": "earthly",
+      "pathway": 8,
+      "traditional_label": "Joy / fellowship",
+      "traditional_meaning": "Joy, delight",
+      "alternative_names": [
+        "Wynn"
+      ],
+      "historical_note": "Fellowship is an interpretive association.",
+      "source_notes": "Harmonious binding force; attraction; fellowship",
+      "transcription_note": null,
+      "essence": "The Harmonious Bond",
+      "keywords": [
+        "Harmonious binding force",
+        "attraction",
+        "fellowship"
+      ],
+      "archetypal_meaning": "Wunjo is the attractive force that brings beings into harmonious association. It is the joy of fellowship and belonging without requiring the disappearance of individual difference.",
+      "interpretation": "Notice the bonds that sustain your life. Cultivate relations and shared activity that generate genuine enjoyment rather than demanding conformity.",
+      "reflection": "What brings me into authentic fellowship with others?",
+      "shadow": "Compulsory harmony, dependence on approval, or avoiding necessary conflict to preserve appearances."
+    },
+    {
+      "id": 8,
+      "name": "Hagalaz",
+      "glyph": "ᚺ",
+      "position": 9,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 1,
+      "traditional_label": "Hailstone",
+      "traditional_meaning": "Hail, the precipitation",
+      "alternative_names": [
+        "Hagal",
+        "Haegl"
+      ],
+      "historical_note": "Trial is an interpretive label, not a literal translation.",
+      "source_notes": "Cosmic egg; Protection; Eternal cosmic harmony",
+      "transcription_note": null,
+      "essence": "The Cosmic Egg",
+      "keywords": [
+        "Cosmic egg",
+        "Protection",
+        "Eternal cosmic harmony",
+        "Difficulty or trial"
+      ],
+      "archetypal_meaning": "Hagalaz evokes a concentrated pattern of cosmic harmony held within the seedlike form of hail. The apparent violence of a storm and the integrity of its crystalline form can coexist: disruption may reveal or protect an underlying order.",
+      "interpretation": "Consider what a trial exposes about the structures beneath your circumstances. Seek what can be protected or renewed without assuming that every hardship has a hidden purpose.",
+      "reflection": "What enduring pattern can I recognize amid disruption?",
+      "shadow": "Romanticizing suffering, resisting necessary change, or invoking cosmic harmony to excuse harm."
+    },
+    {
+      "id": 9,
+      "name": "Nauthiz",
+      "glyph": "ᚾ",
+      "position": 10,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 2,
+      "traditional_label": "Need / need-fire",
+      "traditional_meaning": "Need, necessity, distress",
+      "alternative_names": [
+        "Naudiz",
+        "Nyd"
+      ],
+      "historical_note": "Need-fire is a ritual and esoteric association.",
+      "source_notes": "Cosmic resistance; Need-fire; Destiny",
+      "transcription_note": null,
+      "essence": "The Fire of Necessity",
+      "keywords": [
+        "Cosmic resistance",
+        "Need-fire",
+        "Destiny"
+      ],
+      "archetypal_meaning": "Nauthiz is the resistance against which living force encounters its limits. Need-fire symbolizes the energy kindled through necessity; destiny is approached through the tension between desire and what circumstances demand.",
+      "interpretation": "Identify the actual need beneath your frustration. See where the resistance you're encountering is strengthening you for future situations. A constraint may clarify your priorities, but not every limitation must be accepted as fate.",
+      "reflection": "What necessity is asking for my attention, and how can I respond?",
+      "shadow": "Compulsion, needless deprivation, fatalism, or treating hardship as proof of spiritual merit."
+    },
+    {
+      "id": 10,
+      "name": "Isa",
+      "glyph": "ᛁ",
+      "position": 11,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 3,
+      "traditional_label": "Ice / stillness",
+      "traditional_meaning": "Ice",
+      "alternative_names": [
+        "Is",
+        "Isaz"
+      ],
+      "historical_note": null,
+      "source_notes": "Antimatter; Pure stillness; Prima materia",
+      "transcription_note": null,
+      "essence": "The Primordial Stillness",
+      "keywords": [
+        "Antimatter",
+        "Pure stillness",
+        "Prima materia"
+      ],
+      "archetypal_meaning": "Isa represents pure stillness, the withdrawal of movement into undifferentiated potential. The notes invoke antimatter and prima materia as metaphysical images of the void and the material prior to form, not as physical explanations.",
+      "interpretation": "Allow space for understanding before adding more force to a situation. A temporary suspension of action may reveal what was obscured by constant movement.",
+      "reflection": "What could become clear if I stopped trying to move this situation for a moment?",
+      "shadow": "Paralysis, emotional withdrawal, or mistaking inertia for conscious stillness."
+    },
+    {
+      "id": 11,
+      "name": "Jera",
+      "glyph": "ᛃ",
+      "position": 12,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 4,
+      "traditional_label": "Year / harvest",
+      "traditional_meaning": "Year, good year, harvest",
+      "alternative_names": [
+        "Jara",
+        "Ger"
+      ],
+      "historical_note": null,
+      "source_notes": "Cyclical patterning; Reaping the sown; Solar year",
+      "transcription_note": null,
+      "essence": "The Solar Cycle",
+      "keywords": [
+        "Cyclical patterning",
+        "Reaping the sown",
+        "Solar year"
+      ],
+      "archetypal_meaning": "Jera expresses cyclical patterning: the maturation of action into consequence through time. The solar year gives a visible image of the recurring relationship between preparation, growth and harvest.",
+      "interpretation": "Consider the season of the process you are engaged in. Recognize accumulated effort and respect the intervals in which growth cannot be hurried.",
+      "reflection": "What have I been sowing, and what is ready to be reaped?",
+      "shadow": "Impatience, mechanical expectations of reward, or repeating a cycle without learning from it."
+    },
+    {
+      "id": 12,
+      "name": "Eihwaz",
+      "glyph": "ᛇ",
+      "position": 13,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 5,
+      "traditional_label": "Yew / world tree",
+      "traditional_meaning": "Yew tree",
+      "alternative_names": [
+        "Ihwaz",
+        "Eoh"
+      ],
+      "historical_note": "World tree is an esoteric association; original sound and name details are debated.",
+      "source_notes": "Communicative connection of three realms; lifeforce; Death",
+      "transcription_note": null,
+      "essence": "The Living Axis",
+      "keywords": [
+        "Communicative connection of three realms",
+        "lifeforce",
+        "Death"
+      ],
+      "archetypal_meaning": "Eihwaz is the communicative connection among the three realms, imagined as the living world tree. Life force and death are linked within a continuous process of passage and transformation.",
+      "interpretation": "Consider what connects inner transformation, embodied life and spiritual understanding. A transition may require relinquishing a form without losing the deeper continuity of life.",
+      "reflection": "What connection endures through the transition I am facing?",
+      "shadow": "Fear of endings, attachment to obsolete forms, or confusing symbolic death with a demand for actual harm."
+    },
+    {
+      "id": 13,
+      "name": "Perthro",
+      "glyph": "ᛈ",
+      "position": 14,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 6,
+      "traditional_label": "Dice-cup / mystery",
+      "traditional_meaning": "Uncertain; lot-cup or gaming piece is conjectural",
+      "alternative_names": [
+        "Pertho",
+        "Peorth"
+      ],
+      "historical_note": "The original name meaning is not established; lot-cup is a common modern interpretation.",
+      "source_notes": "Causal layer force; Mysteries of fate; Paradigm distributing…",
+      "transcription_note": "“Paradigm distributing…” reaches the right edge; continuation unknown.",
+      "essence": "The Hidden Causal Layer",
+      "keywords": [
+        "Causal layer force",
+        "Mysteries of fate"
+      ],
+      "archetypal_meaning": "Perthro evokes the concealed processes through which patterns and possibilities are distributed. It is the birth canal through which a newborn passes and the blackjack table where fortunes can easily be lost and sometimes be won. Its mysteries of fate concern the relation between what can be observed and the deeper conditions from which an event emerges.",
+      "interpretation": "Remain open to what is not yet known. Explore the conditions shaping the situation without treating uncertainty as a guarantee of any particular outcome.",
+      "reflection": "What hidden assumption or unknown condition might change my understanding?",
+      "shadow": "Superstition, compulsive searching for signs, or claiming certainty about hidden causes."
+    },
+    {
+      "id": 14,
+      "name": "Algiz",
+      "glyph": "ᛉ",
+      "position": 15,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 7,
+      "traditional_label": "Elk / sanctuary",
+      "traditional_meaning": "Uncertain; elk or elk-sedge has been proposed",
+      "alternative_names": [
+        "Elhaz",
+        "Eolh"
+      ],
+      "historical_note": "The original rune name is uncertain; protection and sanctuary are interpretive associations.",
+      "source_notes": "Protection; Sanctuary; Power of human spirit",
+      "transcription_note": null,
+      "essence": "The Protective Emissary",
+      "keywords": [
+        "Protection",
+        "Sanctuary",
+        "Power of human spirit"
+      ],
+      "archetypal_meaning": "Algiz is sanctuary and the protective capacity of human spirit. Its open form evokes a receptive yet guarded relation between the individual and the wider spiritual order.",
+      "interpretation": "Recognize the boundaries, allies and practices that make openness possible. Protection need not require isolation; it can make authentic connection safer.",
+      "reflection": "What boundary or sanctuary would allow me to remain open without losing myself?",
+      "shadow": "Hypervigilance, exclusion, misplaced trust, or treating protection as invulnerability."
+    },
+    {
+      "id": 15,
+      "name": "Sowilo",
+      "glyph": "𐌔",
+      "position": 16,
+      "aett": 2,
+      "world": "underworld",
+      "pathway": 8,
+      "traditional_label": "Sun",
+      "traditional_meaning": "Sun",
+      "alternative_names": [
+        "Sowilu",
+        "Sigel"
+      ],
+      "historical_note": null,
+      "source_notes": "Archetypal Sun; Universal magical will; Dynamic divine…",
+      "transcription_note": "“Dynamic divine…” reaches the right edge; continuation unknown.",
+      "essence": "The Archetypal Sun",
+      "keywords": [
+        "Archetypal Sun",
+        "Universal magical will"
+      ],
+      "archetypal_meaning": "Sowilo expresses the luminous and dynamic principle of universal magical will. The sun is an image of the power that nourishes, illuminates and impels life toward expression.",
+      "interpretation": "Consider what gives your actions vitality and coherence. Direct your energy toward what clarifies and nourishes rather than what merely displays power.",
+      "reflection": "What source of illumination and vitality can guide my will?",
+      "shadow": "Grandiosity, overexertion, or imposing one's vision as the only possible light."
+    },
+    {
+      "id": 16,
+      "name": "Tiwaz",
+      "glyph": "ᛏ",
+      "position": 17,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 1,
+      "traditional_label": "Týr / lawful victory",
+      "traditional_meaning": "The deity Týr; reconstructed deity name",
+      "alternative_names": [
+        "Teiwaz",
+        "Tyr",
+        "Tir"
+      ],
+      "historical_note": "Justice and victory are interpretive associations.",
+      "source_notes": "Passive regulation; Justice; War; World column; lawful victory",
+      "transcription_note": null,
+      "essence": "The Column of Justice",
+      "keywords": [
+        "Passive regulation",
+        "Justice",
+        "War",
+        "World column",
+        "lawful victory"
+      ],
+      "archetypal_meaning": "Tiwaz represents the regulating principle of divine order, the column against which action may be measured. It connects conflict, justice and lawful victory with the restraint that makes power accountable. The wise king who sacrificed a hand to save his people.",
+      "interpretation": "Examine the principle by which you judge and act. Seek a resolution that you could regard as just even if it costs you personally.",
+      "reflection": "What standard of justice should govern my actions?",
+      "shadow": "Self-righteousness, victory at any cost, or treating rules as a substitute for ethical discernment."
+    },
+    {
+      "id": 17,
+      "name": "Berkano",
+      "glyph": "ᛒ",
+      "position": 18,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 2,
+      "traditional_label": "Birch / renewal",
+      "traditional_meaning": "Birch tree or birch twig",
+      "alternative_names": [
+        "Berkana",
+        "Beorc"
+      ],
+      "historical_note": "Renewal is interpretive.",
+      "source_notes": "Unit of evolution; Death; Concealment",
+      "transcription_note": null,
+      "essence": "The Concealed Cycle",
+      "keywords": [
+        "Unit of evolution",
+        "Death",
+        "Concealment"
+      ],
+      "archetypal_meaning": "Berkano signifies a unit of evolution: a phase of life whose closure and concealment protect the possibility of renewal. Death and birth are images of successive forms within a sacred cycle. Underneath it all, Berkano's energy is fresh and alive.",
+      "interpretation": "Give a developing process the privacy and protection it needs. An ending may make room for another stage, without demanding that the next form already be visible.",
+      "reflection": "What is ending, and what needs protection while it develops?",
+      "shadow": "Smothering protection, coercive ideas of growth, or refusing to allow a completed cycle to end."
+    },
+    {
+      "id": 18,
+      "name": "Ehwaz",
+      "glyph": "ᛖ",
+      "position": 19,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 3,
+      "traditional_label": "Horse / partnership",
+      "traditional_meaning": "Horse",
+      "alternative_names": [
+        "Eh"
+      ],
+      "historical_note": "Partnership is interpretive.",
+      "source_notes": "Dualistic power; Sympathetic harmony; Contracts [uncertain final mark]",
+      "transcription_note": "“Contracts” is a tentative reading; an additional mark follows.",
+      "essence": "The Harmony of Two",
+      "keywords": [
+        "Dualistic power",
+        "Sympathetic harmony"
+      ],
+      "archetypal_meaning": "Ehwaz is dualistic power made effective through sympathetic harmony. Like horse and rider, distinct beings can act together without becoming identical; agreement gives their movement a shared direction.",
+      "interpretation": "Examine the agreements and mutual responsiveness on which progress depends. Seek coordination that honors the agency of both participants.",
+      "reflection": "What could move forward through a more balanced partnership?",
+      "shadow": "Coercive agreements, dependency, or assuming that cooperation requires submission."
+    },
+    {
+      "id": 19,
+      "name": "Mannaz",
+      "glyph": "ᛗ",
+      "position": 20,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 4,
+      "traditional_label": "Human being",
+      "traditional_meaning": "Person, human",
+      "alternative_names": [
+        "Mann",
+        "Man"
+      ],
+      "historical_note": null,
+      "source_notes": "Divine archetypal structure in mankind; Provider; Warrior; Priest-king; Intellig…",
+      "transcription_note": "Final word begins “Intellig…”; right edge cropped.",
+      "essence": "The Divine Human Form",
+      "keywords": [
+        "Divine archetypal structure in mankind",
+        "Provider",
+        "Warrior",
+        "Priest-king"
+      ],
+      "archetypal_meaning": "Mannaz is the archetypal structure of the human being, expressed in the capacities to provide, defend, understand and mediate between worlds. The roles in the notes are symbolic functions, not fixed social ranks.",
+      "interpretation": "Consider how different human capacities might work together in service of a fuller expression of your nature. No single role exhausts what it means to be human.",
+      "reflection": "Which aspect of my humanity needs to be integrated or expressed?",
+      "shadow": "Identification with status, claiming spiritual superiority, or neglecting human vulnerability."
+    },
+    {
+      "id": 20,
+      "name": "Laguz",
+      "glyph": "ᛚ",
+      "position": 21,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 5,
+      "traditional_label": "Water / anointing leek",
+      "traditional_meaning": "Water, lake or body of water; leek is an alternative reconstruction",
+      "alternative_names": [
+        "Laukaz",
+        "Lagu",
+        "Logr"
+      ],
+      "historical_note": "Anointing leek is the requested esoteric label; laukaz (leek) is a disputed alternative to laguz (water), not a settled historical gloss.",
+      "source_notes": "Life energy; Initiation; Universal water",
+      "transcription_note": null,
+      "essence": "The Water of Life",
+      "keywords": [
+        "Life energy",
+        "Initiation",
+        "Universal water"
+      ],
+      "archetypal_meaning": "Laguz is life energy in its flowing, initiating aspect. Universal water nourishes the world tree and links living forms; the anointing leek evokes consecration and the awakening of vitality within this interpretive framework.",
+      "interpretation": "Pay attention to what nourishes and restores your sense of life. Consider an initiation or transition as an opportunity to participate more consciously in the movement of experience.",
+      "reflection": "What source of life energy is asking me to receive or express it?",
+      "shadow": "Boundarylessness, surrendering judgment to emotion, or assuming every impulse is an initiation."
+    },
+    {
+      "id": 21,
+      "name": "Ingwaz",
+      "glyph": "ᛜ",
+      "position": 22,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 6,
+      "traditional_label": "Ing / seed",
+      "traditional_meaning": "The deity or figure Ing",
+      "alternative_names": [
+        "Ingw",
+        "Ing"
+      ],
+      "historical_note": "Seed is an interpretive label.",
+      "source_notes": "Earth-god; Potential, unformed energy; Gestation",
+      "transcription_note": null,
+      "essence": "The Gestating Potential",
+      "keywords": [
+        "Earth-god",
+        "Potential, unformed energy",
+        "Gestation"
+      ],
+      "archetypal_meaning": "Ingwaz is the unformed energy of the earth-god, the concentrated potential held in gestation before expression. It evokes a generative possibility that cannot yet be reduced to its eventual form.",
+      "interpretation": "Recognize what is gathering strength without requiring immediate manifestation. Give promising work or relationships a suitable interval in which to mature.",
+      "reflection": "What possibility is gestating, and what conditions will allow it to emerge?",
+      "shadow": "Premature release, indefinite postponement, or treating potential as accomplishment."
+    },
+    {
+      "id": 22,
+      "name": "Dagaz",
+      "glyph": "ᛞ",
+      "position": 23,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 7,
+      "traditional_label": "Day / awakening",
+      "traditional_meaning": "Day",
+      "alternative_names": [
+        "Dag",
+        "Daeg"
+      ],
+      "historical_note": "Awakening is interpretive.",
+      "source_notes": "Total awakening; Mystical light; Alchemical synthesis",
+      "transcription_note": null,
+      "essence": "The Alchemical Awakening",
+      "keywords": [
+        "Total awakening",
+        "Mystical light",
+        "Alchemical synthesis"
+      ],
+      "archetypal_meaning": "Dagaz is mystical light arising through the synthesis of seemingly opposed forces. Total awakening is imagined as a shift in which fragmented aspects of experience become intelligible in a larger whole.",
+      "interpretation": "Look for a perspective that can accommodate apparent contradictions. A new understanding may transform the significance of the circumstances already present.",
+      "reflection": "What apparent opposition might conceal a deeper unity?",
+      "shadow": "Spiritual grandiosity, premature certainty, or declaring a synthesis before acknowledging real differences."
+    },
+    {
+      "id": 23,
+      "name": "Othala",
+      "glyph": "ᛟ",
+      "position": 24,
+      "aett": 3,
+      "world": "astral",
+      "pathway": 8,
+      "traditional_label": "Inheritance / ancestral land",
+      "traditional_meaning": "Inherited property or estate",
+      "alternative_names": [
+        "Othila",
+        "Odal",
+        "Ethel"
+      ],
+      "historical_note": "Inheritance is not a claim about racial or national entitlement.",
+      "source_notes": "Spiritual inheritance; Material prosperity; Preserved freedom [partly cropped]",
+      "transcription_note": "Bottom edge clips the last line; “preserved freedom” is provisional.",
+      "essence": "The Living Inheritance",
+      "keywords": [
+        "Spiritual inheritance",
+        "Material prosperity"
+      ],
+      "archetypal_meaning": "Othala represents homeland, spiritual and material inheritance, the ground of accumulated gifts upon which freedom and prosperity may be sustained. Inheritance includes what is received, cared for and passed onward, not only possessions or blood ties.",
+      "interpretation": "Consider the traditions, places, relationships and knowledge that have made your life possible. Discern what deserves preservation, what requires repair and what you can transmit to others.",
+      "reflection": "What have I inherited, and what am I preparing to leave behind?",
+      "shadow": "Possessiveness, exclusion, uncritical loyalty to inherited structures, or mistaking ancestry for superiority."
+    }
+  ],
+  "reading_policy": {
+    "world_distribution": {
+      "unit": "distinct_final_presented_rune_identity",
+      "denominator": "number of distinct final presented rune identities",
+      "worlds": [
+        "earthly",
+        "underworld",
+        "astral"
+      ],
+      "occurrences_weighted": false,
+      "empty_reading": "Return zero counts, null shares, no dominant world.",
+      "tie": "Return all worlds tied for highest count; do not break ties.",
+      "pouch": "Past, Present and Future are temporal roles independent of aett; calculate world shares over the three drawn identities.",
+      "sticks": "Use final independent rune identities only; embedded, rejected, and geometric near-duplicate candidates do not contribute additional weight."
+    },
+    "pathway_presence": {
+      "complete": 3,
+      "partial": 2,
+      "absent_runes": "List as absent, never imply they were drawn.",
+      "unit": "distinct final presented rune identity",
+      "show_verse_for": "complete",
+      "interpretation": "Archetypal pathways do not imply shared sticks; geometric compounds are a separate relationship."
+    },
+    "occurrences": "Retain the existing distinct occurrence tally with each rune; do not use it as a world weight.",
+    "interpretation": "Reflective prompts, not predictions. Do not alter original casting, selection, recognition or chronology."
+  },
+  "interpretation_style": "syncretic"
+}

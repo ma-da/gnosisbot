@@ -1,0 +1,222 @@
+/* gnosis.bot / Your Gnosis — compact dashboard, scoped to the account page. */
+.account-page {
+  --account-edge: var(--light, #e0e3e0);
+  --account-paper: var(--paper, #fff);
+  --account-ink: var(--text, #202527);
+  --account-secondary: var(--ink-soft, #4d5658);
+  --account-muted: var(--muted, #707779);
+  --account-accent: var(--teal, #1ea8b3);
+  --account-mono: var(--font-display, 'Space Mono', monospace);
+  background: var(--bg, #faf9f5);
+  color: var(--account-ink);
+}
+.account-page [hidden] { display: none !important; }
+.account-page .account-skip:focus {
+  position: fixed !important; inset: 12px auto auto 12px;
+  width: auto; height: auto; padding: 8px 12px; background: var(--account-ink);
+  color: #fff; z-index: 9999; clip: auto;
+}
+.account-page .account-topbar { width: 100%; max-width: 1100px; }
+.account-page .account-top-nav { display: flex; gap: clamp(13px, 3vw, 30px); align-items: center; margin-left: auto; }
+.account-page .account-top-nav a { color: var(--account-secondary); font-size: 12px; font-weight: 600; text-decoration: none; }
+.account-page .account-top-nav a:hover { color: var(--account-accent); }
+.account-page .account-shell { width: min(100%, 1100px); max-width: 1100px; margin: 0 auto; padding: 26px 24px 64px; }
+.account-page .account-page-heading { margin-bottom: 24px; }
+.account-page .account-eyebrow { margin: 0 0 7px; color: var(--account-muted); font: 700 10px/1.5 var(--account-mono); letter-spacing: .12em; }
+.account-page .account-page-heading h1 { margin: 0; font: 600 clamp(34px, 4.5vw, 51px)/1.1 var(--font-body, 'DM Sans', sans-serif); letter-spacing: -.055em; }
+.account-page .account-deck { margin: 8px 0 0; color: var(--account-secondary); font-size: 13px; }
+.account-page .account-loading { color: var(--account-muted); font-size: 13px; }
+.account-page :is(a, button, input, textarea):focus-visible { outline: 2px solid var(--account-accent); outline-offset: 3px; }
+.account-page :is(button, input, textarea) { font: inherit; }
+.account-page button { max-width: 100%; cursor: pointer; }
+.account-page button:disabled { opacity: .38; cursor: not-allowed; }
+.account-page input[type='text'],
+.account-page input[type='email'],
+.account-page input[type='file'],
+.account-page textarea,
+.account-page #invitation {
+  display: block; width: 100%; min-width: 0; border: 1px solid var(--account-edge);
+  background: var(--account-paper); color: var(--account-ink);
+  padding: 10px 12px; margin: 6px 0 12px; border-radius: 1px; font-size: 13px;
+}
+.account-page textarea { resize: vertical; line-height: 1.5; }
+.account-page button.account-primary-button { background: var(--account-ink); color: #fff; border: 1px solid var(--account-ink); padding: 10px 15px; font-weight: 600; font-size: 12px; }
+.account-page button.account-primary-button:hover:not(:disabled) { background: var(--account-accent); border-color: var(--account-accent); }
+.account-page button.account-secondary-button,
+.account-page button.account-quiet-button { background: var(--account-paper); border: 1px solid var(--account-edge); color: var(--account-secondary); padding: 9px 13px; font-size: 12px; font-weight: 600; }
+.account-page button.account-secondary-button:hover:not(:disabled),
+.account-page button.account-quiet-button:hover:not(:disabled) { border-color: var(--account-accent); color: var(--account-ink); }
+
+/* Signed-out invitation, with no dashboard data or billing displayed. */
+.account-auth-view { max-width: 970px; }
+.account-auth-intro { margin-bottom: 15px; }
+.account-auth-intro > p:last-child { margin: 0; font-size: 13px; color: var(--account-secondary); }
+.account-auth-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.account-page .account-auth-card { min-width: 0; margin: 0; padding: 21px; border: 1px solid var(--account-edge); background: var(--account-paper); border-radius: 2px; }
+.account-page .account-auth-card legend { font-weight: 650; padding: 0 7px; margin-left: -7px; font-size: 17px; letter-spacing: -.02em; }
+.account-page .account-auth-card label { display: block; color: var(--account-secondary); font-size: 12px; font-weight: 600; }
+.account-page .account-auth-card .account-optional { color: var(--account-muted); font-weight: 400; }
+.account-auth-login > button, .account-auth-create > button { margin-top: 4px; }
+.account-page .account-key-warning { border-left: 2px solid var(--magenta, #cc315b); padding-left: 12px; font-size: 12px; }
+.account-key-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 9px 0; }
+.account-page label.confirm { display: flex; align-items: flex-start; gap: 9px; margin: 15px 0; font-weight: 400; }
+.account-page label.confirm input { width: auto; margin: 4px 0 0; flex-shrink: 0; }
+.account-auth-status { margin-top: 15px; color: var(--account-secondary); font-size: 13px; }
+.account-auth-status[data-error='true'] { color: #b73550; }
+.account-security-note { max-width: 850px; margin: 18px 0 0; font-size: 11px; color: var(--account-muted); line-height: 1.7; }
+
+/* Authenticated portal */
+.account-page .gnosis-hub { width: 100%; max-width: none; margin: 0; padding: 0; border: 0; }
+.gnosis-hub-topline { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.gnosis-hub-topline-heading h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.035em; }
+.account-session-tools { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.account-session-label { margin: 0 3px 0 0; color: var(--account-muted); font: 400 10px/1.3 var(--account-mono); overflow-wrap: anywhere; max-width: 240px; }
+.account-page .gnosis-hub-status { margin: 0 0 13px; color: var(--account-muted); font-size: 11px; }
+.gnosis-hub-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.gnosis-hub-metric { min-width: 0; margin: 0; padding: 15px 17px 13px; background: var(--account-paper); border: 1px solid var(--account-edge); border-radius: 2px; }
+.gnosis-hub-metric span { display: block; font: 400 10px/1.45 var(--account-mono); color: var(--account-muted); letter-spacing: .015em; }
+.gnosis-hub-metric strong { display: block; margin-top: 3px; color: var(--account-ink); font: 600 clamp(25px, 3vw, 35px)/1.2 var(--font-body, 'DM Sans', sans-serif); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.gnosis-hub-metric--available strong { color: #178978; }
+.gnosis-hub-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(270px, .9fr); gap: 14px; align-items: start; }
+.gnosis-hub-aside { display: grid; gap: 14px; min-width: 0; }
+.gnosis-hub-card { min-width: 0; background: var(--account-paper); border: 1px solid var(--account-edge); border-radius: 2px; padding: 18px 19px; }
+.gnosis-hub-card h3 { margin: 0; font-size: 17px; letter-spacing: -.025em; line-height: 1.25; font-weight: 650; }
+.gnosis-hub-card > p:not(.account-eyebrow), .gnosis-hub-description { margin: 7px 0 12px; font-size: 12px; line-height: 1.65; color: var(--account-secondary); }
+.gnosis-hub-section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
+.gnosis-hub-section-head .account-eyebrow { margin-bottom: 3px; }
+.gnosis-hub-nav { display: flex; flex-direction: column; gap: 0; margin-top: 9px; }
+.gnosis-hub-nav a { display: flex; justify-content: space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--account-edge); font-size: 13px; font-weight: 600; color: var(--account-ink); text-decoration: none; }
+.gnosis-hub-nav a::after { content: '↗'; color: var(--account-accent); font-family: var(--account-mono); }
+.gnosis-hub-nav a:last-child { border-bottom: 0; }
+.gnosis-hub-nav a:hover { color: var(--account-accent); }
+.gnosis-hub-email-status { margin: 7px 0 12px; font-size: 12px; color: var(--account-secondary); overflow-wrap: anywhere; }
+.gnosis-hub-email-form { margin: 0; padding: 0; border: 0; background: transparent; }
+.gnosis-hub-email-form label { font-size: 11px; color: var(--account-muted); }
+.gnosis-hub-email-form button { width: 100%; }
+.gnosis-hub-email-form p[role='status'], .gnosis-hub-verify p[role='status'] { margin: 8px 0 0; color: var(--account-secondary); font-size: 11px; }
+.gnosis-hub-verify { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--account-edge); }
+.gnosis-hub-verify > p { font-size: 12px; color: var(--account-secondary); }
+
+/* Activity compact rows, no fake progress bars for IBM jobs. */
+.gnosis-activity-item { position: relative; margin: 0; padding: 14px 0; background: transparent; border: 0; border-top: 1px solid var(--account-edge); overflow-wrap: anywhere; }
+.gnosis-activity-item:first-child { border-top: 0; }
+.gnosis-activity-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 14px; flex-wrap: wrap; }
+.gnosis-activity-item h3 { margin: 0; font-size: 13px; font-weight: 650; }
+.gnosis-activity-state { padding: 3px 7px; border: 1px solid var(--account-edge); background: var(--bg, #faf9f5); font: 500 10px/1.45 var(--account-mono); color: var(--account-secondary); white-space: nowrap; }
+.gnosis-activity-item[data-status='pending'] .gnosis-activity-state { border-color: #d9c391; color: #84651f; }
+.gnosis-activity-item[data-status='completed'] .gnosis-activity-state { border-color: #a0cbc6; color: #126e66; }
+.gnosis-activity-item[data-status='failed'] .gnosis-activity-state { border-color: #e0bcc3; color: #b33a52; }
+.gnosis-activity-meta, .gnosis-activity-note { margin: 5px 0; color: var(--account-muted); font-size: 11px; line-height: 1.5; }
+.gnosis-activity-note { color: var(--account-secondary); }
+.gnosis-activity-question { margin: 8px 0; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; }
+.gnosis-activity-open { display: inline-block; margin-top: 7px; font-size: 12px; font-weight: 700; text-decoration-color: var(--gold, #bb9236); text-underline-offset: 3px; }
+.gnosis-highlight { outline: 2px solid var(--account-accent); outline-offset: -2px; padding-inline: 10px; }
+.gnosis-empty { margin: 10px 0; padding: 24px 0; color: var(--account-muted); font-size: 12px; }
+.gnosis-hub-controls { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 10px; padding-top: 12px; border-top: 1px solid var(--account-edge); }
+.gnosis-hub-controls span { font: 400 10px var(--account-mono); color: var(--account-muted); }
+
+/* Gnosis account key upload */
+
+.key-dropzone {
+  border: 1px dashed var(--ring-muted, #bcc5c5);
+  background: var(--paper, #ffffff);
+  padding: 20px;
+  margin: 12px 0;
+  text-align: center;
+  transition:
+    border-color .2s ease,
+    background-color .2s ease;
+}
+
+.key-dropzone:hover,
+.key-dropzone.is-dragover,
+.key-dropzone:focus-within {
+  border-color: var(--teal, #1ea8b3);
+  background: #1ea8b30a;
+}
+
+.key-dropzone-title {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+/* Native file input */
+.account-shell #login-file {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: 12px var(--font-body);
+  cursor: pointer;
+}
+
+/* Style the Browse button */
+.account-shell #login-file::file-selector-button {
+  background: var(--bg, #faf9f5);
+  color: var(--text, #202527);
+  border: 1px solid var(--light, #e0e3e0);
+  border-radius: 1px;
+  padding: 9px 16px;
+  margin-right: 12px;
+  font: 600 12px var(--font-body);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+
+.account-shell #login-file::file-selector-button:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.key-drop-feedback {
+  margin: 10px 0 0;
+  font: 10px/1.5 var(--font-display);
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key-dropzone,
+  .account-shell #login-file::file-selector-button {
+    transition: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .gnosis-hub-layout { grid-template-columns: minmax(0, 1fr); }
+  .gnosis-hub-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gnosis-hub-security { grid-column: 1 / -1; }
+}
+@media (max-width: 590px) {
+  .account-page .account-shell { padding: 19px 14px 48px; }
+  .account-page .account-topbar { padding-inline: 14px; }
+  .account-page .account-top-nav { gap: 12px; }
+  .account-page .account-top-nav a { font-size: 11px; }
+  .account-page .account-page-heading { margin-bottom: 17px; }
+  .account-auth-grid, .gnosis-hub-aside { grid-template-columns: minmax(0, 1fr); }
+  .gnosis-hub-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gnosis-hub-topline { align-items: flex-start; flex-direction: column; }
+  .account-session-tools { justify-content: flex-start; }
+  .gnosis-hub-card { padding: 15px; }
+  .gnosis-hub-security { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .account-page *, .account-page *::before, .account-page *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
+
+/* Gnosis reading resonance v1 */
+.gnosis-hub .gnosis-resonance{display:inline-flex;align-items:center;gap:.4rem;vertical-align:middle;margin-inline-start:.5rem}
+.gnosis-hub .gnosis-resonance-face{display:inline-grid;place-items:center;width:44px;height:44px;padding:9px;border:0;border-radius:50%;box-shadow:none;background:transparent;color:inherit;opacity:.65;cursor:pointer;flex-shrink:0}
+.gnosis-hub .gnosis-resonance-face svg{display:block;width:26px;height:26px}
+.gnosis-hub .gnosis-resonance-face[aria-pressed="true"]{color:var(--teal,#028090);opacity:1}
+.gnosis-hub .gnosis-resonance-face:hover{opacity:1;background:#02809012}
+.gnosis-hub .gnosis-resonance-face:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.gnosis-hub .gnosis-resonance-face:disabled{cursor:wait;opacity:.5}
+.gnosis-resonance-note{font-size:.75rem;max-width:16rem}
+.gnosis-resonance-note:empty{display:none}
+.gnosis-resonance-hint{font-size:.82rem;opacity:.78;margin:.65rem 0}

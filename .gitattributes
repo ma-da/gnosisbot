@@ -1,0 +1,9 @@
+* text=auto eol=lf
+# Exact byte fingerprints are part of these artifacts' scientific contracts.
+app/data/** -text
+quantum/**/*.qpy binary
+quantum/sticks/recognition/rune_recognition_rc1.json -text
+quantum/sticks/recognition/rune_recognition_rc1.sha256 -text
+gnosis_platform/migrations/*.sql -text
+*.png binary
+*.webp binary

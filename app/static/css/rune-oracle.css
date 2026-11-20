@@ -1,0 +1,943 @@
+/* GNOSIS.BOT — Elder Futhark visual alpha 0.2.3
+ * Scoped component styles. Shared tokens and typography remain in global.css.
+ * Palette colors are user preferences, never recognition criteria.
+ */
+
+/* 01. Page chrome and demo navigation */
+.rune-page main {
+  padding-bottom: 28px;
+}
+.rune-page .rune-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin: 28px auto 18px;
+  max-width: var(--instrument-max);
+}
+.rune-intro .eyebrow {
+  margin: 0 0 5px;
+}
+.rune-intro h1 {
+  font-size: clamp(34px,5.2vw,58px);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -.055em;
+  margin: 0;
+}
+.rune-deck {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 9px 0 0;
+}
+.rune-demo-tag {
+  font: 700 10px var(--font-display);
+  color: var(--rune-accent);
+  border: 1px solid var(--ring-muted);
+  padding: 4px 7px;
+  letter-spacing: .08em;
+}
+.rune-mode-wrap {
+  flex: 0 0 276px;
+}
+.rune-mode-wrap .mode-label {
+  display: block;
+  margin-bottom: 5px;
+}
+.rune-page .rune-mode {
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin: 0;
+}
+.rune-page .rune-mode .reading-btn {
+  white-space: normal;
+}
+.rune-page input:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+button.rune-pathway-member:hover {
+  border-color: var(--world-color);
+}
+.rune-page [hidden] {
+  display: none !important;
+}
+.rune-provider-bar p {
+  margin: 0;
+}
+.rune-provider-bar a,.rune-account-link {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.rune-provider-bar a:hover,.rune-account-link:hover {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.rune-account-link {
+  font-size: 12px;
+  white-space: nowrap;
+}
+#rune-load-error {
+  max-width: var(--instrument-max);
+  margin: 15px auto;
+  padding: 18px;
+  border: 1px solid var(--light);
+  color: var(--ink-soft);
+}
+.rune-page {
+  --rune-accent: #14818b;
+  --rune-faint: #acb6b4;
+  --rune-emerge: #b04a4a;
+  --rune-secondary: #14818b;
+  --rune-memory-opacity: .1;
+  --rune-instrument-max: 1100px;
+}
+.rune-page .rune-instrument,
+.rune-page .rune-intro,
+.rune-page .rune-provider-bar { max-width: var(--rune-instrument-max); }
+.rune-provider-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 auto 10px; color: var(--muted); font: 10px var(--font-display); }
+.rune-provider-copy { min-width: 0; }
+.rune-provider-meta, .rune-provider-actions, .rune-sample-inline { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.rune-provider-meta { margin-top: 3px; }
+.rune-provider-actions { gap: 12px; justify-content: flex-end; }
+/* Native color inputs, compact and discoverable. Accessible names supplied in JS. */
+.rune-palette { display: inline-flex; gap: 5px; align-items: center; }
+.rune-color-swatch { appearance: none; width: 22px; height: 22px; border: 1px solid var(--ring-muted); border-radius: 2px; padding: 2px; background: var(--bg); cursor: pointer; }
+.rune-color-swatch::-webkit-color-swatch-wrapper { padding: 0; }
+.rune-color-swatch::-webkit-color-swatch { border: 0; }
+.rune-color-swatch::-moz-color-swatch { border: 0; }
+
+
+/* 02. Circle and selected formation */
+.rune-circle .rune-slot {
+  stroke: var(--ink-soft);
+  stroke-width: 1.35;
+  opacity: .52;
+  stroke-linecap: round;
+}
+.rune-circle.has-selection .rune-slot {
+  opacity: .19;
+}
+.rune-circle .rune-outline {
+  stroke: var(--ring-muted);
+  fill: none;
+  stroke-width: 1.2;
+}
+.rune-circle .rune-tick {
+  stroke: var(--ring-muted);
+  stroke-width: .75;
+}
+.rune-circle .rune-tick.major {
+  stroke: var(--muted);
+  stroke-width: 1.4;
+}
+.rune-circle .rune-cardinal {
+  font: 10px var(--font-display);
+  fill: var(--muted);
+  text-anchor: middle;
+}
+.rune-stage-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--muted);
+  padding: 0 12px 12px;
+  letter-spacing: .035em;
+}
+.rune-focus {
+  border-left: 1px solid var(--light);
+  padding: 16px 0 16px 20px;
+  min-width: 0;
+}
+.rune-focus .eyebrow {
+  margin: 0;
+}
+.rune-focus h2 {
+  font-size: clamp(25px,3vw,36px);
+  letter-spacing: -.045em;
+  margin: 0;
+  line-height: 1.1;
+}
+.rune-focus svg {
+  width: 100%;
+  max-width: 190px;
+  display: block;
+  margin: 10px auto;
+}
+.rune-focus-sub,.rune-focus .subtle {
+  font-size: 12px;
+  margin: 8px 0;
+}
+.rune-focus-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rune-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--light);
+}
+.rune-metrics div span {
+  display: block;
+  font: 9px var(--font-display);
+  letter-spacing: .03em;
+  color: var(--muted);
+}
+.rune-metrics div strong {
+  display: block;
+  font: 600 19px var(--font-body);
+  margin-top: 3px;
+}
+.rune-stage { display: grid; grid-template-columns: minmax(112px, 148px) minmax(0, 1fr) minmax(158px, 205px); gap: 12px; align-items: center; min-height: 0; }
+.rune-circle-wrap { min-width: 0; position: relative; }
+.rune-circle { width: 100%; height: auto; max-height: min(76vh, 700px); display: block; overflow: visible; }
+/* Persistent formation memory: the group opacity applies to the whole occurrence. */
+.rune-circle .rune-memory { opacity: var(--rune-memory-opacity); color: var(--rune-secondary); transition: opacity .4s ease, color .4s ease; pointer-events: none; }
+.rune-circle .rune-memory.is-selected { opacity: 1; color: var(--rune-emerge); }
+.rune-circle .rune-emerge-line { stroke: currentColor; stroke-width: 5.3; stroke-linecap: round; fill: none; }
+.rune-circle .rune-highlight { stroke: var(--rune-emerge); stroke-width: 5.3; stroke-linecap: round; pointer-events: none; }
+#rune-isolated { color: var(--rune-emerge); }
+
+
+/* 03. Replay controls */
+.rune-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 9px;
+  border: 1px solid var(--light);
+  background: var(--control-bg);
+}
+.rune-transport {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.rune-transport button {
+  border: 1px solid transparent;
+  background: var(--paper);
+  color: var(--ink-soft);
+  min-height: 42px;
+  padding: 7px 13px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.rune-transport button:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+}
+.rune-transport .rune-play {
+  min-width: 100px;
+  background: var(--text);
+  color: var(--paper);
+}
+.rune-scrub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 9px;
+}
+.rune-scrub input {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--rune-accent);
+  cursor: pointer;
+}
+.rune-scrub output {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.rune-event-ticks {
+  position: absolute;
+  bottom: 1px;
+  left: 8px;
+  right: 72px;
+  height: 6px;
+  pointer-events: none;
+}
+.rune-event-ticks i {
+  position: absolute;
+  top: 0;
+  height: 5px;
+  width: 1px;
+  background: var(--gold);
+}
+.rune-status {
+  font-size: 12px;
+  color: var(--muted);
+  min-height: 20px;
+  text-align: center;
+  margin: 8px 0;
+}
+
+
+/* 04. Results and compounds */
+.rune-results .rune-empty {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 9px 0;
+}
+.rune-compounds {
+  padding: 10px 0 14px;
+  border-top: 1px solid var(--light);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.rune-compounds .mono {
+  color: var(--muted);
+  display: block;
+  margin-bottom: 5px;
+}
+.rune-compounds button {
+  border: 1px solid var(--light);
+  padding: 5px 9px;
+  margin: 3px 5px 0 0;
+  background: var(--paper);
+  color: var(--text);
+  font-size: 12px;
+}
+.rune-compounds button:hover {
+  border-color: var(--teal);
+}
+.rune-results-rail { align-self: start; min-width: 0; padding-top: 12px; }
+.rune-results-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px; color: var(--muted); }
+.rune-results-head .eyebrow { margin: 0; }
+.rune-results-head .mono { font-size: 9px; }
+.rune-results { display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 0; }
+.rune-results--rail { display: grid; grid-template-columns: minmax(0, 1fr); }
+.rune-result { appearance: none; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 1px 6px; align-items: center; min-width: 0; text-align: left; border: 0; box-shadow: none; background: var(--bg); color: var(--rune-secondary); padding: 4px 5px; cursor: pointer; }
+.rune-result svg { width: 30px; height: 36px; grid-row: span 2; }
+.rune-result strong { align-self: end; font-size: 12px; font-weight: 600; overflow-wrap: anywhere; }
+.rune-result small { align-self: start; font: 9px var(--font-display); color: var(--muted); }
+.rune-result[aria-pressed="true"] { color: var(--rune-emerge); }
+.rune-result[aria-pressed="true"] strong { text-decoration: underline; text-underline-offset: 3px; }
+.rune-result:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.rune-result:focus-visible { outline: 2px solid var(--rune-accent); outline-offset: 2px; }
+.rune-results-rail.is-pouch .rune-results { display: flex; }
+.rune-results-rail.is-pouch .rune-result { flex: 0 1 145px; }
+
+
+/* 05. Pouch draw */
+.rune-pouch-stage {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 0;
+}
+.rune-pouch-mark {
+  color: var(--muted);
+  text-align: center;
+}
+.rune-pouch-draws {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: clamp(8px,2vw,24px);
+  width: min(100%,655px);
+  margin: 25px auto 14px;
+}
+.rune-stone {
+  border: 1px solid var(--light);
+  background: transparent;
+  padding: 12px 8px 18px;
+  color: var(--text);
+  text-align: center;
+  min-width: 0;
+}
+.rune-stone:disabled {
+  opacity: 1;
+  cursor: default;
+  background: transparent;
+}
+.rune-stone[aria-pressed=true] {
+  border-color: var(--rune-accent);
+  box-shadow: inset 0 -3px 0 var(--rune-accent);
+}
+.rune-stone .mono {
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.rune-stone svg {
+  display: block;
+  width: 100%;
+  max-width: 150px;
+  margin: 8px auto;
+}
+.rune-stone strong {
+  font-size: clamp(14px,2.2vw,23px);
+  display: block;
+  letter-spacing: -.025em;
+}
+.rune-pouch-caption {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+/* Pouch and cosmology retain their own established semantics and styling. */
+
+
+/* 06. Interpretation and provenance */
+.rune-content {
+  margin-top: 12px;
+  gap: clamp(24px,5vw,65px);
+}
+.rune-content h3.rune-detail-title {
+  font-size: clamp(28px,4vw,45px);
+  letter-spacing: -.045em;
+  line-height: 1.1;
+  margin: 7px 0 14px;
+}
+.rune-content .technology-employed__copy {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.rune-history-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 10px;
+  border-bottom: 1px solid var(--light);
+  padding: 8px 0;
+  font-size: 12px;
+}
+.rune-history-row button {
+  font: 10px var(--font-display);
+  background: var(--paper);
+  border: 1px solid var(--light);
+  color: var(--rune-accent);
+  padding: 4px;
+  align-self: start;
+}
+.rune-history-row button:hover {
+  border-color: var(--teal);
+}
+.rune-hash {
+  font: 10px var(--font-display);
+  overflow-wrap: anywhere;
+}
+.rune-detail-meta {
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.rune-essence {
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.2;
+  letter-spacing: -.03em;
+  margin: 8px 0 12px;
+}
+.rune-content #rune-archetype,.rune-content #rune-interpretation {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.rune-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 15px 0;
+}
+.rune-keywords span {
+  font-size: 11px;
+  padding: 4px 7px;
+  border: 1px solid var(--light);
+  color: var(--ink-soft);
+}
+.rune-content .rune-geometry-note {
+  font-size: 12px !important;
+  color: var(--muted);
+  margin-top: 18px;
+}
+
+
+/* 07. Cosmology and pathways */
+.rune-cosmology {
+  padding: 22px 0 10px;
+  border-top: 1px solid var(--light);
+}
+.rune-cosmology-head,.rune-pathway-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+}
+.rune-cosmology-head .eyebrow {
+  margin: 0 0 4px;
+}
+.rune-cosmology-head h2 {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  margin: 0;
+}
+.rune-cosmology-head .mono,.rune-pathway-head .mono {
+  color: var(--muted);
+  text-align: right;
+}
+.rune-worlds {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.world-earthly {
+  --world-color: #987020;
+}
+.world-underworld {
+  --world-color: #806298;
+}
+.world-astral {
+  --world-color: #277b90;
+}
+.rune-world {
+  background: var(--paper);
+  border: 1px solid var(--light);
+  border-top: 3px solid var(--world-color);
+  padding: 13px;
+  min-width: 0;
+}
+.rune-world-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--world-color);
+}
+.rune-world-head strong {
+  font-size: 18px;
+}
+.rune-world-head span {
+  font: 700 14px var(--font-display);
+}
+.rune-world-aett {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 3px 0 13px;
+}
+.rune-world-track {
+  height: 5px;
+  background: var(--light);
+}
+.rune-world-track div {
+  height: 100%;
+  background: var(--world-color);
+}
+.rune-world-count {
+  font: 10px var(--font-display);
+  color: var(--muted);
+  margin: 8px 0;
+}
+.rune-world-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  min-height: 38px;
+  align-items: center;
+}
+.rune-world-icons button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--world-color);
+  padding: 2px;
+}
+.rune-world-icons button:hover {
+  border-color: var(--world-color);
+}
+.rune-world-icons svg {
+  width: 29px;
+  height: 33px;
+  display: block;
+}
+.rune-world-icons .subtle {
+  font-size: 12px;
+}
+.rune-world-essence {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 7px 0 0;
+  color: var(--ink-soft);
+}
+.rune-world-summary {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 14px 0 24px;
+}
+.rune-world-summary strong {
+  color: var(--text);
+}
+.rune-pathway-head {
+  border-top: 1px solid var(--light);
+  padding-top: 12px;
+}
+.rune-pathway-head h3 {
+  font-size: 19px;
+  margin: 0;
+  letter-spacing: -.025em;
+}
+.rune-pathways {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.rune-pathway {
+  border: 1px solid var(--light);
+  background: var(--paper);
+  padding: 13px;
+  min-width: 0;
+}
+.rune-pathway-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.rune-pathway-card-head strong {
+  font-size: 14px;
+}
+.rune-pathway-card-head .mono {
+  color: var(--muted);
+  white-space: nowrap;
+  letter-spacing: 0;
+  font-size: 9px;
+}
+.rune-pathway-runes {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 5px;
+  margin: 12px 0;
+}
+.rune-pathway-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 7px 2px;
+  background: var(--bg);
+  border: 1px solid var(--light);
+  color: var(--world-color);
+  font-size: 12px;
+}
+.rune-pathway-member svg {
+  width: 30px;
+  height: 36px;
+}
+.rune-pathway-member small {
+  font-size: 9px;
+  color: var(--muted);
+}
+.rune-pathway-member.is-absent {
+  border-style: dashed;
+  color: var(--muted);
+}
+.rune-pathway-member.is-absent svg {
+  opacity: .3;
+}
+.rune-pathway-verse {
+  border-left: 2px solid var(--gold);
+  padding: 4px 10px;
+  margin: 12px 0;
+}
+.rune-pathway-verse p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+.rune-pathway-summary,.rune-pathway-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.rune-pathway-note {
+  margin: 12px 0 4px;
+}
+
+/* 08. Responsive layout and accessibility */
+@media (max-width: 900px) {
+  .rune-stage { grid-template-columns: minmax(104px, 140px) minmax(0, 1fr); }
+  .rune-focus { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--light); padding: 10px 0; }
+}
+@media (max-width: 680px) {
+  .rune-stage { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .rune-results-rail { padding-top: 4px; }
+  .rune-results--rail { grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); }
+  .rune-circle { max-height: none; }
+  .rune-provider-bar { flex-wrap: wrap; }
+  .rune-provider-actions { justify-content: flex-start; }
+  .rune-page .rune-intro {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 13px;
+    margin-top: 16px;
+  }
+  .rune-mode-wrap {
+    flex-basis: auto;
+  }
+  .rune-focus {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 12px;
+    align-items: center;
+    border-left: 0;
+    border-top: 1px solid var(--light);
+    padding: 10px 0;
+  }
+  .rune-focus svg {
+    grid-row: 1 / span 4;
+    margin: 0;
+    width: 100px;
+  }
+  .rune-focus .eyebrow {
+    grid-column: 2;
+  }
+  .rune-focus h2,.rune-focus-sub,.rune-metrics {
+    grid-column: 2;
+  }
+  .rune-focus-note {
+    grid-column: 1/-1;
+    margin: 5px 0;
+  }
+  .rune-metrics {
+    gap: 5px 12px;
+  }
+  .rune-metrics div strong {
+    font-size: 16px;
+  }
+  .rune-controls {
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .rune-transport {
+    width: 100%;
+  }
+  .rune-transport button {
+    flex: 1;
+  }
+  .rune-scrub {
+    flex: 1 1 100%;
+  }
+  .rune-pouch-stage {
+    min-height: 275px;
+    padding: 22px 0;
+  }
+  .rune-content {
+    grid-template-columns: 1fr;
+  }
+  .rune-page .topnote {
+    font-size: 8px;
+  }
+  .rune-page .topbar-actions {
+    gap: 6px;
+  }
+  .rune-page .rune-stage-foot {
+    font-size: 8px;
+    padding-inline: 0;
+  }
+  .rune-worlds {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .rune-world {
+    padding: 10px;
+  }
+  .rune-world-icons {
+    min-height: 0;
+  }
+  .rune-pathways {
+    grid-template-columns: 1fr;
+  }
+  .rune-cosmology-head h2 {
+    font-size: 26px;
+  }
+  .rune-cosmology-head .mono {
+    font-size: 9px;
+  }
+  .rune-world-summary {
+    font-size: 13px;
+  }
+  .rune-page .topnote {
+    display: none;
+  }
+  .rune-focus { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rune-page * { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+}
+
+/* GNOSIS.BOT — Rune interpretation sidebar (0.2.4)
+ * Layout only: retain all recognition/interpretation and instrument selectors.
+ */
+.rune-page .rune-content {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  max-width: var(--rune-instrument-max, 1100px);
+  gap: clamp(24px, 4vw, 48px);
+  margin: 16px auto 0;
+  padding-top: 18px;
+}
+.rune-content > .provenance {
+  min-width: 0;
+  border-left: 1px solid var(--light);
+  padding-left: clamp(16px, 2vw, 24px);
+}
+/* The cosmology is now a column, not a full-width instrument. */
+.rune-content .rune-cosmology {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+}
+.rune-content .rune-cosmology-head,
+.rune-content .rune-pathway-head {
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+}
+.rune-content .rune-cosmology-head h2 {
+  font-size: 27px;
+}
+.rune-content .rune-cosmology-head .mono,
+.rune-content .rune-pathway-head .mono {
+  font-size: 9px;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+/* Compact, stacked world cards: no three-way squeeze in a narrow column. */
+.rune-content .rune-worlds {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+.rune-content .rune-world {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 10px;
+  align-items: start;
+  border-top: 1px solid var(--light);
+  border-left: 3px solid var(--world-color);
+  padding: 10px 12px;
+}
+.rune-content .rune-world-head,
+.rune-content .rune-world-aett,
+.rune-content .rune-world-track,
+.rune-content .rune-world-essence {
+  grid-column: 1 / -1;
+}
+.rune-content .rune-world-head strong { font-size: 16px; }
+.rune-content .rune-world-head { flex-wrap: wrap; }
+.rune-content .rune-world-aett { margin: 2px 0 7px; }
+.rune-content .rune-world-count { margin: 7px 0 0; }
+.rune-content .rune-world-icons {
+  justify-content: flex-end;
+  min-height: 0;
+  margin-top: 4px;
+}
+.rune-content .rune-world-icons svg { width: 23px; height: 27px; }
+.rune-content .rune-world-essence { margin: 5px 0 0; }
+.rune-content .rune-world-summary { margin: 12px 0 18px; font-size: 13px; }
+/* A complete pathway retains its original verse and all three rune cells. */
+.rune-content .rune-pathways {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 9px;
+  gap: 8px;
+}
+.rune-content .rune-pathway { padding: 10px 12px; }
+.rune-content .rune-pathway-card-head { flex-wrap: wrap; }
+.rune-content .rune-pathway-runes { margin: 8px 0; }
+.rune-content .rune-pathway-member { overflow-wrap: anywhere; }
+.rune-content .rune-pathway-member svg { width: 26px; height: 30px; }
+/* Technology and the existing collapsible metadata follow the interpretation. */
+.rune-content .technology-employed {
+  border-top: 1px solid var(--light);
+  margin-top: 24px;
+  padding-top: 16px;
+}
+@media (max-width: 800px) {
+  .rune-page .rune-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .rune-content > .provenance {
+    border-left: 0;
+    border-top: 1px solid var(--light);
+    padding-left: 0;
+    padding-top: 18px;
+  }
+}
+
+/* Rune meaning navigation (Visual Alpha 0.2.5).
+   Mirrors the current sticks-frame results; no visible names or counts. */
+.rune-page .rune-meaning-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 14px;
+    padding: 0;
+}
+.rune-page .rune-meaning-selector[hidden] { display: none !important; }
+.rune-page .rune-meaning-glyph {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 44px;
+    border: 0;
+    border-radius: 0;
+    background: var(--bg, #faf9f5);
+    color: var(--rune-secondary, #14818b);
+    padding: 3px;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: none;
+    transition: color .2s ease;
+}
+.rune-page .rune-meaning-glyph svg {
+    display: block;
+    width: 32px;
+    height: 36px;
+    pointer-events: none;
+}
+.rune-page .rune-meaning-glyph[aria-pressed="true"] {
+    color: var(--rune-emerge, #b04a4a);
+    box-shadow: inset 0 -2px 0 currentColor;
+}
+.rune-page .rune-meaning-glyph:hover { color: var(--rune-emerge, #b04a4a); }
+.rune-page .rune-meaning-glyph:focus-visible {
+    outline: 2px solid var(--rune-accent, #14818b);
+    outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .rune-page .rune-meaning-glyph { transition: none; }
+}
+
+/* M5B consultation controls — scoped, additive; retain instrument and interpretation layout. */
+.rune-new-reading { background:var(--text); color:var(--paper); border:1px solid var(--text); padding:9px 13px; font-weight:600; white-space:nowrap; }
+.rune-production-status { max-width:var(--rune-instrument-max,1100px); margin:12px auto; padding:14px; border:1px solid var(--light); color:var(--ink-soft); font-size:13px; }
+.rune-production-status p { margin:0 0 9px; }
+.rune-production-status a,.rune-production-status button { margin-right:12px; }
+/* Rune consultation uses the I Ching .consultation-* component in global.css.
+ * These rules address only rune-specific method/account controls and disabled options. */
+#rune-consultation .rune-method-toggle { margin-top:0!important; margin-bottom:13px; }
+#rune-consultation .consultation-mode:has(input:disabled),
+#rune-consultation .consultation-provider-choice:has(input:disabled) { opacity:.58; cursor:not-allowed; }
+#rune-consultation .consultation-provider-choice { margin-bottom:4px; }
+#rune-consultation .consultation-auth { margin-top:12px; }
+#rune-consultation #rune-login-link { font-size:12px; }
+#rune-consultation .rune-consent { display:flex; gap:8px; align-items:start; font-size:12px; margin:12px 0 0; color:var(--ink-soft); }
+#rune-consultation .rune-consent input { margin-top:3px; flex:none; accent-color:var(--teal); }
+#rune-consultation .consultation-price { white-space:normal; }
+#rune-consultation .consultation-submit { flex-shrink:0; }
+@media(max-width:380px) { #rune-consultation .consultation-submit-row { flex-wrap:wrap; } }

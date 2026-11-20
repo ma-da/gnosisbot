@@ -1,0 +1,465 @@
+{
+  "diagnostics": {
+    "schema_version": "gnosis.health.v1",
+    "generated_at": "2026-11-19T00:23:59.680461+00:00",
+    "cache_ttl_seconds": 60,
+    "services": {
+      "oracle.classic": {
+        "status": "healthy",
+        "provider": "browser_crypto",
+        "note": "Browser capability not independently tested"
+      },
+      "oracle.public_qrng": {
+        "provider": "nist",
+        "status": "healthy",
+        "latency_ms": 256,
+        "pulse_timestamp": "2026-11-19T00:22:00.000Z",
+        "pulse_uri": "https://beacon.nist.gov/beacon/2.0/chain/2/pulse/2033861",
+        "checked_at": "2026-11-19T00:23:59.680235+00:00"
+      },
+      "oracle.qrandom": {
+        "status": "unknown",
+        "provider": "anu",
+        "reason": "Backend integration pending"
+      },
+      "oracle.true_quantum": {
+        "status": "unknown",
+        "provider": "ibm",
+        "reason": "Quantum inventory not configured"
+      },
+      "oracle.personal_quantum": {
+        "status": "unknown",
+        "provider": "ibm",
+        "reason": "IBM runtime not configured"
+      },
+      "ai.enhancement": {
+        "status": "unknown",
+        "provider": "deepinfra",
+        "reason": "Provider not configured"
+      }
+    },
+    "ibm_backends": [],
+    "cached": true,
+    "stale": true,
+    "age_seconds": 1141.8
+  },
+  "catalog": {
+    "services": [
+      {
+        "service_id": "iching.classic",
+        "credits": 0,
+        "min_balance": 0,
+        "cooldown_seconds": 0,
+        "async_job": false,
+        "provider": "browser_crypto",
+        "fallback_active": false,
+        "available": true,
+        "availability": "browser_local"
+      },
+      {
+        "service_id": "iching.qrng_private",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "qci",
+        "fallback_active": false,
+        "available": true,
+        "availability": "qci_live"
+      },
+      {
+        "service_id": "iching.qrng_public",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "nist",
+        "fallback_active": false,
+        "available": true,
+        "availability": "nist_beacon_v2_enabled"
+      },
+      {
+        "service_id": "iching.quantum_past",
+        "credits": 5,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "ibm_inventory",
+        "fallback_active": false,
+        "available": true,
+        "availability": "ibm_past_approved_inventory",
+        "inventory": {
+          "committed": 128,
+          "commercial": 116,
+          "available": 116,
+          "approved_available": 116,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 12,
+          "excluded": 0,
+          "unavailable": 0
+        }
+      },
+      {
+        "service_id": "iching.quantum_future",
+        "credits": 10,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": true,
+        "provider": "ibm_runtime",
+        "fallback_active": false,
+        "available": false,
+        "availability": "provider_not_connected"
+      },
+      {
+        "service_id": "iching.ai_enhancement",
+        "credits": 1,
+        "min_balance": 0,
+        "cooldown_seconds": 0,
+        "async_job": false,
+        "provider": "deepinfra",
+        "fallback_active": false,
+        "available": false,
+        "availability": "provider_not_connected"
+      },
+      {
+        "service_id": "runes.pouch.classic",
+        "application_id": "runes",
+        "mode": "pouch",
+        "credits": 0,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "server_crypto",
+        "fallback_active": false,
+        "available": true,
+        "availability": "server_crypto",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.pouch.qrng_private",
+        "application_id": "runes",
+        "mode": "pouch",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "qci",
+        "fallback_active": false,
+        "available": true,
+        "availability": "qci_live",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.pouch.qrng_public",
+        "application_id": "runes",
+        "mode": "pouch",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "nist",
+        "fallback_active": false,
+        "available": true,
+        "availability": "nist_beacon_v2_enabled",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.pouch.quantum_past",
+        "application_id": "runes",
+        "mode": "pouch",
+        "credits": 5,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "ibm_inventory",
+        "fallback_active": false,
+        "available": true,
+        "availability": "ibm_past_approved_inventory",
+        "price_provisional": true,
+        "inventory": {
+          "committed": 128,
+          "commercial": 124,
+          "available": 124,
+          "approved_available": 124,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 0,
+          "excluded": 4,
+          "unavailable": 0
+        }
+      },
+      {
+        "service_id": "runes.pouch.quantum_future",
+        "application_id": "runes",
+        "mode": "pouch",
+        "credits": 10,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": true,
+        "provider": "ibm_runtime",
+        "fallback_active": false,
+        "available": false,
+        "availability": "rune_hardware_not_qualified",
+        "price_provisional": true
+      },
+      {
+        "service_id": "runes.sticks.classic",
+        "application_id": "runes",
+        "mode": "sticks",
+        "credits": 0,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "server_crypto",
+        "fallback_active": false,
+        "available": true,
+        "availability": "server_crypto",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.sticks.qrng_private",
+        "application_id": "runes",
+        "mode": "sticks",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "qci",
+        "fallback_active": false,
+        "available": true,
+        "availability": "qci_live",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.sticks.qrng_public",
+        "application_id": "runes",
+        "mode": "sticks",
+        "credits": 0,
+        "min_balance": 1,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "nist",
+        "fallback_active": false,
+        "available": true,
+        "availability": "nist_beacon_v2_enabled",
+        "price_provisional": false
+      },
+      {
+        "service_id": "runes.sticks.quantum_past",
+        "application_id": "runes",
+        "mode": "sticks",
+        "credits": 5,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": false,
+        "provider": "ibm_inventory",
+        "fallback_active": false,
+        "available": true,
+        "availability": "ibm_past_approved_inventory",
+        "price_provisional": true,
+        "inventory": {
+          "committed": 128,
+          "commercial": 128,
+          "available": 128,
+          "approved_available": 128,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 0,
+          "excluded": 0,
+          "unavailable": 0
+        }
+      },
+      {
+        "service_id": "runes.sticks.quantum_future",
+        "application_id": "runes",
+        "mode": "sticks",
+        "credits": 10,
+        "min_balance": 0,
+        "cooldown_seconds": 60,
+        "async_job": true,
+        "provider": "ibm_runtime",
+        "fallback_active": false,
+        "available": false,
+        "availability": "rune_hardware_not_qualified",
+        "price_provisional": true
+      }
+    ]
+  },
+  "inventory": {
+    "schema_version": "gnosis.public-inventory.v1",
+    "as_of": "2026-11-19T00:43:01.543032+00:00",
+    "inventory_enforced": true,
+    "latest_checkpoint": 392,
+    "engines": [
+      {
+        "engine": "iching",
+        "label": "I Ching",
+        "service_id": "iching.quantum_past",
+        "service_enabled": true,
+        "counts": {
+          "committed": 128,
+          "commercial": 116,
+          "available": 116,
+          "approved_available": 116,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 12,
+          "excluded": 0,
+          "unavailable": 0
+        },
+        "batch_count": 1,
+        "check_counts": {
+          "ibm_matched": 1,
+          "committed": 1,
+          "signed": 1,
+          "timestamp_submitted": 1,
+          "bitcoin_verified": 1,
+          "released": 1
+        },
+        "batches": [
+          {
+            "ibm_job_id": "dbt5dv7q0h0s73bkc5q0",
+            "status": "approved",
+            "counts": {
+              "committed": 128,
+              "commercial": 116,
+              "available": 116,
+              "approved_available": 116,
+              "pending_release": 0,
+              "reserved": 0,
+              "delivered": 0,
+              "demo": 12,
+              "excluded": 0,
+              "unavailable": 0
+            },
+            "checks": {
+              "ibm_matched": true,
+              "committed": true,
+              "signed": true,
+              "timestamp_submitted": true,
+              "bitcoin_verified": true,
+              "released": true
+            },
+            "signed_checkpoint": 392,
+            "release_checkpoint": 392
+          }
+        ]
+      },
+      {
+        "engine": "pouch",
+        "label": "Rune Pouch",
+        "service_id": "runes.pouch.quantum_past",
+        "service_enabled": true,
+        "counts": {
+          "committed": 128,
+          "commercial": 124,
+          "available": 124,
+          "approved_available": 124,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 0,
+          "excluded": 4,
+          "unavailable": 0
+        },
+        "batch_count": 1,
+        "check_counts": {
+          "ibm_matched": 1,
+          "committed": 1,
+          "signed": 1,
+          "timestamp_submitted": 1,
+          "bitcoin_verified": 1,
+          "released": 1
+        },
+        "batches": [
+          {
+            "ibm_job_id": "dbui90tarooc73fk04fg",
+            "status": "approved",
+            "counts": {
+              "committed": 128,
+              "commercial": 124,
+              "available": 124,
+              "approved_available": 124,
+              "pending_release": 0,
+              "reserved": 0,
+              "delivered": 0,
+              "demo": 0,
+              "excluded": 4,
+              "unavailable": 0
+            },
+            "checks": {
+              "ibm_matched": true,
+              "committed": true,
+              "signed": true,
+              "timestamp_submitted": true,
+              "bitcoin_verified": true,
+              "released": true
+            },
+            "signed_checkpoint": 392,
+            "release_checkpoint": 392
+          }
+        ]
+      },
+      {
+        "engine": "sticks",
+        "label": "Circular Sticks",
+        "service_id": "runes.sticks.quantum_past",
+        "service_enabled": true,
+        "counts": {
+          "committed": 128,
+          "commercial": 128,
+          "available": 128,
+          "approved_available": 128,
+          "pending_release": 0,
+          "reserved": 0,
+          "delivered": 0,
+          "demo": 0,
+          "excluded": 0,
+          "unavailable": 0
+        },
+        "batch_count": 1,
+        "check_counts": {
+          "ibm_matched": 1,
+          "committed": 1,
+          "signed": 1,
+          "timestamp_submitted": 1,
+          "bitcoin_verified": 1,
+          "released": 1
+        },
+        "batches": [
+          {
+            "ibm_job_id": "dbtuqnc9po4c73ceaot0",
+            "status": "approved",
+            "counts": {
+              "committed": 128,
+              "commercial": 128,
+              "available": 128,
+              "approved_available": 128,
+              "pending_release": 0,
+              "reserved": 0,
+              "delivered": 0,
+              "demo": 0,
+              "excluded": 0,
+              "unavailable": 0
+            },
+            "checks": {
+              "ibm_matched": true,
+              "committed": true,
+              "signed": true,
+              "timestamp_submitted": true,
+              "bitcoin_verified": true,
+              "released": true
+            },
+            "signed_checkpoint": 392,
+            "release_checkpoint": 392
+          }
+        ]
+      }
+    ]
+  }
+}
