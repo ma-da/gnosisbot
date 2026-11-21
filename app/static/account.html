@@ -52,7 +52,7 @@
     <section id="account-auth-view" class="account-auth-view" aria-label="Access your Gnosis account" hidden>
       <div class="account-auth-intro">
         <p class="account-eyebrow">YOUR KEY IS YOUR IDENTITY</p>
-        <p>Sign in with an existing key, or create an account to begin.</p>
+        <p>Sign in with an existing key. New account registration is temporarily closed during alpha testing.</p>
       </div>
 
       <div class="account-auth-grid">
@@ -82,7 +82,7 @@
           <button id="login" type="button" class="account-primary-button">Sign in to Your Gnosis</button>
         </fieldset>
 
-        <fieldset class="account-auth-card account-auth-create">
+        <fieldset class="account-auth-card account-auth-create" hidden style="display:none">
           <legend>Create a new account</legend>
           <label for="invitation">Invitation token <span class="account-optional">(optional)</span></label>
           <input id="invitation" spellcheck="false" autocomplete="off" placeholder="Paste an invitation token">

@@ -1,12 +1,132 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administration — Gnosis.bot</title><link rel="stylesheet" href="/admin/dashboard.css?v=1"></head><body>
-<main class="shell"><header><a class="brand" href="/">GNOSIS<span>.BOT</span></a><nav><a href="/account.html">Account</a><a href="/research">Research</a></nav></header>
-<div class="intro"><div><p class="kicker">PRIVATE / OPERATIONS</p><h1>Administration</h1><p>Reading volume, hardware inventory, operating costs and verification.</p></div><button id="refresh" type="button">Refresh dashboard</button></div>
-<p id="status" role="status" aria-live="polite">Loading protected metrics…</p><div id="dashboard" hidden>
-<section class="metrics" id="summary" aria-label="Overview"></section>
-<section class="panel" aria-labelledby="volume-title"><div class="panel-head"><div><p class="kicker">USAGE</p><h2 id="volume-title">Completed readings</h2><p>One saved consultation per reading. Replay, demonstrations and individual IBM shots are not counted.</p></div><label>Daily period (UTC) <select id="days"><option value="7">7 days</option><option selected value="30">30 days</option><option value="90">90 days</option><option value="365">365 days</option></select></label></div><div class="chart-head"><label>Chart series <select id="series"><option value="all">All reading types</option></select></label><span id="chart-summary"></span></div><div id="chart" class="chart"></div><div class="scroll"><table><thead><tr><th>Service</th><th>Period</th><th>All time</th></tr></thead><tbody id="reading-table"></tbody></table></div></section>
-<section class="panel"><p class="kicker">HARDWARE STOCK</p><h2>Quantum Past inventory</h2><p>Already-qualified committed stock is released automatically when its Bitcoin timestamp verifies. Service configuration still controls availability.</p><div class="inventory" id="inventory"></div></section>
-<section class="panel"><p class="kicker">IBM / FINANCE</p><h2>Quantum compute</h2><p>Actual charge time comes from IBM. Planning adds a configurable per-request overhead to measured pre-overhead time where recorded; otherwise IBM's reported charge is a conservative proxy. This scenario can overestimate billing.</p><div class="metrics compact" id="ibm-summary"></div><div class="scroll"><table><thead><tr><th>Engine / type</th><th>Requests</th><th>Reading yield</th><th>Measured s</th><th>Planning s</th><th>Billed s</th><th>Planning s / reading</th><th>Billed s / reading</th></tr></thead><tbody id="ibm-groups"></tbody></table></div><details><summary>Individual tracked IBM jobs</summary><div class="scroll"><table><thead><tr><th>Job</th><th>Type</th><th>Readings</th><th>Measured s</th><th>Baseline s</th><th>Basis</th><th>Planning s</th><th>Billed s</th><th>RU (if recorded)</th></tr></thead><tbody id="jobs"></tbody></table></div><p id="jobs-note" class="small"></p></details><h3>Instance funding and usage</h3><div id="funding" class="data-grid"></div><p class="small">Provider allocation is not a prepaid wallet balance. Lifetime Pay-As-You-Go spending limits and official invoices are authoritative. <a href="https://quantum.cloud.ibm.com/instances" target="_blank" rel="noopener noreferrer">IBM instances</a> · <a href="https://cloud.ibm.com/billing" target="_blank" rel="noopener noreferrer">IBM billing</a></p></section>
-<section class="panel"><p class="kicker">TRANSPARENCY</p><h2>Bitcoin timestamp verification</h2><p>Check existing proofs against the configured Bitcoin verifier. A saved proof alone does not release inventory. Successful verification automatically releases eligible committed batches; withdrawn stock stays withdrawn.</p><div id="checkpoints"></div><p id="proof-status" role="status" aria-live="polite"></p></section>
-<section class="panel"><p class="kicker">BUSINESS</p><h2>Contact and payments</h2><div class="data-grid" id="business"></div></section>
-<section class="panel"><p class="kicker">SYSTEM HEALTH</p><h2>Operational status</h2><div class="data-grid" id="operations"></div><div id="states"></div></section>
-</div><footer>Gnosis internal operations · UTC · private aggregates only</footer></main><script src="/admin/dashboard.js?v=2" type="module"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#faf9f5">
+  <title>Administration — Gnosis.bot</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <link rel="stylesheet" href="/admin/dashboard.css?v=3">
+  <script type="module" src="/assets/js/system-health.js?v=health-v2"></script>
+</head>
+<body class="admin-page" id="top">
+  <a class="skip-link" href="#admin-main">Skip to administration</a>
+  <header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+      <a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+      <a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>
+  </header>
+  <main class="shell" id="admin-main">
+    <div class="admin-title-row">
+      <div><p class="kicker">PRIVATE OPERATIONS</p><h1>Administration</h1></div>
+      <button id="refresh" type="button">Refresh dashboard</button>
+    </div>
+    <nav class="admin-nav" aria-label="Administration sections">
+      <a href="#contacts">Contacts</a><a href="#finance">Financials</a><a href="#readings">Readings</a>
+      <a href="#media">Media</a><a href="#credits">Credits</a><a href="#services">Services</a>
+      <a href="#inventory-panel">Inventory</a><a href="#compute">IBM</a><a href="#proofs">Proofs</a><a href="#operations-panel">Operations</a>
+    </nav>
+    <p id="status" class="live-status" role="status" aria-live="polite">Loading protected metrics…</p>
+    <div id="dashboard" hidden>
+      <div class="top-business-grid">
+        <section class="panel" id="contacts" aria-labelledby="contacts-heading">
+          <div class="section-heading"><h2 id="contacts-heading">Contacts</h2><span class="eyebrow">MESSAGES</span></div>
+          <div class="contact-count" id="contact-legacy" aria-label="Legacy contact snapshot"></div>
+          <details class="compact-disclosure">
+            <summary>Unread site submissions <span class="new-feature">Storage pending</span></summary>
+            <div class="disclosure-body"><p id="contact-unread-status">Individual form submissions are not stored by Gnosis.bot yet. The existing count is a Formspree snapshot, not an inbox.</p></div>
+          </details>
+          <div class="action-row">
+            <button id="compose-open" type="button" class="secondary">Compose email</button>
+            <button type="button" class="secondary" disabled title="Requires inbound Resend configuration and a read-only sync API">Check incoming mail (pending)</button>
+          </div>
+          <p class="small">Formspree migration and unread counts require a dedicated contact endpoint and database table.</p>
+        </section>
+        <section class="panel" id="finance" aria-labelledby="finance-heading">
+          <div class="section-heading"><h2 id="finance-heading">Financials</h2><span class="eyebrow">REVENUE / COSTS</span></div>
+          <div class="financial-lines" id="financials"></div>
+          <p class="small">Stripe revenue remains unavailable until payment integration. IBM time is not a USD expense or invoice.</p>
+        </section>
+      </div>
+      <div class="readings-split" id="readings">
+        <section class="panel" aria-labelledby="volume-title">
+          <div class="section-heading"><h2 id="volume-title">Completed readings</h2><label>UTC period <select id="days"><option value="7">7 days</option><option selected value="30">30 days</option><option value="90">90 days</option><option value="365">365 days</option></select></label></div>
+          <div class="chart-controls"><label>Series <select id="series"><option value="all">All reading types</option></select></label><span id="chart-summary"></span></div>
+          <div id="chart" class="chart"></div>
+          <p class="small">One saved completed consultation per reading. Demos, replays and individual shots are excluded.</p>
+        </section>
+        <section class="panel" aria-labelledby="stats-heading">
+          <div class="section-heading"><h2 id="stats-heading">Reading statistics</h2><span class="eyebrow">ALL-TIME + PERIOD</span></div>
+          <div class="metrics" id="summary"></div>
+          <p class="small">Inventory figures distinguish commercial commitments from stock currently enabled for service.</p>
+        </section>
+      </div>
+      <div class="secondary-grid">
+        <section class="panel" id="media" aria-labelledby="media-heading">
+          <div class="section-heading"><h2 id="media-heading">Media</h2><span class="eyebrow">OUTREACH</span></div>
+          <p class="small">Track outlet/contact, contacted status, disposition, test-code provision, and published mention URL.</p>
+          <div class="unavailable-state">Media records not yet configured. No live contacts have been imported.</div>
+        </section>
+        <section class="panel" id="credits" aria-labelledby="credits-heading">
+          <div class="section-heading"><h2 id="credits-heading">Credits</h2><span class="eyebrow">ACCOUNT + PROMOTIONS</span></div>
+          <p class="small">Unified balances and grant, assign and revoke operations will use the existing credit ledger rules and audited admin transactions.</p>
+          <div class="unavailable-state">Credit administration pending schema and invariants review. No balances are being inferred.</div>
+        </section>
+      </div>
+      <details class="panel collapsible" id="services">
+        <summary><span>Service breakdown</span><span class="summary-description">Completed readings by service · period / all time</span></summary>
+        <div class="details-body"><div class="scroll"><table><thead><tr><th>Service</th><th>Period</th><th>All time</th></tr></thead><tbody id="reading-table"></tbody></table></div></div>
+      </details>
+      <details class="panel collapsible" id="inventory-panel">
+        <summary><span>Quantum Past inventory</span><span class="summary-description">Commitments · release · provenance</span></summary>
+        <div class="details-body"><p class="small">Qualified stock may be committed but not available while a service is disabled. Verification and release are distinct from mere proof presence.</p><div class="inventory" id="inventory"></div></div>
+      </details>
+      <details class="panel collapsible" id="compute">
+        <summary><span>IBM compute and funding</span><span class="summary-description">Recorded timing · allocations · tracked jobs</span></summary>
+        <div class="details-body"><p class="small">Planning adds configurable overhead to recorded measurements, where available. IBM billed seconds, RU and USD expenses are not equivalent.</p>
+          <div class="metrics" id="ibm-summary"></div>
+          <div class="scroll"><table><thead><tr><th>Engine / type</th><th>Requests</th><th>Reading yield</th><th>Measured s</th><th>Planning s</th><th>Billed s</th><th>Planning s / reading</th><th>Billed s / reading</th></tr></thead><tbody id="ibm-groups"></tbody></table></div>
+          <details class="compact-disclosure"><summary>Individual tracked IBM jobs</summary><div class="scroll"><table><thead><tr><th>Job</th><th>Type</th><th>Readings</th><th>Measured s</th><th>Baseline s</th><th>Basis</th><th>Planning s</th><th>Billed s</th><th>RU (if recorded)</th></tr></thead><tbody id="jobs"></tbody></table></div><p id="jobs-note" class="small"></p></details>
+          <h3>Instance funding and usage</h3><div id="funding" class="data-grid"></div>
+          <p class="small">An IBM allocation is not cash credit. <a href="https://quantum.cloud.ibm.com/instances" target="_blank" rel="noopener noreferrer">IBM instances</a> · <a href="https://cloud.ibm.com/billing" target="_blank" rel="noopener noreferrer">IBM billing</a></p>
+        </div>
+      </details>
+      <details class="panel collapsible critical-disclosure" id="proofs">
+        <summary><span>Bitcoin timestamp verification</span><span class="summary-description">Proof status · potentially state-changing release</span></summary>
+        <div class="details-body"><p class="warn small"><strong>CAUTION:</strong> The verification buttons below can release eligible quantum stock. They are not read-only refresh controls.</p><div id="checkpoints"></div><p id="proof-status" role="status" aria-live="polite"></p></div>
+      </details>
+      <details class="panel collapsible" id="operations-panel">
+        <summary><span>Operational status</span><span class="summary-description">SQLite · disk · consultations · jobs · notifications</span></summary>
+        <div class="details-body"><div class="data-grid" id="operations"></div><div id="states"></div></div>
+      </details>
+    </div>
+  </main>
+  <dialog id="mail-composer" class="mail-dialog" aria-labelledby="mail-title">
+    <div class="mail-composer-content">
+      <div class="section-heading"><h2 id="mail-title">Compose email</h2><button id="compose-close" type="button" class="secondary" aria-label="Close composer">Close</button></div>
+      <label>From <input type="email" value="quantum@gnosis.bot" list="sender-presets" pattern="[A-Za-z0-9._%+-]+@gnosis\.bot" autocomplete="off" aria-describedby="sender-help"><datalist id="sender-presets"><option value="quantum@gnosis.bot"></option><option value="readings@gnosis.bot"></option><option value="support@gnosis.bot"></option></datalist></label>
+      <p id="sender-help" class="small">Any valid @gnosis.bot sender; verified domain and server-side validation required before sending.</p>
+      <label>To <input type="email" placeholder="recipient@example.com"></label>
+      <label>Subject <input type="text" maxlength="250"></label>
+      <label>Message <textarea rows="8"></textarea></label>
+      <p class="small">Preview only. Sending is disabled until an authenticated, audited Resend admin endpoint is implemented.</p>
+      <button type="button" disabled>Send (integration pending)</button>
+    </div>
+  </dialog>
+  <footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span><a href="https://markbailey.love">CREATOR</a><a href="https://github.com/ma-da/gnosisbot">GITHUB</a><a href="#top">TOP ↑</a>
+  </footer>
+  <script src="/admin/dashboard.js?v=3" type="module"></script>
+</body>
+</html>
