@@ -28,3 +28,136 @@ $('refresh').addEventListener('click',load);$('days').addEventListener('change',
 const composer=$('mail-composer');
 $('compose-open')?.addEventListener('click',()=>composer?.showModal());
 $('compose-close')?.addEventListener('click',()=>composer?.close());
+
+// Phase 2: encrypted native messages and manually gated email tools.
+let contactOffset=0, contactBusy=false, currentSendEnabled=false;
+const node=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=text;if(cls)x.className=cls;return x;};
+const mailStatus=s=>{$('mail-feedback').textContent=s;};
+
+async function loadContacts({more=false}={}){
+  if(contactBusy)return;contactBusy=true;
+  if(!more){contactOffset=0;$('site-contact-list').replaceChildren();}
+  $('contact-unread-status').textContent='Loading contact submissions…';
+  try{
+    const p=await request('/api/v1/admin/contact-messages?limit=50&offset='+contactOffset);
+    if(!p.configured){
+      $('contact-native-summary').textContent='Native site inbox: not enabled';
+      $('contact-unread-count').textContent='— unread';
+      $('contact-unread-status').textContent='Contact storage is disabled pending migration and activation; Formspree remains live.';
+      $('site-contact-more').hidden=true;return;
+    }
+    $('contact-native-summary').textContent=`Native submissions: ${fmt(p.counts.total)} total · ${fmt(p.counts.unread)} unread`;
+    $('contact-unread-count').textContent=`${fmt(p.counts.unread)} unread`;
+    $('contact-unread-status').textContent=p.messages.length?'Unread items appear in black; use the controls to mark reviewed or archive.':'No messages in this page.';
+    for(const message of p.messages){
+      const item=node('details',undefined,'contact-message'+(!message.read_at&&!message.archived_at?' contact-message--unread':''));
+      const head=node('summary');
+      head.append(node('span',message.name),node('time',message.created_at.slice(0,16).replace('T',' ')+' UTC'));
+      if(message.archived_at)head.append(node('span','Archived','contact-mini-tag'));
+      item.append(head);
+      const content=node('div',undefined,'contact-message-body');
+      content.append(node('div',message.email,'contact-message-email'),node('p',message.message,'contact-message-text'));
+      const actions=node('div',undefined,'action-row');
+      const readButton=node('button',message.read_at?'Mark unread':'Mark read','secondary');
+      readButton.type='button';
+      readButton.addEventListener('click',async()=>{
+        readButton.disabled=true;
+        try{await request('/api/v1/admin/contact-messages/'+message.id+'/state',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:message.read_at?'mark_unread':'mark_read'})
+        });await loadContacts();}catch(e){$('contact-unread-status').textContent=e.message;readButton.disabled=false;}
+      });
+      const archiveButton=node('button',message.archived_at?'Restore':'Archive','secondary');
+      archiveButton.type='button';
+      archiveButton.addEventListener('click',async()=>{
+        archiveButton.disabled=true;
+        try{await request('/api/v1/admin/contact-messages/'+message.id+'/state',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:message.archived_at?'restore':'archive'})
+        });await loadContacts();}catch(e){$('contact-unread-status').textContent=e.message;archiveButton.disabled=false;}
+      });
+      const replyButton=node('button','Reply by email','secondary');replyButton.type='button';
+      replyButton.addEventListener('click',()=>{
+        composer.dataset.contactId=message.id;
+        $('mail-to').value=message.email;
+        $('mail-from').value='support@gnosis.bot';
+        $('mail-subject').value='Re: Your message to Gnosis.bot';
+        $('mail-message').value='';
+        composer.showModal();
+      });
+      actions.append(readButton,archiveButton,replyButton);
+      content.append(actions);item.append(content);$('site-contact-list').append(item);
+    }
+    contactOffset+=p.messages.length;
+    $('site-contact-more').hidden=!p.has_more;
+  }catch(e){$('contact-unread-status').textContent=e.message;$('site-contact-more').hidden=true;
+  }finally{contactBusy=false;}
+}
+
+async function loadMailConfig(){
+  try{
+    const p=await request('/api/v1/admin/mail/config');
+    currentSendEnabled=Boolean(p.sending_enabled);
+    $('mail-send').disabled=!currentSendEnabled;
+    mailStatus(currentSendEnabled?'Ready for manual sending. Confirm recipients before sending.':'Sending disabled until Resend admin access is verified and enabled.');
+    $('incoming-status').textContent=p.incoming_enabled?'Click Check incoming mail to list the latest received messages.':'Incoming Resend retrieval is not configured.';
+  }catch(e){currentSendEnabled=false;$('mail-send').disabled=true;mailStatus(e.message);}
+}
+
+$('site-contact-more')?.addEventListener('click',()=>loadContacts({more:true}));
+$('refresh')?.addEventListener('click',()=>{loadContacts();loadMailConfig();});
+$('compose-open')?.addEventListener('click',()=>{
+  delete composer.dataset.contactId;
+  $('mail-from').value='quantum@gnosis.bot';
+  $('mail-to').value='';$('mail-subject').value='';$('mail-message').value='';
+});
+$('mail-send')?.addEventListener('click',async()=>{
+  if(!currentSendEnabled)return;
+  const p={from_address:$('mail-from').value.trim(),to_address:$('mail-to').value.trim(),
+    subject:$('mail-subject').value.trim(),message:$('mail-message').value,
+    contact_message_id:composer.dataset.contactId||null};
+  if(!p.from_address||!p.to_address||!p.subject||!p.message.trim()){
+    mailStatus('Complete all fields before sending.');return;
+  }
+  if(!window.confirm(`Send this email from ${p.from_address} to ${p.to_address}?`))return;
+  $('mail-send').disabled=true;mailStatus('Submitting to Resend…');
+  try{
+    const result=await request('/api/v1/admin/mail/send',{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
+    mailStatus(result.status==='sent'?`Accepted by Resend (${result.provider_message_id}); delivery not yet confirmed.`:
+      `Send outcome requires review (${result.mail_id}). Do not send again automatically.`);
+    if(result.status==='sent'){$('mail-message').value='';delete composer.dataset.contactId;}
+  }catch(e){mailStatus(e.message+' · If a send was attempted, check the audit before retrying.');
+  }finally{$('mail-send').disabled=!currentSendEnabled;}
+});
+
+$('incoming-check')?.addEventListener('click',async()=>{
+  $('incoming-disclosure').open=true;
+  $('incoming-status').textContent='Checking Resend incoming mail…';
+  $('incoming-list').replaceChildren();
+  $('incoming-check').disabled=true;
+  try{
+    const response=await request('/api/v1/admin/mail/incoming?limit=30');
+    if(!response.configured){$('incoming-status').textContent='Resend receiving and an inbound read key are not configured.';return;}
+    $('incoming-status').textContent=`${response.messages.length} received emails from the current page (provider snapshot on request).`;
+    for(const item of response.messages){
+      const container=node('details',undefined,'contact-message');
+      const summary=node('summary',`${item.subject||'(No subject)'} · ${item.from||'Unknown sender'} · ${(item.created_at||'').slice(0,16)}`);
+      const content=node('div',undefined,'contact-message-body');
+      const t=node('p','Recipient: '+(item.to||[]).join(', '));
+      const body=node('p','Open to retrieve plain-text content.','contact-message-text');
+      let fetched=false;
+      container.addEventListener('toggle',async()=>{
+        if(!container.open||fetched)return;fetched=true;
+        try{const message=await request('/api/v1/admin/mail/incoming/'+encodeURIComponent(item.id));
+          const m=message.messages?.[0];body.textContent=m?(m.text_available?m.text:'No plain-text body available; HTML not rendered.'):'Message not available for gnosis.bot';
+        }catch(e){body.textContent=e.message;}
+      });
+      content.append(t,body);container.append(summary,content);$('incoming-list').append(container);
+    }
+  }catch(e){$('incoming-status').textContent=e.message;
+  }finally{$('incoming-check').disabled=false;}
+});
+
+loadContacts();
+loadMailConfig();

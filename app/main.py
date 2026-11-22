@@ -14,6 +14,9 @@ ROOT=Path(__file__).resolve().parent
 app=FastAPI(title='gnosis.bot',version='0.10.0-alpha.1',description='Gnosis research alpha: I Ching and Elder Futhark')
 app.include_router(router)
 app.include_router(system_router)
+# Native public contact endpoint; writes only if separately enabled.
+from gnosis_platform.site_contact_api import router as site_contact_router
+app.include_router(site_contact_router)
 if os.environ.get('GNOSIS_ENABLE_ACCOUNTS_API') == '1':
     app.include_router(accounts_router)
     app.include_router(consultations_router)
@@ -22,6 +25,8 @@ if os.environ.get('GNOSIS_ENABLE_ACCOUNTS_API') == '1':
     # Gnosis admin dashboard: authorization checked per request.
     from gnosis_platform.admin_api import router as gnosis_admin_router
     app.include_router(gnosis_admin_router)
+    from gnosis_platform.admin_contacts_api import router as admin_contacts_router
+    app.include_router(admin_contacts_router)
 
 app.mount('/assets',StaticFiles(directory=ROOT/'static'),name='assets')
 
