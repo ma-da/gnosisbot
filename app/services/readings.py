@@ -9,11 +9,12 @@ DATA=Path(__file__).resolve().parents[1]/'data'
 def sample_data():
     return json.loads((DATA/'ibm_demo_128.json').read_text(encoding='utf-8'))
 
-@lru_cache(maxsize=1)
 def interpretation_data():
-    return json.loads((DATA/'interpretations.json').read_text(encoding='utf-8'))
+    # Use the validated, version-sensitive corpus cache; no stale demo catalog.
+    from .corpus import corpus
+    return corpus()
 
-@lru_cache(maxsize=1)
+
 def interpretation_by_number():
     return {int(h['king_wen_number']):h for h in interpretation_data()['hexagrams']}
 

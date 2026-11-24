@@ -14,7 +14,8 @@ import {GnosisViz} from './viz.js?v=0.6';
 import {GnosisInterference} from './interference.js?v=0.6';
 import {clusterReadings} from './clusters.js?v=0.6';
 
-import {initConsultation} from './consultation-modal.js?v=2';
+import {initConsultation} from './consultation-modal.js?v=research-consent-v1';
+import {renderTraditionExplorer} from './traditions-explorer.js?v=gnosis-dual-traditions-v1';
 import {lookupConsultationAccount} from './consultation-auth.js?v=1';
 import './oracle-account-status.js?v=1'; // Session badge; avoids HTML patch
 const $ = id => document.getElementById(id);
@@ -52,6 +53,50 @@ let consultationStarted = false;
 let currentInquiry = null; // Ephemeral local context; never affects randomness.
 
 const hexByBits = new Map();
+
+// Explicit, anonymous Classic opt-in. No request occurs when unchecked.
+// A client-side browser cast is not an independently verified measurement.
+function classicResearchStatus(message, state='info') {
+  let node = $('classic-research-status');
+  if (!node && $('reading-sections')) {
+    node = document.createElement('p');
+    node.id = 'classic-research-status';
+    node.className = 'classic-research-status';
+    node.setAttribute('role', 'status');
+    node.setAttribute('aria-live', 'polite');
+    $('reading-sections').after(node);
+  }
+  if (node) { node.textContent = message; node.hidden = !message; node.dataset.state = state; }
+}
+
+async function recordClassicResearchOptIn(wrapper, inquiry) {
+  const submissionKey = crypto.randomUUID();
+  const payload = {
+    submission_key: submissionKey,
+    question: inquiry.question,
+    inquiry_style: inquiry.inquiryStyle || 'direct',
+    line_values: wrapper.reading.line_values_bottom_to_top,
+    research_publication_consent: true
+  };
+  classicResearchStatus('Saving your opted-in question for research review…');
+  try {
+    const response = await fetch('/api/v1/research/classic-optin', {
+      method: 'POST', credentials: 'omit', cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const receipt = await response.json().catch(() => ({}));
+    if (!response.ok || receipt.recorded !== true || !receipt.submission_id)
+      throw new Error('Research intake did not confirm storage');
+    if (current === wrapper)
+      classicResearchStatus('Your question was saved for research review; it has not been published.', 'saved');
+  } catch (error) {
+    console.warn('Classic research opt-in was not saved:', error);
+    if (current === wrapper)
+      classicResearchStatus('Research opt-in could not be saved; your reading is unaffected. No question was published.', 'error');
+  }
+}
+
 const viz = window.d3 ? new GnosisViz($('visual')) : null;
 const spectrum = window.d3
   ? new GnosisInterference($('interference'), i => liveIbmBatch ? openIbmAlternative(i) : loadArchived(i))
@@ -203,6 +248,7 @@ function render(which){
   text('historical', interpretation.historical_core || '');
   text('advice', interpretation.advice || '');
   text('shadow', interpretation.shadow || '');
+  renderTraditionExplorer({interpretation, reading, phase: which});
   updateControls();
 }
 
@@ -667,6 +713,9 @@ function startClassic(){
   try{
     const wrapper = localThrow();
     current = wrapper;
+    if (currentInquiry?.mode === 'classic' && currentInquiry.researchPublicationConsent === true) {
+      void recordClassicResearchOptIn(wrapper, currentInquiry);
+    }
     revealedNow = true;
     revealingNow = false;
     phase = 'now';
@@ -687,6 +736,7 @@ function startClassic(){
 }
 
 function selectMode(next){
+  classicResearchStatus('');
   // Leaving a stored IBM reading clears its alternative-shot view, and restores
   // the original demonstration cluster map so pulses never refer to stale shots.
   if(liveIbmBatch && previousArchiveClusters){
@@ -833,7 +883,7 @@ async function bootstrap(){
             idempotency_key:crypto.randomUUID(),
             question:inquiry.question || '',
             inquiry_style:inquiry.inquiryStyle || 'direct',
-            research_publication_consent:false
+            research_publication_consent:inquiry.researchPublicationConsent === true
           })
         });
         const data = await response.json().catch(() => ({}));
@@ -868,7 +918,7 @@ async function bootstrap(){
             idempotency_key:crypto.randomUUID(),
             question:inquiry.question || '',
             inquiry_style:inquiry.inquiryStyle || 'direct',
-            research_publication_consent:false
+            research_publication_consent:inquiry.researchPublicationConsent === true
           })
         });
         const data = await response.json().catch(() => ({}));
@@ -887,7 +937,7 @@ async function bootstrap(){
             idempotency_key: crypto.randomUUID(),
             question: inquiry.question || '',
             inquiry_style: inquiry.inquiryStyle || 'direct',
-            research_publication_consent: false
+            research_publication_consent: inquiry.researchPublicationConsent === true
           })
         });
         const data = await response.json().catch(() => ({}));
@@ -900,8 +950,9 @@ async function bootstrap(){
       }
       if (inquiry.mode !== 'classic') return false; // Paid IBM modes not connected yet.
       // The question and inquiry style are context only, not input to the RNG.
-      // Kept in browser memory until an explicit backend recording contract exists.
-      currentInquiry = { question: inquiry.question, inquiryStyle: inquiry.inquiryStyle, mode: inquiry.mode };
+      // Private by default; only explicitly opted-in Classic questions are recorded.
+      currentInquiry = { question: inquiry.question, inquiryStyle: inquiry.inquiryStyle,
+        researchPublicationConsent: inquiry.researchPublicationConsent === true, mode: inquiry.mode };
       consultationStarted = true;
       selectMode('standard'); // Existing browser-crypto cast and Now reveal.
       return true;

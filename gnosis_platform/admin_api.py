@@ -49,3 +49,52 @@ def btc_check(size:int):
     except LookupError as e:raise HTTPException(404,'Unknown checkpoint') from e
     except (ValueError,OSError) as e:raise HTTPException(409,'Checkpoint or proof is missing, changed, or invalid') from e
     finally:lock.release()
+
+
+# File-backed interpretation editor (same authenticated admin authorization).
+@router.get('/admin/interpretations/',include_in_schema=False)
+def interpretation_editor_page():
+    return FileResponse(ui/'editor.html',headers=HEADERS)
+
+@router.get('/admin/editor.css',include_in_schema=False)
+def interpretation_editor_css():
+    return FileResponse(ui/'editor.css',media_type='text/css',headers=HEADERS)
+
+@router.get('/admin/editor.js',include_in_schema=False)
+def interpretation_editor_js():
+    return FileResponse(ui/'editor.js',media_type='text/javascript',headers=HEADERS)
+
+# Contacts UI assets inherit the existing admin authentication and no-store headers.
+@router.get('/admin/contacts.js',include_in_schema=False)
+def contacts_js():
+    return FileResponse(ui/'contacts.js',media_type='text/javascript',headers=HEADERS)
+
+@router.get('/admin/contacts.css',include_in_schema=False)
+def contacts_css():
+    return FileResponse(ui/'contacts.css',media_type='text/css',headers=HEADERS)
+
+# Media CRM assets inherit per-request admin auth and private security headers.
+@router.get('/admin/media.js',include_in_schema=False)
+def media_js():
+    return FileResponse(ui/'media.js',media_type='text/javascript',headers=HEADERS)
+
+@router.get('/admin/media.css',include_in_schema=False)
+def media_css():
+    return FileResponse(ui/'media.css',media_type='text/css',headers=HEADERS)
+
+@router.get('/admin/credits.js',include_in_schema=False)
+def credits_js():
+    return FileResponse(ui/'credits.js',media_type='text/javascript',headers=HEADERS)
+
+@router.get('/admin/credits.css',include_in_schema=False)
+def credits_css():
+    return FileResponse(ui/'credits.css',media_type='text/css',headers=HEADERS)
+
+# All finance assets require per-request administrator authentication.
+@router.get('/admin/finance.js',include_in_schema=False)
+def financials_js():
+    return FileResponse(ui/'finance.js',media_type='text/javascript',headers=HEADERS)
+
+@router.get('/admin/finance.css',include_in_schema=False)
+def financials_css():
+    return FileResponse(ui/'finance.css',media_type='text/css',headers=HEADERS)

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Interpretation Editor — Gnosis.bot</title>
+<link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
+<link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+<link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+<script type="module" src="/assets/js/system-health.js?v=health-v2"></script>
+<link rel="stylesheet" href="/admin/editor.css?v=2">
+</head>
+<body class="editor-page" id="top">
+<a class="skip-link" href="#editor-main">Skip to editor</a>
+<header class="topbar home-topbar gnosis-site-header">
+<a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+<nav class="home-nav" aria-label="Primary navigation">
+<a href="/quantum-oracle.html">I Ching</a><a href="/rune-oracle.html">Elder Futhark</a>
+<a href="/account.html">Account</a><a href="/research.html">Research</a><a href="/admin/">Admin</a>
+</nav>
+<button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>
+</header>
+<main id="editor-main" class="editor-shell">
+<div class="editor-top"><div><p class="editor-kicker">PRIVATE OPERATIONS · VERSIONED EDITORIAL CORPUS</p><h1>I Ching interpretation editor</h1>
+<p class="editor-intro">Review 192 tradition records; edit modern synthesis, not classical source texts. Draft edits remain private until an explicit, validated corpus-wide release.</p></div>
+<a class="editor-back" href="/admin/">Back to dashboard</a></div>
+<div class="editor-publication panel" id="editor-publication">
+<div class="editor-publication-top"><div><p class="editor-kicker">GLOBAL CORPUS VERSION</p><h2>Publish complete I Ching corpus</h2>
+<p>One release version covers all 64 hexagrams and 192 editorial records. Only explicitly approved changes are included; other drafts remain private.</p></div>
+<div class="editor-publication-actions"><button id="preview-release" type="button">Validate release</button><button id="publish-release" type="button" disabled>Publish corpus</button></div></div>
+<p id="release-status" role="status" aria-live="polite">Checking publication readiness…</p>
+<div id="release-preview" class="release-preview"></div>
+<details class="editor-fold"><summary>Previously published versions and before/after checksums</summary><div id="release-history" class="release-history"></div></details>
+</div>
+<div id="editor-progress" class="editor-progress" aria-live="polite">Loading review progress…</div>
+<div class="editor-layout">
+<aside class="editor-sidebar" aria-label="Hexagram browser">
+<label for="hex-search">Find a hexagram</label><input id="hex-search" type="search" placeholder="Number, name, keyword…" maxlength="120">
+<div id="hex-list" class="hex-list" role="list"></div>
+</aside>
+<section class="editor-workspace" aria-labelledby="record-title">
+<div class="editor-workspace-head"><div><p class="editor-kicker" id="record-subtitle">SELECT A HEXAGRAM</p><h2 id="record-title">—</h2></div>
+<div class="editor-traditions" role="group" aria-label="Tradition">
+<button type="button" data-tradition="classical">Classical</button>
+<button type="button" data-tradition="taoist" class="active">Taoist</button>
+<button type="button" data-tradition="confucian">Confucian</button>
+</div></div>
+<div id="editor-feedback" role="status" aria-live="polite"></div>
+<div id="editor-meta" class="editor-meta"></div>
+<div id="editor-fields"></div>
+<div class="editor-actions">
+<button id="save-draft" type="button" disabled>Save draft</button>
+<button id="mark-reviewed" type="button" disabled>Mark reviewed</button>
+<button id="approve-record" type="button" disabled>Approve record</button>
+<button id="unapprove-record" type="button" disabled>Revoke approval</button>
+<span id="unsaved-hint"></span>
+</div>
+<details id="editor-compare" class="editor-fold" open><summary>Preview and changes vs. published text</summary>
+<div id="editor-preview" class="editor-preview"></div><div id="editor-diff" class="editor-diff"></div>
+</details>
+<details id="editor-history" class="editor-fold"><summary>Revision history and restoration</summary>
+<div id="editor-history-list"></div></details>
+<details class="editor-fold"><summary>Publication and source protection</summary>
+<p>Classical Chinese, original translations, evidence, source hashes and line order remain protected. Publishing requires explicit approval, verified record-hash generation, complete release validation and a backed-up, timestamped global version event.</p>
+</details>
+</section></div>
+</main>
+<footer class="home-footer gnosis-site-footer"><span>© GNOSIS.BOT</span><a href="https://markbailey.love">CREATOR</a><a href="https://github.com/ma-da/gnosisbot">GITHUB</a><a href="#top">TOP ↑</a></footer>
+<script type="module" src="/admin/editor.js?v=2"></script>
+</body>
+</html>

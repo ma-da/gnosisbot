@@ -57,13 +57,14 @@ def submit(db, *, name, email, message):
 
 def counts(db):
     values=db.execute('''SELECT count(*) AS n, SUM(CASE WHEN read_at IS NULL AND archived_at IS NULL THEN 1 ELSE 0 END) AS unread
-       FROM gnosis_site_contact_messages''').fetchone()
+       FROM gnosis_site_contact_messages WHERE deleted_at IS NULL''').fetchone()
     return {'total':values['n'],'unread':values['unread'] or 0}
 
 
 def list_messages(db, *, offset=0, limit=50):
     key=cipher()
     rows=db.execute('''SELECT * FROM gnosis_site_contact_messages
+      WHERE deleted_at IS NULL
       ORDER BY (CASE WHEN archived_at IS NULL AND read_at IS NULL THEN 0
                      WHEN archived_at IS NULL THEN 1 ELSE 2 END), created_at DESC, message_id DESC
       LIMIT ? OFFSET ?''',(limit,offset)).fetchall()
@@ -77,17 +78,31 @@ def list_messages(db, *, offset=0, limit=50):
             'created_at':r['created_at'], 'read_at':r['read_at'], 'archived_at':r['archived_at']
         })
     return {'counts':counts(db),'messages':result,'offset':offset,'limit':limit,
-            'has_more': db.execute('SELECT count(*) FROM gnosis_site_contact_messages').fetchone()[0] > offset+len(rows)}
+            'has_more': db.execute('SELECT count(*) FROM gnosis_site_contact_messages WHERE deleted_at IS NULL').fetchone()[0] > offset+len(rows)}
 
 
 def change_state(db, *, message_id, actor_account_id, action):
-    if action not in ('mark_read','mark_unread','archive','restore'):
+    if action not in ('mark_read','mark_unread','archive','restore','delete'):
         raise ValueError('Unknown action')
     now=stamp()
     db.execute('BEGIN IMMEDIATE')
     try:
-        before=db.execute('SELECT read_at, archived_at FROM gnosis_site_contact_messages WHERE message_id=?',(message_id,)).fetchone()
-        if before is None: raise LookupError('Message missing')
+        before=db.execute('SELECT read_at, archived_at, deleted_at FROM gnosis_site_contact_messages WHERE message_id=?',(message_id,)).fetchone()
+        if before is None or before['deleted_at'] is not None: raise LookupError('Message missing')
+        if action=='delete':
+            # Erase the locally stored encrypted personal fields; preserve only a
+            # pseudonymous row ID so existing audit and outbound FK links remain valid.
+            updated=db.execute('''UPDATE gnosis_site_contact_messages
+               SET name_ciphertext=X'', email_ciphertext=X'', message_ciphertext=X'',
+                   email_digest=lower(hex(randomblob(32))), deleted_at=?,
+                   read_at=COALESCE(read_at,?), archived_at=COALESCE(archived_at,?)
+               WHERE message_id=? AND deleted_at IS NULL''',(now,now,now,message_id))
+            if updated.rowcount:
+                db.execute('''INSERT INTO gnosis_admin_site_contact_deletions
+                   (message_id,actor_account_id,deleted_at) VALUES(?,?,?)''',
+                   (message_id,actor_account_id,now))
+            db.commit()
+            return {'changed':bool(updated.rowcount),'counts':counts(db)}
         if action=='mark_read':
             updated=db.execute('UPDATE gnosis_site_contact_messages SET read_at=? WHERE message_id=? AND read_at IS NULL',(now,message_id))
         elif action=='mark_unread':

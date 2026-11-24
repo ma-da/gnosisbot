@@ -1,0 +1,60 @@
+/* GNOSIS.BOT / account commerce & targeted information, UI-only v1.
+   All content is beneath authenticated account UI; never enable payment without a server quote. */
+.account-page .gnosis-credit-store,
+.account-page .gnosis-account-messages {
+  border: 1px solid var(--account-edge, #e0e3e0);
+  background: var(--account-paper, #fff);
+  padding: clamp(14px, 2.25vw, 23px);
+  margin: 0 0 17px;
+  color: var(--account-ink, #202527);
+  min-width: 0;
+  border-radius: 0;
+}
+.account-page .gnosis-credit-head,
+.account-page .gnosis-message-head {display:flex;align-items:flex-start;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;margin-bottom:15px}
+.account-page :is(.gnosis-credit-head,.gnosis-message-head) h3 {font:650 20px/1.22 var(--font-body,'DM Sans',sans-serif);letter-spacing:-.035em;margin:0 0 4px}
+.account-page :is(.gnosis-credit-head,.gnosis-message-head) p {font-size:12px;line-height:1.55;margin:0;color:var(--account-muted,#707779)}
+.account-page .gnosis-credit-eyebrow{font:700 10px/1.5 var(--font-display,'Space Mono',monospace)!important;letter-spacing:.1em;color:var(--account-muted,#707779);margin:0 0 5px!important}
+.account-page .gnosis-credit-state{font:500 10px/1.5 var(--font-display,'Space Mono',monospace);color:var(--account-muted,#707779);padding-top:4px}
+.account-page .gnosis-credit-grid {display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:20px;align-items:start}
+.account-page .gnosis-credit-fieldset {border:0;padding:0;margin:0 0 14px;min-width:0}
+.account-page .gnosis-credit-fieldset legend,
+.account-page .gnosis-credit-review h4 {font:650 12px/1.4 var(--font-body,'DM Sans',sans-serif);color:var(--account-ink,#202527);margin-bottom:7px}
+.account-page .gnosis-credit-methods {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.account-page .gnosis-credit-method {display:flex;align-items:center;gap:7px;min-height:58px;min-width:0;padding:10px;border:1px solid var(--account-edge,#e0e3e0);cursor:pointer;font-size:12px;line-height:1.25;background:var(--account-paper,#fff)}
+.account-page .gnosis-credit-method:has(input:checked) {border-color:var(--account-accent,#00bfb2);box-shadow:inset 0 -2px var(--account-accent,#00bfb2)}
+.account-page .gnosis-credit-method:has(input:disabled) {opacity:.55;cursor:not-allowed}
+.account-page .gnosis-credit-method input {accent-color:var(--account-accent,#028090);margin:0;flex:none}
+.account-page .gnosis-credit-method strong {display:block;font-weight:650;overflow-wrap:anywhere}
+.account-page .gnosis-credit-method small{display:block;font-size:10px;color:var(--account-muted,#707779);margin-top:2px}
+.account-page .gnosis-credit-offers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.account-page .gnosis-credit-offer {text-align:left;min-width:0;padding:9px 11px;border:1px solid var(--account-edge,#e0e3e0);background:var(--account-paper,#fff);font:600 12px/1.4 var(--font-body,'DM Sans',sans-serif)}
+.account-page .gnosis-credit-offer span{display:block;color:var(--account-muted,#707779);font-size:10px;font-weight:400;margin-top:3px}
+.account-page .gnosis-credit-offer[aria-pressed='true']{border-color:var(--account-accent,#028090);box-shadow:inset 0 -2px var(--account-accent,#028090)}
+.account-page .gnosis-credit-offer:disabled {opacity:.55}
+.account-page .gnosis-credit-empty{border:1px dashed var(--account-edge,#e0e3e0);font-size:12px;line-height:1.6;color:var(--account-muted,#707779);padding:13px;grid-column:1/-1;margin:0}
+.account-page .gnosis-credit-review {border-left:1px solid var(--account-edge,#e0e3e0);padding-left:20px;min-width:0}
+.account-page .gnosis-credit-review h4 {margin:0 0 9px}
+.account-page .gnosis-credit-total{font:650 clamp(22px,3vw,29px)/1.2 var(--font-body,'DM Sans',sans-serif);letter-spacing:-.04em;margin:3px 0 8px}
+.account-page .gnosis-credit-summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;font-size:12px;margin:0 0 13px}
+.account-page .gnosis-credit-summary dt {color:var(--account-muted,#707779)}
+.account-page .gnosis-credit-summary dd {text-align:right;margin:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.account-page .gnosis-credit-policy {font-size:11px;line-height:1.65;color:var(--account-secondary,#4d5658);margin:0 0 11px}
+.account-page .gnosis-credit-refund{border-left:2px solid var(--account-edge,#e0e3e0);padding-left:9px;font-size:11px;line-height:1.55;color:var(--account-secondary,#4d5658);margin:0 0 11px;white-space:pre-wrap}
+.account-page .gnosis-credit-agreement {display:flex;align-items:start;gap:8px;font-size:12px;line-height:1.55;margin:0 0 10px}
+.account-page .gnosis-credit-agreement input {accent-color:var(--account-accent,#028090);margin:3px 0 0;flex:none}
+.account-page :is(.gnosis-credit-agreement,.gnosis-credit-policy) a {color:var(--account-secondary,#4d5658);text-decoration:underline;text-underline-offset:2px}
+.account-page .gnosis-credit-submit{width:100%;min-height:41px;background:var(--account-ink,#202527);border:1px solid var(--account-ink,#202527);color:#fff;font:650 12px/1.4 var(--font-body,'DM Sans',sans-serif);padding:10px 12px}
+.account-page .gnosis-credit-submit:disabled{opacity:.48}
+.account-page .gnosis-credit-status{font-size:11px;line-height:1.55;color:var(--account-muted,#707779);margin:8px 0 0;min-height:17px}
+.account-page .gnosis-credit-status[data-error='true']{color:#9e344b}
+.account-page .gnosis-account-messages{margin:24px 0 0}
+.account-page .gnosis-message-items {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.account-page .gnosis-message-item{border-top:1px solid var(--account-edge,#e0e3e0);padding:12px 0 2px;min-width:0}
+.account-page .gnosis-message-item h4{font-size:14px;margin:0 0 4px;font-weight:650}
+.account-page .gnosis-message-item p{font-size:12px;line-height:1.6;white-space:pre-wrap;margin:0 0 7px;color:var(--account-secondary,#4d5658);overflow-wrap:anywhere}
+.account-page .gnosis-message-item small{color:var(--account-muted,#707779);font:400 10px/1.4 var(--font-display,'Space Mono',monospace)}
+.account-page .gnosis-message-item a{font-size:12px;color:var(--account-ink,#202527);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.account-page .gnosis-message-placeholder{margin:0;font-size:12px;color:var(--account-muted,#707779)}
+@media(max-width:760px){.account-page .gnosis-credit-grid{grid-template-columns:1fr;gap:14px}.account-page .gnosis-credit-review{border-left:0;border-top:1px solid var(--account-edge,#e0e3e0);padding:14px 0 0}}
+@media(max-width:480px){.account-page .gnosis-credit-methods{grid-template-columns:1fr}.account-page .gnosis-credit-method{min-height:48px}.account-page .gnosis-message-items{grid-template-columns:1fr}.account-page .gnosis-credit-offers{grid-template-columns:repeat(2,minmax(0,1fr))}}

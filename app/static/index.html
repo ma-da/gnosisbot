@@ -42,6 +42,11 @@
   <script type="module" src="/assets/js/system-health.js?v=health-v2"></script>
   <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
   <!-- GNOSIS SHARED SHELL V2 END -->
+  <link rel="stylesheet" href="/assets/css/legal.css?v=1">
+  <link rel="stylesheet" href="/assets/css/legal-modal.css?v=1">
+  <script defer src="/assets/js/legal-modal.js?v=ai-policy-v1"></script>
+  <link rel="stylesheet" href="/assets/css/site-header-unified.css?v=unified-v1.1">
+  <script defer src="/assets/js/site-header-unified.js?v=unified-v1"></script>
 </head>
 <body class="home-page" id="top">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -197,7 +202,7 @@
         </a>
 
 
-        <div class="home-tile home-tile--spiral visually-hidden" aria-label="Explore future applications via a golden-ratio spiral">
+        <div class="home-tile home-tile--spiral" hidden aria-label="Explore future applications via a golden-ratio spiral">
           <svg class="golden-spiral" id="golden-spiral" viewBox="0 0 520 286" role="group" aria-label="Interactive golden-ratio spiral with seven future application segments">
 
             <g id="spiral-segments"></g>
@@ -215,9 +220,8 @@
         <a class="home-text-link" href="/quantum-oracle.html">Consult Unseen Forces <span aria-hidden="true">↗</span></a>
       </div>
       <div class="home-intro-copy">
-        <p>Can consciousness and intention influence the quantum field? We're not sure, but gnosis.bot makes it possible to ask this question by actually taking hardware readings of the quantum field and documenting any anomalies that might arise.</p>
-								<p>The Quantum I Ching Oracle honors the traditional six-line, three-coin I Ching casting, but adds a modern twist. The coin tosses and changing-line calculations are represented by actual qubits.</p>
-        <p>I developed and tested circuits with Qiskit on IBM quantum hardware, measuring coin states and independently checking the additional quantum moving-line flags. The readings retain the traditional <em>Now → Becoming</em> structure, and the interface makes its physical measurements and their imperfections visible.</p>
+        <p>Can human consciousness and intention influence the quantum field? We're not sure, but gnosis.bot makes it possible to ask this question by actually taking hardware readings of the quantum field and documenting any anomalies that might arise.</p>
+								<p>This site is in active alpha stage development. Please report any bugs you encounter using the contact form.</p>
       </div>
 
 						<!-- Gnosis quantum oracle signal flow diagram -->
@@ -268,7 +272,8 @@
         <p class="eyebrow">02 / ABOUT</p>
         <h2 id="about-heading">About</h2>
       </div>
-      <div class="home-stub"><p>More about this project and its other experiments will appear here.</p></div>
+      <div class="home-stub"><p><p>The Quantum I Ching Oracle honors the traditional six-line, three-coin I Ching casting, but adds a modern twist. The coin tosses and changing-line calculations are represented by actual qubits.</p>
+						<p>I developed and tested circuits with Qiskit on IBM quantum hardware, measuring coin states and independently checking the additional quantum moving-line flags. The readings retain the traditional <em>Now → Becoming</em> structure.</p><p>I Ching interpretations are synthesized DeepSeek translations of original source material.</p><p>The Elder Futhark rune readings are computed on 2 quantum circuits, one simulating pouch draw and the other the casting of sticks.</p><p>Elder Futhark rune interpretations are purely human, based on lore from mixed sources.</p></p></div>
     </section>
 
     <section class="home-section home-contact" id="contact" aria-labelledby="contact-heading">
@@ -276,10 +281,10 @@
         <p class="eyebrow">GET IN TOUCH</p>
         <h2 id="contact-heading">Send me a message.</h2>
       </div>
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/mzedaqwp" method="POST">
+      <form class="contact-form" id="contact-form" action="/api/v1/contact" method="POST">
         <label class="contact-field">
           <span>Name</span>
-          <input type="text" name="name" autocomplete="name" required>
+          <input type="text" name="name" autocomplete="name" maxlength="120" required>
         </label>
         <label class="contact-field">
           <span>Email</span>
@@ -287,19 +292,28 @@
         </label>
         <label class="contact-field contact-field--message">
           <span>Message</span>
-          <textarea name="message" rows="8" required></textarea>
+          <textarea name="message" rows="8" maxlength="5000" required></textarea>
         </label>
+        <input type="text" name="website" autocomplete="off" tabindex="-1" hidden aria-hidden="true">
         <button class="contact-submit" type="submit">SEND MESSAGE <span aria-hidden="true">→</span></button>
+      
+    <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
       </form>
+      <p id="contact-native-status" role="status" aria-live="polite" hidden></p>
     </section>
   </main>
   <footer class="home-footer gnosis-site-footer">
     <span>© GNOSIS.BOT</span>
 				<a href="https://markbailey.love">CREATOR</a>
 				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+    <a href="https://t.me/rstory_official" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
 				
 				
     <a href="#top">TOP ↑</a>
+      <a href="/terms.html">TERMS</a>
+    <a href="/privacy.html">PRIVACY</a>
+      <a href="/ai-policy.html">AI POLICY</a>
   </footer>
+  <script type="module" src="/assets/js/contact-native.js?v=3"></script>
 </body>
 </html>

@@ -40,16 +40,36 @@ def validate_corpus(data, ref=None):
     require(not LEGACY_MARKER.search(json.dumps(data,ensure_ascii=False)), 'Obsolete marker in corpus')
     return rows
 
-@lru_cache(maxsize=1)
-def corpus():
+@lru_cache(maxsize=8)
+def _corpus_cached(signature):
     data=load(DATA/'interpretations.json'); validate_corpus(data); return data
+
+
+def _corpus_signature():
+    st=(DATA/'interpretations.json').stat()
+    return (st.st_ino,st.st_size,st.st_mtime_ns)
+
+
+def corpus():
+    return _corpus_cached(_corpus_signature())
+
+
+corpus.cache_clear=_corpus_cached.cache_clear
+
 
 def serialize_catalog(rows):
     return (json.dumps(rows,ensure_ascii=False,indent=2)+'\n').replace('\n','\r\n').encode('utf-8')
 
-@lru_cache(maxsize=1)
-def catalog_bytes():
+@lru_cache(maxsize=8)
+def _catalog_cached(signature):
     return serialize_catalog(corpus()['hexagrams'])
+
+
+def catalog_bytes():
+    return _catalog_cached(_corpus_signature())
+
+
+catalog_bytes.cache_clear=_catalog_cached.cache_clear
 
 def physical_projection(d):
     # Same canonical projection as original migration toolkit.

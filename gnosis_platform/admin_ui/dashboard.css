@@ -106,19 +106,44 @@
   }
 }
 
-/* Phase 2: tight contact inbox and readable private correspondence. */
-.admin-page .contact-native-summary { font-size:11px; padding:4px 0; font-weight:650; }
-.admin-page #site-contact-list,.admin-page #incoming-list { max-height:440px; overflow:auto; }
-.admin-page .contact-message { border-top:1px solid var(--admin-line); margin:0; }
-.admin-page .contact-message > summary { display:flex; flex-wrap:wrap; justify-content:space-between;
-  gap:4px 12px; padding:8px 2px; cursor:pointer; color:var(--ink-soft,#4d5658);
-  font-size:11px; font-weight:500; }
-.admin-page .contact-message > summary time { font-size:10px; color:var(--muted,#707779); font-weight:400; }
-.admin-page .contact-message--unread > summary { color:#202527; font-weight:800; }
-.admin-page .contact-message--unread { border-left:3px solid #202527; padding-left:5px; }
-.admin-page .contact-message-body { padding:5px 9px 11px; background:#faf9f5; }
-.admin-page .contact-message-text { white-space:pre-wrap; overflow-wrap:anywhere; color:#202527; font-size:12px; }
-.admin-page .contact-message-email { font-size:11px; overflow-wrap:anywhere; margin-bottom:6px; }
-.admin-page .contact-mini-tag { font-weight:400; font-size:10px; color:var(--muted,#707779); }
-.admin-page #site-contact-more { margin:10px 0; }
-.contact-honeypot { position:absolute; left:-9999px; height:1px; overflow:hidden; }
+/* GNOSIS ADMIN COMPACT READINGS v1 */
+/* Keep a single half-width reading panel, with metrics visible and chart optional. */
+.admin-page .readings-split { align-items:start; }
+.admin-page #readings .readings-compact { min-width:0; }
+.admin-page #readings .readings-summary {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0; margin:0 0 6px; border-top:1px solid var(--admin-line);
+  border-left:1px solid var(--admin-line);
+}
+.admin-page #readings .readings-summary .metric {
+  border:0; border-right:1px solid var(--admin-line);
+  border-bottom:1px solid var(--admin-line); background:#faf9f5;
+  min-width:0; padding:7px 9px;
+}
+.admin-page #readings .readings-summary .metric span { font-size:10px; }
+.admin-page #readings .readings-summary .metric strong { font-size:18px; margin:1px 0; }
+.admin-page #readings .readings-summary .metric p { font-size:10px; line-height:1.3; }
+.admin-page #readings .readings-trend { border-top:1px solid var(--admin-line); margin-top:7px; }
+.admin-page #readings .readings-trend > summary {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  cursor:pointer; list-style:none; padding:8px 0 3px;
+  font-size:11px; font-weight:700; color:var(--admin-deep);
+}
+.admin-page #readings .readings-trend > summary::-webkit-details-marker { display:none; }
+.admin-page #readings .readings-trend > summary::before { content:'+'; font:700 15px/1 var(--font-display,monospace); }
+.admin-page #readings .readings-trend[open] > summary::before { content:'−'; }
+.admin-page #readings #chart-summary { font-size:10px; font-weight:400; color:var(--muted,#707779); }
+.admin-page #readings .chart-controls { margin:5px 0; }
+.admin-page #readings .chart { min-height:0; }
+.admin-page #readings .chart svg { min-width:0; max-width:100%; }
+.admin-page .media-full-width { width:100%; margin:0 0 10px; }
+@media(min-width:1100px) {
+  .admin-page #readings .readings-summary { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:900px) {
+  .admin-page .readings-split { grid-template-columns:1fr; }
+}
+@media(max-width:390px) {
+  .admin-page #readings .readings-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+

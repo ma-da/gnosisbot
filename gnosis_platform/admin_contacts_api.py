@@ -24,7 +24,7 @@ from .ibm_trial_email import submit_resend
 
 router=APIRouter(prefix='/api/v1/admin',dependencies=[Depends(require_admin)],tags=['admin-contacts'])
 ID=re.compile(r'^[a-f0-9]{32}$')
-FROM=re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9._+\-]{0,62}@gnosis\.bot$',re.IGNORECASE)
+SENDERS={'quantum@gnosis.bot','readings@gnosis.bot','support@gnosis.bot'}
 
 
 def response(value):return JSONResponse(value,headers=HEADERS)
@@ -66,15 +66,14 @@ def mail_enabled():
 @router.get('/mail/config')
 def mail_config():
     return response({'sending_enabled':mail_enabled(),
-                     'incoming_enabled':bool(os.getenv('GNOSIS_ENABLE_RESEND_INCOMING')=='YES'
-                                             and os.getenv('GNOSIS_RESEND_INBOUND_API_KEY')),
-                     'senders':['quantum@gnosis.bot','readings@gnosis.bot','support@gnosis.bot']})
+                     'incoming_enabled':inbound_enabled(),
+                     'senders':sorted(SENDERS)})
 
 
 def perform_send(db, *, actor, body:EmailMessage, transport=None):
     if not mail_enabled():raise RuntimeError('Manual outbound email not configured')
     sender=body.from_address.strip().lower()
-    if not FROM.fullmatch(sender):raise ValueError('Sender must be at gnosis.bot')
+    if sender not in SENDERS:raise ValueError('Sender must be an approved gnosis.bot address')
     recipient=canonical(body.to_address)
     subject=body.subject.strip(); content=body.message.strip()
     if (not subject or not content or any(x in subject for x in '\r\n')
@@ -138,8 +137,12 @@ def send_mail(message:EmailMessage,user:dict=Depends(require_admin)):
         raise HTTPException(503,'Manual email unavailable; review server configuration') from exc
 
 
+def inbound_key():
+    # A combined send/receive key may be reused; no credentials are ever exposed to the browser.
+    return os.getenv('GNOSIS_RESEND_INBOUND_API_KEY') or os.getenv('RESEND_API_KEY')
+
 def inbound_enabled():
-    return os.getenv('GNOSIS_ENABLE_RESEND_INCOMING')=='YES' and bool(os.getenv('GNOSIS_RESEND_INBOUND_API_KEY'))
+    return os.getenv('GNOSIS_ENABLE_RESEND_INCOMING')=='YES' and bool(inbound_key())
 
 
 def fetch_received(*, email_id=None, limit=30, transport=None):
@@ -148,7 +151,7 @@ def fetch_received(*, email_id=None, limit=30, transport=None):
         raise ValueError('Invalid provider message ID')
     url=('https://api.resend.com/emails/receiving/'+email_id if email_id
          else 'https://api.resend.com/emails/receiving?limit='+str(limit))
-    req=Request(url,headers={'Authorization':'Bearer '+os.environ['GNOSIS_RESEND_INBOUND_API_KEY'],
+    req=Request(url,headers={'Authorization':'Bearer '+inbound_key(),
                              'Accept':'application/json','User-Agent':'GnosisBot/1.0'},method='GET')
     with (transport or urlopen)(req,timeout=15) as r:
         # Provider data has a bounded parse size. Never expose raw error bodies.
@@ -175,9 +178,19 @@ def fetch_received(*, email_id=None, limit=30, transport=None):
     return {'messages':safe,'has_more':bool(value.get('has_more')) if not email_id else False}
 
 @router.get('/mail/incoming')
-def incoming_list(limit:int=Query(30,ge=1,le=50)):
+def incoming_list(limit:int=Query(30,ge=1,le=50),include_hidden:bool=False):
     if not inbound_enabled():return response({'configured':False,'messages':[]})
-    try:return response({'configured':True,**fetch_received(limit=limit)})
+    try:
+        provider=fetch_received(limit=limit)
+        with closing(connect()) as db:
+            hidden={r[0] for r in db.execute('SELECT provider_email_id FROM gnosis_admin_received_mail_hidden')}
+        msgs=[]
+        for m in provider['messages']:
+            is_hidden=m.get('id') in hidden
+            if is_hidden and not include_hidden:continue
+            msgs.append({**m,'hidden':is_hidden})
+        return response({'configured':True,'messages':msgs,'has_more':provider['has_more'],
+                         'hidden_in_provider_page':sum(1 for m in provider['messages'] if m.get('id') in hidden)})
     except Exception as exc:raise HTTPException(503,'Unable to list incoming email; check Resend receiving permissions') from exc
 
 @router.get('/mail/incoming/{email_id}')
@@ -186,3 +199,35 @@ def incoming_read(email_id:str):
     try:return response(fetch_received(email_id=email_id))
     except ValueError:raise HTTPException(400,'Invalid message ID')
     except Exception as exc:raise HTTPException(503,'Unable to retrieve incoming email') from exc
+
+class MailVisibility(BaseModel):
+    action: str = Field(max_length=16)
+
+@router.post('/mail/incoming/{email_id}/visibility',dependencies=[Depends(guard_origin)])
+def set_mail_visibility(email_id:str, change:MailVisibility, user:dict=Depends(require_admin)):
+    # This is a Gnosis inbox preference only, NOT a Resend provider deletion.
+    if not re.fullmatch(r'[a-zA-Z0-9-]{8,64}',email_id):
+        raise HTTPException(400,'Invalid provider email ID')
+    if change.action not in ('hide','restore'):
+        raise HTTPException(400,'Invalid visibility action')
+    if not inbound_enabled():raise HTTPException(503,'Incoming mail not configured')
+    try:
+        with closing(connect()) as db:
+            db.execute('BEGIN IMMEDIATE')
+            try:
+                if change.action=='hide':
+                    cur=db.execute('''INSERT OR IGNORE INTO gnosis_admin_received_mail_hidden
+                        (provider_email_id,hidden_at,actor_account_id) VALUES(?,?,?)''',
+                        (email_id,stamp(),user['account_id']))
+                else:
+                    cur=db.execute('DELETE FROM gnosis_admin_received_mail_hidden WHERE provider_email_id=?',(email_id,))
+                if cur.rowcount:
+                    db.execute('''INSERT INTO gnosis_admin_received_mail_audit
+                        (audit_id,provider_email_id,actor_account_id,action,created_at)
+                        VALUES(?,?,?,?,?)''',(uuid4().hex,email_id,user['account_id'],change.action,stamp()))
+                db.commit()
+            except Exception:
+                db.rollback();raise
+        return response({'changed':bool(cur.rowcount),'hidden':change.action=='hide'})
+    except Exception as exc:
+        raise HTTPException(503,'Unable to update incoming email visibility') from exc

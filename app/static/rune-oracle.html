@@ -42,6 +42,11 @@
   <script type="module" src="/assets/js/system-health.js?v=1"></script>
   <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
   <!-- GNOSIS SHARED SHELL V2 END -->
+  <link rel="stylesheet" href="/assets/css/legal.css?v=1">
+  <link rel="stylesheet" href="/assets/css/legal-modal.css?v=1">
+  <script defer src="/assets/js/legal-modal.js?v=ai-policy-v1"></script>
+  <link rel="stylesheet" href="/assets/css/site-header-unified.css?v=unified-v1.1">
+  <script defer src="/assets/js/site-header-unified.js?v=unified-v1"></script>
 </head>
 <body class="rune-page" id="top">
 <a class="skip-link" href="#rune-main">Skip to reading</a>
@@ -103,6 +108,8 @@
       <label class="consultation-toggle-choice"><input type="radio" name="rune-method" value="sticks" checked><span>Stick Casting</span></label>
     </fieldset>
     <textarea id="rune-question" class="consultation-question" rows="3" maxlength="2000" aria-label="Optional question" placeholder="Ask a question if you want, or leave this blank to tune into quantum vibe directly"></textarea>
+    <label class="rune-consent"><input id="rune-consent" type="checkbox"> Use my question for public research</label>
+    <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
     <fieldset id="rune-inquiry-style" class="consultation-toggle" aria-label="How are you inquiring?">
       <label class="consultation-toggle-choice"><input type="radio" name="rune-style" value="direct" checked><span>Just Tell Me What the Qubits Say</span></label>
       <label class="consultation-toggle-choice"><input type="radio" name="rune-style" value="meditative"><span>Meditative Contemplation</span></label>
@@ -118,7 +125,6 @@
       <p id="rune-balance" class="consultation-balance" role="status" aria-live="polite"></p>
       <a id="rune-login-link" href="/account.html" target="_blank" rel="noopener">Sign in / Your Gnosis ↗</a>
     </div>
-    <label class="rune-consent"><input id="rune-consent" type="checkbox"> Allow this question to be included in research publication (optional)</label>
     <div class="consultation-submit-row">
       <span id="rune-cost" class="consultation-price"></span>
       <button id="rune-submit" class="consultation-submit" type="submit" disabled>Consult the Oracle</button>
@@ -185,8 +191,12 @@
     <span>© GNOSIS.BOT</span>
 				<a href="https://markbailey.love">CREATOR</a>
 				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+    <a href="https://t.me/rstory_official" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
 				
 				
     <a href="#top">TOP ↑</a>
+      <a href="/terms.html">TERMS</a>
+    <a href="/privacy.html">PRIVACY</a>
+      <a href="/ai-policy.html">AI POLICY</a>
   </footer>
 </body></html>

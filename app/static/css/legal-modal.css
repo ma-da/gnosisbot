@@ -1,0 +1,60 @@
+/* Shared policy dialog for Gnosis.bot. Policy text still lives at /terms.html and /privacy.html. */
+.gnosis-site-footer { flex-wrap: wrap; }
+.gnosis-legal-dialog {
+  box-sizing: border-box;
+  border: 1px solid var(--light,#d9dddc);
+  border-radius: 0;
+  background: var(--paper,#faf9f5);
+  color: var(--text,#202527);
+  width: min(92vw, 790px);
+  max-width: 790px;
+  max-height: 86dvh;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 12px 45px rgba(0,0,0,.22);
+}
+.gnosis-legal-dialog::backdrop { background: rgba(8,27,29,.65); }
+.gnosis-legal-modal-toolbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--light,#d9dddc);
+  padding: 13px 20px;
+}
+.gnosis-legal-modal-label { font: 700 10px/1.4 var(--font-display,monospace); letter-spacing: .08em; color: var(--muted,#66757a); }
+.gnosis-legal-modal-actions { display: flex; align-items: center; gap: 16px; }
+.gnosis-legal-full-link { color: var(--teal,#028090); font-size: 12px; white-space: nowrap; text-decoration: underline; }
+.gnosis-legal-modal-close {
+  border: 1px solid var(--light,#d9dddc);
+  background: transparent;
+  color: inherit;
+  padding: 7px 10px;
+  border-radius: 0;
+  cursor: pointer;
+  font: 600 12px/1.3 var(--font-body,sans-serif);
+}
+.gnosis-legal-modal-close:hover { color: var(--teal,#028090); }
+.gnosis-legal-dialog :is(a,button):focus-visible { outline: 2px solid var(--teal,#028090); outline-offset: 3px; }
+.gnosis-legal-modal-content {
+  box-sizing: border-box;
+  padding: 6px 23px 32px;
+  max-height: calc(86dvh - 64px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.gnosis-legal-dialog .legal-document { max-width: none; }
+.gnosis-legal-dialog .legal-document h1 { font-size: clamp(26px, 4vw, 39px); margin-top: 18px; }
+.gnosis-legal-dialog .legal-document h2 { font-size: clamp(17px, 2.4vw, 21px); }
+.gnosis-legal-modal-loading { padding: 20px 0; color: var(--muted,#66757a); }
+.gnosis-legal-form-links { margin: 9px 0 14px; font-size: 11px; line-height: 1.6; color: var(--muted,#66757a); }
+.gnosis-legal-form-links a { color: var(--teal,#028090); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 520px) {
+  .gnosis-legal-dialog { width: 96vw; max-height: 90dvh; }
+  .gnosis-legal-modal-toolbar { padding: 10px 12px; }
+  .gnosis-legal-modal-content { padding: 3px 14px 24px; max-height: calc(90dvh - 62px); }
+  .gnosis-legal-modal-label { display: none; }
+  .gnosis-legal-modal-actions { width: 100%; justify-content: space-between; }
+}

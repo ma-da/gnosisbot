@@ -1,0 +1,18 @@
+[Unit]
+Description=Gnosis watch-only finalized Solana/RSTORY inbound observations
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=gnosis
+Group=gnosis
+WorkingDirectory=/opt/gnosis
+EnvironmentFile=/etc/gnosis/gnosis.env
+ExecStart=/opt/gnosis-venv/bin/python -m gnosis_platform.solana_watch_cli --once
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/gnosis
+TimeoutStartSec=120

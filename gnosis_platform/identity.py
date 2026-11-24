@@ -69,6 +69,14 @@ def register(db, public_key, invitation_token=None):
                 raise ValueError('Invitation already claimed')
             if credits:
                 _grant_in_transaction(db, account_id, credits, 'invitation', invitation['invitation_id'], 'invitation:'+invitation['invitation_id'])
+            # A modern claim allocation was created at code issuance; this is only a transfer.
+            allocation = db.execute('SELECT amount FROM gnosis_credit_allocations WHERE invitation_id=?',
+                                    (invitation['invitation_id'],)).fetchone()
+            if allocation:
+                if allocation['amount'] != credits:
+                    raise ValueError('Credit allocation mismatch')
+                db.execute('UPDATE gnosis_credit_allocations SET redeemed_at=?, redeemed_by=? WHERE invitation_id=? AND redeemed_at IS NULL',
+                           (current, account_id, invitation['invitation_id']))
         db.commit()
         return {'account_id':account_id,'credits':credits}
     except Exception:

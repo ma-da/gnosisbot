@@ -2,7 +2,7 @@
   "metadata": {
     "schema_version": "2.0.0",
     "dataset_id": "gnosis_iching_dual_v1",
-    "corpus_version": "0.9.0",
+    "corpus_version": "0.9.1",
     "title": "Gnosis · Book of Changes",
     "created_date_utc": "2026-11-19T17:47:19.726816+00:00",
     "language": "en",
@@ -13,7 +13,7 @@
     "models": [
       "deepseek-v4-pro"
     ],
-    "human_approved_records": 0,
+    "human_approved_records": 1,
     "records_total": 192
   },
   "counts": {
@@ -44,7 +44,343 @@
     "research/README.md": "91819523c30d8a5883bedebc7ef8c65442943f324d58e4654f59bcad211375b7",
     "research/RIGHTS.md": "e570cc6ae0e0a4ee455536e1c50641325766e707527057f4532cf1c0cd6077eb",
     "research/source_manifest.json": "4c1dfc402a5875023dd4e92d72376118d667965bcc0607c325e7373fab3de2c1",
-    "site/hexagrams_catalog.json": "cb9789145683311a0ea1ec56cf2a53171e54b47d1f7116047d38af97c1f25b28",
-    "site/interpretations.json": "2a0efc26a53447f396951b3273bf59dc5220254efe3ee6a04494495aa34964f7"
+    "site/hexagrams_catalog.json": "ad28176b85df009e7029b53c7d38e64a865ed2a9a5158a745926602c5460a089",
+    "site/interpretations.json": "c071e4e53224d990646e423f37d9944c1191cfdbdf330f69623e91b3e2710813"
+  },
+  "editorial_release": {
+    "type": "site_editorial_derivative",
+    "source_research_hashes_unchanged": true,
+    "source_record_hashes_sha256": "87af6edb93ce053c20d49e4499b45e4d85c0705ea657acbefce7ffe547960304",
+    "source_hashes_semantics": "inherited pre-editorial references; original generator not independently verified",
+    "research_master_rebuilt": false,
+    "site_content_hash_scheme": "sha256-json-sorted-compact-utf8-v1",
+    "site_content_hashes": {
+      "1": {
+        "classical": "ac23091a44414e5427eaced16239223790dc294979f967d8526819a25e37e2ea",
+        "taoist": "b3354275e410ad279709cc950ee66d90268bf230b4f258b002f8ed530259eee3",
+        "confucian": "5089ea8845b3228220b91b4ca2bf0a0821770862cfddd4a39b6f4fafad6a7a0d"
+      },
+      "2": {
+        "classical": "5dda0714f5f82f9bbbe3dec7a1c9f029f4c0a1f725b9ae0d0b37004b2c0546c4",
+        "taoist": "ffdf34395cc31a1571804bc3628c64d9fc04de1d9faa76280559a4e6b5e9a2e0",
+        "confucian": "616ff036a22baff3572b39b7de5361a81da7b45096385b55ebb24b1ea5301581"
+      },
+      "3": {
+        "classical": "867efe073c8f1bb8fde1878e29dd12b08cfc4ff562fbe0b5c5ba33fe37b8962f",
+        "taoist": "22e77dd88aff8be8cfdfff21f68eb8bcf189a4b9505c4d4b3aa5a8d01d950098",
+        "confucian": "b417e8929daa1d5227011b08be41f7c080e82d0db9d72b1ead88d44dffbcbcab"
+      },
+      "4": {
+        "classical": "461d19b939481a6b4e27fb25f4d2f43191867efdb97bb08d91fc2f2be62dca69",
+        "taoist": "0e5234909869b1cfee84ee1b6b678b989172649e1fdfcd2f42383f83fce4274c",
+        "confucian": "5f226e9031c6fa9433f53ed7c7262e733f4940e32f467d7f6f8816e0213838f5"
+      },
+      "5": {
+        "classical": "023e5fe1680b2cb75b731b8aae11c9bcef1667e0b50ea961fab503c64b67abf2",
+        "taoist": "84b20fbf199e2a38ffd6192ae40c27a80513e6fb101520be852bdbb9644b4ec2",
+        "confucian": "59aad152f34bacc7548cd79e5cb1d8a07314bde08a9a1f56b7244b637defa0eb"
+      },
+      "6": {
+        "classical": "1b7ffe03337407084c7ad07371f49877769af613bd9aec4846a34dc3b5252710",
+        "taoist": "c044a07c2e1518c4b0c263d0b59bf75fd6b6af73b4d0607e2a3c93e6bd7dcd32",
+        "confucian": "8c42d6d243879fe10288d77507ac53ff37e5eb0f07fa10aff2b2c505cdd9c87b"
+      },
+      "7": {
+        "classical": "a884409dd745946fe42330c6645fd308b5eadacb284d2eb9ba03bacce9baa648",
+        "taoist": "904bf777a74409fb20826ca43af169982a54b1254e88f967a26207716cf3d24a",
+        "confucian": "84769598e2f9066e1192303a80981a72ed5d82d9d53e56d1b983130a0b077b66"
+      },
+      "8": {
+        "classical": "12f9845c1f2f983a728c1584a8f8c3ababe46e72d0ba70a89e9b9ba182206eba",
+        "taoist": "0b8a18d9a19dd84d7448faabfe50e424b4f797f2985390cfc343f92e971edf39",
+        "confucian": "ffc93f14232e436617563587c1fd47c7af9f28d96a1e3c0d546dbac671f07fa9"
+      },
+      "9": {
+        "classical": "dcfd31a10e55e0aa7623e6a64d1945a4191fd5b11f9f161346db27cbdda85b95",
+        "taoist": "ded5d6a938a4b28646b430f3c35cc194e07c21a84cab8028aea8b4fbde8b2d91",
+        "confucian": "71cb5f870959d0ed07c0efcd203ed3bb649ef98af799f953ea809c2ba8e1fe4d"
+      },
+      "10": {
+        "classical": "6c6b4505efdf2e4ae496306eed67bf1a1a56e5bf6e57a19c6e5899bbe7d42451",
+        "taoist": "2bf40f3fe289d20dcd358fd1daf14a9e578bc0cfc49316f1daad832361217e23",
+        "confucian": "d4e77c60665166a3e3dddbab684d2012ca872bbc121dd149de3d10e95d2ce1f6"
+      },
+      "11": {
+        "classical": "e3e1f9968297567c5a842e04ceb7946c2f1258629e6eaea11aaf7742a5dbb0f2",
+        "taoist": "fee242ba09d842be868fee778dd196b60cb6735b4e5aae2c502b3cb92dda3c27",
+        "confucian": "7d91f3876ee8a5f1b3a787151b85dbf6ca8bc1d2d7d8bd7b8e51764c8ad1d526"
+      },
+      "12": {
+        "classical": "a98d25dabdf3dce50aa95faf037f7e9ebc2b208d740d232de2030aaf761489d5",
+        "taoist": "aed5cbc8791a53cdf942cf5421d26768b49181bfea2bb5571856672b596edad1",
+        "confucian": "ecbaca611aeaf3f3461683d48c4772aa01de6eec42e93ce80a3f11e74ad4a1e4"
+      },
+      "13": {
+        "classical": "bc07a06f065f00404c0164000e282ae0fbfc0b0273fed0b71cfd58e1baa64520",
+        "taoist": "a2f007bd40fe48708eed455e7b9c2daab5593fe0aaf929cd9682e60bff987f2b",
+        "confucian": "dea234f839ec9a00d1c3497a2ecd5ede95143f8237e23951b568a11f8593dd68"
+      },
+      "14": {
+        "classical": "aaf4a76b65d202fd769c073b61b5929210fdfb610c5ee22771595c342eacefc7",
+        "taoist": "2e153d07358f25ca03478814f306476c1a0d4b6349c81cd835ccbd7a05656e5d",
+        "confucian": "84185d4b64dad90b660fab2ca7392079e9fbe7585d609ce30cac6a239ec7371e"
+      },
+      "15": {
+        "classical": "a68790357c9f6e4b0899e0f5a4274706c99625662675b368d5d225f7245faf02",
+        "taoist": "75801a83244b90df293df45bbf4560fc00c69e393b2f0a73dc046ce66792adcd",
+        "confucian": "05a54c84b86e448cd3ec4efd27753bd60a7705e1ea4ce17f6d6af78b8316d4c2"
+      },
+      "16": {
+        "classical": "bd7bbbdb23f4c0365045e62ab259f156be0ccd36ddc6ce202b6c24cae7981e9f",
+        "taoist": "3025ca205ddcc96199fabf23b89c1519a9806c2d1b36190b24dedef7824adc40",
+        "confucian": "ff3229f2c279c6a95420a9efd32baf672690df9230c08d8717d88d4a98e25934"
+      },
+      "17": {
+        "classical": "6a94bdb41c77a91db529afaaab309c5e7b7cc85beb6dfc8bd06103b72b0dee58",
+        "taoist": "c8c4832aca0cd9b21909417ee5ac843dd19fde4e7eee85ab2194e331a4ee0010",
+        "confucian": "25470633614563f1f08e9ed1206aea1beb36ba5e74472a060504e0d60491366e"
+      },
+      "18": {
+        "classical": "19994e75baa86c3f95b7f5da5d6c662983d86d96c23c3120f32055623961636a",
+        "taoist": "59430aebb314e5c13c539e7406054ec223f8492e2c1190fba43b427fa5f5d25d",
+        "confucian": "320840fe079087dc20119bc7148544d46bbfa751de325937de472d1978dba7b8"
+      },
+      "19": {
+        "classical": "a7d6d7866671b546068713ded29bb718a8c8bbf9cc56645d09c54f310c27e7d4",
+        "taoist": "06591b4895b6c7fca7a8d31d69908512986f1a716a0b0d304161099846276d29",
+        "confucian": "d49c03576593c0b7bbf19d6a35ccb13a4bee6256e689ded4be180e01d53756a0"
+      },
+      "20": {
+        "classical": "1da1b4b417aaf1ccf8eb320a7a8ea55ba3a6b1a485bccbfa1955aee88ea6f2c2",
+        "taoist": "444988fe309000179f1de82e173a39a42de8a0ec24b630c917c1a2e1b176ab6d",
+        "confucian": "c44648b89ab38b9b7d86a744a4c6cbb922684d52eece5fccf19b2ea6bf2be0dc"
+      },
+      "21": {
+        "classical": "214622983defeefa22f3cfd7af0a10f7429eb9e19e5fd81ed8bbd7efad6374f0",
+        "taoist": "f744c17cd594102e4f3a158755a0ba17893cd5ce09499b92c5b4a217855ebb4f",
+        "confucian": "e54e26cb90b35141ce314642791b9bce4ea366fa0f8cef43fc2adb983271aa22"
+      },
+      "22": {
+        "classical": "d49bbab0e3558179d97907b18fce9e69fa19c143317259782bca0a0d2cab1ed6",
+        "taoist": "d20d835f9db10e9ee707af898e4bd0584e0c7d9ae23928b8c2e82c809bfe887c",
+        "confucian": "7714e48d42d42ff0d2bba37cd1d3039aa6cbddba4cebeb3223ebb8e391f038be"
+      },
+      "23": {
+        "classical": "dec8c7ed8deabd3c33f0a1ace8a3ec5712fa231b45ffab8fa6f73211f3916ae3",
+        "taoist": "18fb9408cd75d133cca256dfd79e4cb5f6a1d00b24b68dadc67389ad9a786889",
+        "confucian": "197b5c1c3e34384d117efc338ef4dcd2e171af56ab482c73fc0a5d80b395a616"
+      },
+      "24": {
+        "classical": "b2f3911eb2bfae30bbae563a18dbb236a203277ebfcf141d8dae9d1fa325e94c",
+        "taoist": "4ead490bbceaf47c3b4a7fb4df7f440c38351838f0d39dec735bcb958e112010",
+        "confucian": "a19cdf93eff0284da65c338f9144b754463486145456bd37ce46c7b23ded7457"
+      },
+      "25": {
+        "classical": "a0a4d6129e67184e6108c6a8cc9f201df357fb5a727cbe906b9508d57237d46a",
+        "taoist": "15767b722696ab008b0c1041b8fed3161e1e38cb7b06992c2751579c442f3baa",
+        "confucian": "b10df879429f387a1752704135caf75fc70a54ec2092a5fbe76854e356d8fa5f"
+      },
+      "26": {
+        "classical": "21f7f949131d33702c1e124af744064873fe9ceeddfb964d07ec77b8bf4b59f7",
+        "taoist": "ca9c47db15fc875f06f4697628cfba30612bf9af6531c3069a789415a5d3beda",
+        "confucian": "ae0c84125298f655b49a370148bb2f402210130a83dab84ee68b4e44772bb7e9"
+      },
+      "27": {
+        "classical": "3b0563937c852794e75065f0ea216791f5878926264235fba64c8065759dfeb1",
+        "taoist": "55a46ffbe7a261298a251fe792890ba84b8d64864f09ed702871f4f6b3e6920c",
+        "confucian": "7bb0ce1e3fe694bf30e9a6604e92103398d375d6ffccc4bb1afb72d5eb21917d"
+      },
+      "28": {
+        "classical": "8d613aaa404ef9546e62128defc249448327f1705ca1bdf5929327894a18a7ec",
+        "taoist": "f4bd171c63157dd68f1a35d27b7a821c824e7ffc3269c0fbf5086a159ae89e71",
+        "confucian": "3604678142396735de5165519763653030cfde67ae898e814fb079529fd70358"
+      },
+      "29": {
+        "classical": "a7718137ec3f37c5c8d0fef35b31df6b2f996bc78e0ce23661073f79760e8ca2",
+        "taoist": "5a7644911239521717aa7036869c7e306e42b7b2279510ff6465ee867285d3fb",
+        "confucian": "e0f1f5c63ca3e72092deb64181eb78aedcf8d47a59918e8d97a0a3b4b5fc7c79"
+      },
+      "30": {
+        "classical": "d8a15754b13fe2896dabde7f6aeeb207fbc9a00d5aa7d35f608e04f544d0be44",
+        "taoist": "b9b2a658f7d54eb029183e122032176289ab8ba5d3b1ecb14ab8ffdea2dd7571",
+        "confucian": "822dc4046c98b273d7a0fa91921ec818c790147990c61eaf8140cef25f9fe78e"
+      },
+      "31": {
+        "classical": "91e3b5c72ee1be2ce186e0334dd96701e01c0ad93bccc59b6e1df54302cbad73",
+        "taoist": "4bc2babb80f9e68d89edd75aa8549506ba570501e4eddd2784cb7c41c4299c00",
+        "confucian": "a2f9a6ab3d1c3abe8a62a55d9c7b84784e8c007a5c3630b98dd5477eaa49674a"
+      },
+      "32": {
+        "classical": "ad4399de1f39870b10a8d28d49d1fcee2585aeb2b521aa7e1261f668efccd67c",
+        "taoist": "5e9f378ecceb70dae298036ca4046c576beb1ce6e2f2bd7fc2902c791211e6e5",
+        "confucian": "06bebc0f56efdf6ce6cf2d8c68f69321fff00cc64aba1ac19c75aff2eab5bd63"
+      },
+      "33": {
+        "classical": "dbe74cdfaaf6a17bc2d4caf884bdb6954869120fb5683b76db231ed9c741e84b",
+        "taoist": "aeab8077fe671643b535a9ab9a99ffa4c08a094f7c30802af12a0de78ec66001",
+        "confucian": "8f094f539780e66adde7dc88c886b06499b68a6170f0c6e91d500c221e3a3acc"
+      },
+      "34": {
+        "classical": "c85d0645cf719bf7c369e3ece1a07f27844748cd2c4fba1edd12463f6c7230dc",
+        "taoist": "30071ac5d037ffb3d5adb85e3b6a67120ba2e1defa58a1628421178e6452483c",
+        "confucian": "490bef8a467327d80886dff5263c505b9408061a8146ca5364f7296d3f6f6f59"
+      },
+      "35": {
+        "classical": "992da394716aae655683cfded92c3bfe3ac13816d1511096ce3b589a8ac18c51",
+        "taoist": "9e82212087f44ccec150bab180e703559404245e5c8f7019347d5dbc115b6c37",
+        "confucian": "21c9c04c295e6d71f10fce0ef5e10264229da94e2b431706396a10f3becd7ffd"
+      },
+      "36": {
+        "classical": "c816f9e7e3c10f994dfde285179e383c0465d662301af48b32134eb5bd8f68af",
+        "taoist": "b951c88b3bb7abc7748d4ccb73f9d50d7319fbfc6b05e8185d0afec51303a39b",
+        "confucian": "1dc348ea23c0ee21b962aa487edc87b159df44c9c45721de60d075603599aa2f"
+      },
+      "37": {
+        "classical": "5b8f7a01ede8ab63ba4baafd06e0d9c8ef3797ae55569a395f9080efe26e614c",
+        "taoist": "b9111b662c3037d391a0813c34f9da42269632b315fa4134179c5726bfbc80fe",
+        "confucian": "3300c9d54bf0e022f5a3750fadd7b8c1c760d94ccc89f473419746527a2c299e"
+      },
+      "38": {
+        "classical": "89f856711aa123a7a7e1c699c0f9117f2b64047bc0ef59973b0bb834747c3b29",
+        "taoist": "72fd3ad07a63e920bb0610b547808f6e6a6cc6d26723629f758060e38c96e216",
+        "confucian": "760d6f137d4858ad26bf35dc8837d75fdb7ac6e9e147480d2ef795c454760eb0"
+      },
+      "39": {
+        "classical": "049e71c22bb84d8ad2b6bb19f0182bb6ab78c7a2fc7c8869469b4199312c4192",
+        "taoist": "5665c5ee39c90952560f1b9b865fbb1a0e1de9a0184446ebf6e69b5bfb08b421",
+        "confucian": "0216470745cbf9f5bcd654b8f00cabb7f9a8a856ba8c9a2a4edce6ebe08eb52c"
+      },
+      "40": {
+        "classical": "4f986782d0f286904f078b37ca6d6bc572469c19cf1420a5deff5ec6950c6c7a",
+        "taoist": "a1a51ac40f0ef41ec0cd6f0963b8e5e8c9709be862cc75ee897187653f9d8ba1",
+        "confucian": "274601353c75148ce17630df95f6eb0b9fd247e7503390a61d861991005175c7"
+      },
+      "41": {
+        "classical": "3b7e9c8b589165a85c068331b59ca934c36a8cb473069dda715a11e1e61a9e9c",
+        "taoist": "78e0ea3f5083f89ff45727a23eee1a1df13b5b622888ef1792decfc2fc9732ba",
+        "confucian": "26be6415b343b3dda0d60eb689e40187f5fb293271066f3421f7e46b40625f4d"
+      },
+      "42": {
+        "classical": "5806956f821dc1048f24e91402f8c555d8a46d90904d050af1783a9ffbc02b51",
+        "taoist": "e6361d2699cce1bc75ee5c5dbec95d0de662dce58470d1934891e9150270b385",
+        "confucian": "19b11ec26b085b655a684d37cbef3c3352a8e2a2a2303d67dcb713a350606be5"
+      },
+      "43": {
+        "classical": "e4e6f55f0b1461148ae149ce746a3452c28193d00e850d852ee439fdcf91162f",
+        "taoist": "39fd1e72531ed20b80c34f320b4fec7a64c00e3f40219c4b74d76319ec04d3e9",
+        "confucian": "2192de8bf4913e24e17fbcfafde6e3b9b2fb442270fb5494445d94d84377276a"
+      },
+      "44": {
+        "classical": "763f1a130da4a261823f4dbf36a1a70c4c7bdadfb0b2424849aca0ea5699e315",
+        "taoist": "3c0b350fbea0e6ec61959b7eeea946f6d68267b7c5ccae96377e8bb0bcfdcd3f",
+        "confucian": "38b3961bfe2f9d4394fedb6a99859380f37fca83b1d6c71971b639fd62ecbd00"
+      },
+      "45": {
+        "classical": "5e3c3fc4c270a4071e5035783a0f99e40724e150884f21d1c3dceadc8df0fb14",
+        "taoist": "9b4652f383cff2b36213a2de40a5422afc8260cb5e9239a17d11d19ffc2aa75c",
+        "confucian": "8e9a08df95a9a0d1f999ccb5af15e34d5a1d94e51d3f3d064c9748cbeb7d8ceb"
+      },
+      "46": {
+        "classical": "ec1fe6bda52692f827bb788a7ab8b80a77f772094a7d0e5d5e57ca2442166f3a",
+        "taoist": "6ba310b67d3698d54c5153297d4e14a7b1558b82efc029807de88f4f30e7bf39",
+        "confucian": "4d830e9defba1254ff9ea69689869c39bd8c187ff12a14d2f9267e1298311960"
+      },
+      "47": {
+        "classical": "1c45b97f0885633d768e6dd1c8f6e54067e2fdc17f651254de848f406543d875",
+        "taoist": "d66e26ad2c67fc809695bd237a8898711d6c692e401942612e6b44029cf26bae",
+        "confucian": "6f04f4db1ad49cfd1a5e17f88409d0b3d8282c942351999a2f0d1111052142ff"
+      },
+      "48": {
+        "classical": "37ef4e53272437f7f377f8e66d6357acabaf4f27d6c45cdea1195f6afd2f015d",
+        "taoist": "14f802b2af56f4ef01cfab212f134b9142e1960e717d92cd4391e0945e29863c",
+        "confucian": "27234ff117cc29d17896a3a639174198d542ecefe2efedd6e7475d49677393fc"
+      },
+      "49": {
+        "classical": "dcc2f21ca5b787f3132ddd4907b231f1c8a2e3a58812795251861f1f3141dad7",
+        "taoist": "b500d0e476e984a1151e10b243e0f0471833f4ebb73601c640ee38cedbcee4cf",
+        "confucian": "416dc5f6d33827c316f7a868453a2cf9e3e96d8e9678fd66396991b2e28254c7"
+      },
+      "50": {
+        "classical": "62d2e2b94fef604e28c692d4b1116598906286c505af084ab7d7fe9bb26f9978",
+        "taoist": "667171e2e410112d80a906886e29ece1cf50db0f903464d89c38e62a1bdb1f1b",
+        "confucian": "6ccf111cd83e2841abebad2706143faa4256a9c7a27d948ad2cb773e73612d66"
+      },
+      "51": {
+        "classical": "914ab1819c68cf1772f7b04550e7e18734f4211518ac8444cab22a27d1e9bcbd",
+        "taoist": "f80a7e38b578015d5db79849c50092126ea3eebb74d30a37c185f54cfce6e2e4",
+        "confucian": "b1b8a273e5cbec37ea4a5eefcbdf2f81cd0f2adab8d223a124e04f644ba61f34"
+      },
+      "52": {
+        "classical": "ea16c57f1aa6223e0ae7f90be84aa8658b15d11c132c1d98ec966294dd653d98",
+        "taoist": "21570a6d645b9d13a0d372da38143560a6e4bf8da591f9e6b4a35770e5c7038c",
+        "confucian": "6f8edfb0b8f9c1010bd13282ad23881fb8c85ae89c953340098805bd35561480"
+      },
+      "53": {
+        "classical": "de8a6df05c16d91bd71b4535989e34790b299dee5565027086465d0313042a20",
+        "taoist": "d4cd16e03e9e8c93f8d6740fedd1e3872b15286741133de5645045147486c0bd",
+        "confucian": "46adde31a66dba45af4fb8ffa29044143831eb944a5ba9de83a3bb749da209c8"
+      },
+      "54": {
+        "classical": "3d36e6493c8e7d42f53c985f22be3195ddb72a3ab41ce0e23338f7696c26e6a3",
+        "taoist": "678c8a605b79c78a2526b09d378b16f5958178e537283f439ccb09ab2420e9c2",
+        "confucian": "22ae40fe2e9526de74a5c0b5763ec47d124bfdbf72e1f4946c4baa5fd231fa2c"
+      },
+      "55": {
+        "classical": "791a8e0dcda3f6eec0b83f63b9456c54a9d6086a19caf98dda21eb438a9044c8",
+        "taoist": "0ee1365270ab0e3f28130dd200c3b33813e6f1051dc57275190c0066eb8eb7a4",
+        "confucian": "95d9e62a8c43dd0127103c3650087f4334d1fda34b09d51db2a7b5bf8697989f"
+      },
+      "56": {
+        "classical": "bfdc867ffd1d9c620a6d002b7810b1f018100779ea0b363a9230f029f234d1d5",
+        "taoist": "a1beacab7f5ef1d27f8de07b369e4bb46a9352986d4ec453a34a08cfad4b67ed",
+        "confucian": "5000bb160132a421f221e331ca6571872fc9118602ff9227ad34518feaae23f7"
+      },
+      "57": {
+        "classical": "8a124ffa1429b4bf2449e953be14b7233fe561afb7bcd8123f080e12ffdc59b3",
+        "taoist": "e1b8224205bb050d27b583333726d5bb6a9d0d54bf8a320a531dd322f0b20563",
+        "confucian": "d5dc2d9fc1c4d2dcb07316eccc5d85354e276f2f33b296a2bfe6534af199aca8"
+      },
+      "58": {
+        "classical": "45ce3333bda070fed5917a1aad48b43942fed87b356ddb9f5a2f4677f062fe4d",
+        "taoist": "73017b17da85282293639ea10a2baef901f17b37250d5807e9fda0030a2ccbd5",
+        "confucian": "da7036abcd26a1c35990b0fc04c1656352bad70d93af745a9a55728682fb5a8c"
+      },
+      "59": {
+        "classical": "4f30c0efc552af8d142c5b6e792fbc5bef0f5e6e80b17ce47da701d93e2417e9",
+        "taoist": "c3d656be2a27d51e4d7c462a110c6a2e3009fc1414276e66ddefeabeeefdd9d2",
+        "confucian": "23126061bc75b5bf189d7a2b080d84179bcb3cedb72c878ef9f9422f2069dba9"
+      },
+      "60": {
+        "classical": "102e672ee1c0a1d11626e528b36580725057d3fc9603fd3629d9e37ad9e99e25",
+        "taoist": "e28da5f1bae5427df733fe8055b2666ed90f133f27e4f15b154612b01a0c4040",
+        "confucian": "25bc711c463a51438d8250cd777c7dfaa7bdc775838a50b7018b5072ea92ce0d"
+      },
+      "61": {
+        "classical": "97171a338edcad5674c9f215f65203e79daa34f21c6ffeea6622e2cc991d9d18",
+        "taoist": "6503e67944f44dddbf6f8ea5819bd98ebac667030a912e23ba5c1cfe45b41582",
+        "confucian": "f3dece30a19af4081b7661a454861d840ab2a911e24a40ba30c8fc05e645d70c"
+      },
+      "62": {
+        "classical": "408697f7a128e1ebf66dcf01fce63b6261a28882e0b532640dc5eee650f91bd6",
+        "taoist": "0c70ede3088934bfd8819338c39a04537054d56f44f6a3d25bf82abcda789fa0",
+        "confucian": "9977baf389e01966dbd1a3bcc6b29a7e25ac06acb900898e91c626e82c9c5246"
+      },
+      "63": {
+        "classical": "55104943aaf3596ec6f69b0f7301f7851441eca96300bb34663500b4ac3955a9",
+        "taoist": "e1ecf98f42f832340320589742186b9da6e7ebbd85e23bd6751816a9c6dc4335",
+        "confucian": "02cc65b960b1955b505a706f2b33df551577349300c232b60e13285482f83200"
+      },
+      "64": {
+        "classical": "c446ec70c111704cd6cf0964265dd10f11f1ffcdc88fc2d35470c58c09297d33",
+        "taoist": "4b662e133f239e2ceacc33095e9303f07a073379bd33b07d712cfeb02dafc4bd",
+        "confucian": "f6df3fb1f8b1b2f43d506f46b133b7f8f2d17f72c6c1d6a3de0078578516807e"
+      }
+    },
+    "parent_corpus_version": "0.9.0",
+    "parent_site_sha256": "2a0efc26a53447f396951b3273bf59dc5220254efe3ee6a04494495aa34964f7",
+    "published_utc": "2026-11-22T02:42:49.174Z",
+    "published_by_admin": "8d1a1f449c5f925443f7face5d47db860237956ded94ff4933d69880aa54fa8b",
+    "changed_fields": 1,
+    "newly_approved_records": 1
   }
 }
