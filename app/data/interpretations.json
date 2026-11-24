@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "dataset_id": "gnosis_iching_dual_v1",
-  "corpus_version": "0.9.0",
+  "corpus_version": "0.9.1",
   "title": "Gnosis · Book of Changes",
   "created_date_utc": "2026-11-19T17:47:19.726816+00:00",
   "language": "en",
@@ -12,7 +12,7 @@
   "models": [
     "deepseek-v4-pro"
   ],
-  "human_approved_records": 0,
+  "human_approved_records": 1,
   "records_total": 192,
   "hexagrams": [
     {
@@ -122,7 +122,7 @@
         "essence": "Qian is not fixed power but a living rhythm of origination, penetration, benefit, and firmness, inviting the restoration of original true yang through disciplined, timely practice.",
         "archetypal_meaning": "Pure yang heaven meeting heaven, six firm lines, images the unceasing creative power of the dragon. Liu Yiming reads this as the alchemical phase of advancing yang fire to restore one’s original true yang and innate knowing. The hexagram maps the four seasons of one strength—origination, penetration, benefit, firmness—and calls for a discipline that moves from hidden nurture to full expression, never mistaking force for vitality.",
         "historical_core": "In Liu Yiming’s commentary, Qian is the hexagram of ‘advancing the yang fire’ and ‘establishing destiny.’ He equates the strength of Qian with the precelestial true yang innate in every person, obscured after contact with acquired habits but not destroyed. Yuan heng li zhen become four seasonal movements of one strength and also four stages of inner work: the hidden stirring of life, its pervasion, its completion, and its consolidation. Each line is then read as an alchemical step, from nourishing the first faint vitality to completing the sacred embryo and releasing it at the right moment.",
-        "modern_meaning": "Present-day readers may see Qian as an invitation to cultivate inner coherence through ordinary effort and rhythm. The hidden dragon asks for quiet preparation before visibility; the appearing dragon suggests honoring the undimmed heart in relationships; the daily-nightly vigilance of line three points to integrating effort with honest self-review; the leap from the abyss invites timing rather than impulse; the flying dragon points to mature service; the overbearing dragon warns against burnout, control, and rigidity. Rather than passive non-doing, this hexagram describes active, disciplined cultivation: the gradual reclaiming of vitality, clarity, and purpose through small consistent practices. It does not promise outcomes, but frames possibility: when one follows the season of a situation, strength can become flexible, life-giving, and less likely to turn into strain. The ‘headless dragons’ of the closing line suggest letting go of a fixed self-image so that strength can take the form each moment requires.",
+        "modern_meaning": "Present-day readers may see Qian as an invitation to cultivate inner coherence through ordinary effort and rhythm. Steady work quiets and organizes the mind. The hidden dragon asks for quiet preparation before visibility; the appearing dragon suggests honoring the undimmed heart in relationships; the daily-nightly vigilance of line three points to integrating effort with honest self-review; the leap from the abyss invites timing rather than impulse; the flying dragon points to mature service; the overbearing dragon warns against burnout, control, and rigidity. Rather than passive non-doing, this hexagram describes active, disciplined cultivation: the gradual reclaiming of vitality, clarity, and purpose through small consistent practices. It does not promise outcomes, but frames possibility: when one follows the season of a situation, strength can become flexible, life-giving, and less likely to turn into strain. The ‘headless dragons’ of the closing line suggest letting go of a fixed self-image so that strength can take the form each moment requires.",
         "advice": "When the impulse to push arises, pause and ask whether this is the season for hidden nurture, steady work, a considered leap, or generous influence. Tend the faint signs of true strength before exposing them. Match effort to timing; let self-review be as regular as effort. If strength becomes strain or pride, soften without abandoning practice.",
         "shadow": "Rigidity, over-exertion, premature visibility, spiritual pride, and denial of rest. The overbearing dragon exhausts itself and others; hidden vitality is mistaken for weakness and forced into display before its time.",
         "reflection_question": "Where is disciplined strength trying to emerge, and what season is it actually in?",
@@ -294,7 +294,7 @@
       "essence": "Qian is not fixed power but a living rhythm of origination, penetration, benefit, and firmness, inviting the restoration of original true yang through disciplined, timely practice.",
       "archetypal_meaning": "Pure yang heaven meeting heaven, six firm lines, images the unceasing creative power of the dragon. Liu Yiming reads this as the alchemical phase of advancing yang fire to restore one’s original true yang and innate knowing. The hexagram maps the four seasons of one strength—origination, penetration, benefit, firmness—and calls for a discipline that moves from hidden nurture to full expression, never mistaking force for vitality.",
       "historical_core": "In Liu Yiming’s commentary, Qian is the hexagram of ‘advancing the yang fire’ and ‘establishing destiny.’ He equates the strength of Qian with the precelestial true yang innate in every person, obscured after contact with acquired habits but not destroyed. Yuan heng li zhen become four seasonal movements of one strength and also four stages of inner work: the hidden stirring of life, its pervasion, its completion, and its consolidation. Each line is then read as an alchemical step, from nourishing the first faint vitality to completing the sacred embryo and releasing it at the right moment.",
-      "modern_meaning": "Present-day readers may see Qian as an invitation to cultivate inner coherence through ordinary effort and rhythm. The hidden dragon asks for quiet preparation before visibility; the appearing dragon suggests honoring the undimmed heart in relationships; the daily-nightly vigilance of line three points to integrating effort with honest self-review; the leap from the abyss invites timing rather than impulse; the flying dragon points to mature service; the overbearing dragon warns against burnout, control, and rigidity. Rather than passive non-doing, this hexagram describes active, disciplined cultivation: the gradual reclaiming of vitality, clarity, and purpose through small consistent practices. It does not promise outcomes, but frames possibility: when one follows the season of a situation, strength can become flexible, life-giving, and less likely to turn into strain. The ‘headless dragons’ of the closing line suggest letting go of a fixed self-image so that strength can take the form each moment requires.",
+      "modern_meaning": "Present-day readers may see Qian as an invitation to cultivate inner coherence through ordinary effort and rhythm. Steady work quiets and organizes the mind. The hidden dragon asks for quiet preparation before visibility; the appearing dragon suggests honoring the undimmed heart in relationships; the daily-nightly vigilance of line three points to integrating effort with honest self-review; the leap from the abyss invites timing rather than impulse; the flying dragon points to mature service; the overbearing dragon warns against burnout, control, and rigidity. Rather than passive non-doing, this hexagram describes active, disciplined cultivation: the gradual reclaiming of vitality, clarity, and purpose through small consistent practices. It does not promise outcomes, but frames possibility: when one follows the season of a situation, strength can become flexible, life-giving, and less likely to turn into strain. The ‘headless dragons’ of the closing line suggest letting go of a fixed self-image so that strength can take the form each moment requires.",
       "advice": "When the impulse to push arises, pause and ask whether this is the season for hidden nurture, steady work, a considered leap, or generous influence. Tend the faint signs of true strength before exposing them. Match effort to timing; let self-review be as regular as effort. If strength becomes strain or pride, soften without abandoning practice.",
       "shadow": "Rigidity, over-exertion, premature visibility, spiritual pride, and denial of rest. The overbearing dragon exhausts itself and others; hidden vitality is mistaken for weakness and forced into display before its time.",
       "reflection_question": "Where is disciplined strength trying to emerge, and what season is it actually in?",
@@ -332,7 +332,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "ac23091a44414e5427eaced16239223790dc294979f967d8526819a25e37e2ea",
@@ -341,7 +341,7 @@
       },
       "human_approved": {
         "classical": false,
-        "taoist": false,
+        "taoist": true,
         "confucian": false
       }
     },
@@ -662,7 +662,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "5dda0714f5f82f9bbbe3dec7a1c9f029f4c0a1f725b9ae0d0b37004b2c0546c4",
@@ -955,7 +955,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "867efe073c8f1bb8fde1878e29dd12b08cfc4ff562fbe0b5c5ba33fe37b8962f",
@@ -1247,7 +1247,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "461d19b939481a6b4e27fb25f4d2f43191867efdb97bb08d91fc2f2be62dca69",
@@ -1540,7 +1540,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "023e5fe1680b2cb75b731b8aae11c9bcef1667e0b50ea961fab503c64b67abf2",
@@ -1833,7 +1833,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "1b7ffe03337407084c7ad07371f49877769af613bd9aec4846a34dc3b5252710",
@@ -2125,7 +2125,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a884409dd745946fe42330c6645fd308b5eadacb284d2eb9ba03bacce9baa648",
@@ -2418,7 +2418,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "12f9845c1f2f983a728c1584a8f8c3ababe46e72d0ba70a89e9b9ba182206eba",
@@ -2711,7 +2711,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "dcfd31a10e55e0aa7623e6a64d1945a4191fd5b11f9f161346db27cbdda85b95",
@@ -3004,7 +3004,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "6c6b4505efdf2e4ae496306eed67bf1a1a56e5bf6e57a19c6e5899bbe7d42451",
@@ -3296,7 +3296,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "e3e1f9968297567c5a842e04ceb7946c2f1258629e6eaea11aaf7742a5dbb0f2",
@@ -3588,7 +3588,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a98d25dabdf3dce50aa95faf037f7e9ebc2b208d740d232de2030aaf761489d5",
@@ -3879,7 +3879,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "bc07a06f065f00404c0164000e282ae0fbfc0b0273fed0b71cfd58e1baa64520",
@@ -4172,7 +4172,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "aaf4a76b65d202fd769c073b61b5929210fdfb610c5ee22771595c342eacefc7",
@@ -4464,7 +4464,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a68790357c9f6e4b0899e0f5a4274706c99625662675b368d5d225f7245faf02",
@@ -4754,7 +4754,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "bd7bbbdb23f4c0365045e62ab259f156be0ccd36ddc6ce202b6c24cae7981e9f",
@@ -5046,7 +5046,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "6a94bdb41c77a91db529afaaab309c5e7b7cc85beb6dfc8bd06103b72b0dee58",
@@ -5339,7 +5339,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "19994e75baa86c3f95b7f5da5d6c662983d86d96c23c3120f32055623961636a",
@@ -5632,7 +5632,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a7d6d7866671b546068713ded29bb718a8c8bbf9cc56645d09c54f310c27e7d4",
@@ -5925,7 +5925,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "1da1b4b417aaf1ccf8eb320a7a8ea55ba3a6b1a485bccbfa1955aee88ea6f2c2",
@@ -6217,7 +6217,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "214622983defeefa22f3cfd7af0a10f7429eb9e19e5fd81ed8bbd7efad6374f0",
@@ -6510,7 +6510,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "d49bbab0e3558179d97907b18fce9e69fa19c143317259782bca0a0d2cab1ed6",
@@ -6803,7 +6803,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "dec8c7ed8deabd3c33f0a1ace8a3ec5712fa231b45ffab8fa6f73211f3916ae3",
@@ -7096,7 +7096,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "b2f3911eb2bfae30bbae563a18dbb236a203277ebfcf141d8dae9d1fa325e94c",
@@ -7388,7 +7388,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a0a4d6129e67184e6108c6a8cc9f201df357fb5a727cbe906b9508d57237d46a",
@@ -7681,7 +7681,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "21f7f949131d33702c1e124af744064873fe9ceeddfb964d07ec77b8bf4b59f7",
@@ -7974,7 +7974,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "3b0563937c852794e75065f0ea216791f5878926264235fba64c8065759dfeb1",
@@ -8265,7 +8265,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "8d613aaa404ef9546e62128defc249448327f1705ca1bdf5929327894a18a7ec",
@@ -8556,7 +8556,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "a7718137ec3f37c5c8d0fef35b31df6b2f996bc78e0ce23661073f79760e8ca2",
@@ -8849,7 +8849,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "d8a15754b13fe2896dabde7f6aeeb207fbc9a00d5aa7d35f608e04f544d0be44",
@@ -9152,7 +9152,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "91e3b5c72ee1be2ce186e0334dd96701e01c0ad93bccc59b6e1df54302cbad73",
@@ -9443,7 +9443,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "ad4399de1f39870b10a8d28d49d1fcee2585aeb2b521aa7e1261f668efccd67c",
@@ -9736,7 +9736,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "dbe74cdfaaf6a17bc2d4caf884bdb6954869120fb5683b76db231ed9c741e84b",
@@ -10029,7 +10029,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "c85d0645cf719bf7c369e3ece1a07f27844748cd2c4fba1edd12463f6c7230dc",
@@ -10322,7 +10322,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "992da394716aae655683cfded92c3bfe3ac13816d1511096ce3b589a8ac18c51",
@@ -10615,7 +10615,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "c816f9e7e3c10f994dfde285179e383c0465d662301af48b32134eb5bd8f68af",
@@ -10908,7 +10908,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "5b8f7a01ede8ab63ba4baafd06e0d9c8ef3797ae55569a395f9080efe26e614c",
@@ -11201,7 +11201,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "89f856711aa123a7a7e1c699c0f9117f2b64047bc0ef59973b0bb834747c3b29",
@@ -11492,7 +11492,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "049e71c22bb84d8ad2b6bb19f0182bb6ab78c7a2fc7c8869469b4199312c4192",
@@ -11785,7 +11785,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "4f986782d0f286904f078b37ca6d6bc572469c19cf1420a5deff5ec6950c6c7a",
@@ -12078,7 +12078,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "3b7e9c8b589165a85c068331b59ca934c36a8cb473069dda715a11e1e61a9e9c",
@@ -12368,7 +12368,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "5806956f821dc1048f24e91402f8c555d8a46d90904d050af1783a9ffbc02b51",
@@ -12661,7 +12661,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "e4e6f55f0b1461148ae149ce746a3452c28193d00e850d852ee439fdcf91162f",
@@ -12954,7 +12954,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "763f1a130da4a261823f4dbf36a1a70c4c7bdadfb0b2424849aca0ea5699e315",
@@ -13247,7 +13247,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "5e3c3fc4c270a4071e5035783a0f99e40724e150884f21d1c3dceadc8df0fb14",
@@ -13540,7 +13540,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "ec1fe6bda52692f827bb788a7ab8b80a77f772094a7d0e5d5e57ca2442166f3a",
@@ -13832,7 +13832,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "1c45b97f0885633d768e6dd1c8f6e54067e2fdc17f651254de848f406543d875",
@@ -14135,7 +14135,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "37ef4e53272437f7f377f8e66d6357acabaf4f27d6c45cdea1195f6afd2f015d",
@@ -14428,7 +14428,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "dcc2f21ca5b787f3132ddd4907b231f1c8a2e3a58812795251861f1f3141dad7",
@@ -14721,7 +14721,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "62d2e2b94fef604e28c692d4b1116598906286c505af084ab7d7fe9bb26f9978",
@@ -15011,7 +15011,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "914ab1819c68cf1772f7b04550e7e18734f4211518ac8444cab22a27d1e9bcbd",
@@ -15304,7 +15304,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "ea16c57f1aa6223e0ae7f90be84aa8658b15d11c132c1d98ec966294dd653d98",
@@ -15597,7 +15597,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "de8a6df05c16d91bd71b4535989e34790b299dee5565027086465d0313042a20",
@@ -15889,7 +15889,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "3d36e6493c8e7d42f53c985f22be3195ddb72a3ab41ce0e23338f7696c26e6a3",
@@ -16179,7 +16179,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "791a8e0dcda3f6eec0b83f63b9456c54a9d6086a19caf98dda21eb438a9044c8",
@@ -16472,7 +16472,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "bfdc867ffd1d9c620a6d002b7810b1f018100779ea0b363a9230f029f234d1d5",
@@ -16764,7 +16764,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "8a124ffa1429b4bf2449e953be14b7233fe561afb7bcd8123f080e12ffdc59b3",
@@ -17057,7 +17057,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "45ce3333bda070fed5917a1aad48b43942fed87b356ddb9f5a2f4677f062fe4d",
@@ -17350,7 +17350,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "4f30c0efc552af8d142c5b6e792fbc5bef0f5e6e80b17ce47da701d93e2417e9",
@@ -17643,7 +17643,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "102e672ee1c0a1d11626e528b36580725057d3fc9603fd3629d9e37ad9e99e25",
@@ -17936,7 +17936,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "97171a338edcad5674c9f215f65203e79daa34f21c6ffeea6622e2cc991d9d18",
@@ -18229,7 +18229,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "408697f7a128e1ebf66dcf01fce63b6261a28882e0b532640dc5eee650f91bd6",
@@ -18531,7 +18531,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "55104943aaf3596ec6f69b0f7301f7851441eca96300bb34663500b4ac3955a9",
@@ -18822,7 +18822,7 @@
         }
       },
       "default_perspective": "taoist",
-      "corpus_version": "0.9.0",
+      "corpus_version": "0.9.1",
       "editorial_status": "integration-candidate — AI-assisted; final human review pending",
       "record_hashes": {
         "classical": "c446ec70c111704cd6cf0964265dd10f11f1ffcdc88fc2d35470c58c09297d33",

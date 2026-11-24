@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
   <link rel="stylesheet" href="/assets/css/account-hub.css?v=resonance1">
+  <link rel="stylesheet" href="/assets/css/account-commerce.css?v=1">
   <script type="module" src="/assets/js/account-page.js?v=1"></script>
 
   <!-- GNOSIS SITE SEO V1 BEGIN -->
@@ -24,6 +25,16 @@
   <script type="module" src="/assets/js/system-health.js?v=1"></script>
   <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
   <!-- GNOSIS SHARED SHELL V2 END -->
+  <link rel="stylesheet" href="/assets/css/legal.css?v=1">
+  <link rel="stylesheet" href="/assets/css/legal-modal.css?v=1">
+  <script defer src="/assets/js/legal-modal.js?v=ai-policy-v1"></script>
+  <link rel="stylesheet" href="/assets/css/site-header-unified.css?v=unified-v1.1">
+  <script defer src="/assets/js/site-header-unified.js?v=unified-v1"></script>
+  <link rel="stylesheet" href="/assets/css/account-claims-v2.css?v=1">
+  <!-- GNOSIS BUY CREDITS MODAL V1 BEGIN -->
+  <link rel="stylesheet" href="/assets/css/buy-credits-modal-v1.css?v=2">
+  <script defer src="/assets/js/buy-credits-modal-v1.js?v=4"></script>
+  <!-- GNOSIS BUY CREDITS MODAL V1 END -->
 </head>
 <body class="account-page" data-gnosis-session="loading" id="top">
   <a class="visually-hidden account-skip" href="#account-main">Skip to account content</a>
@@ -44,6 +55,7 @@
   
 
   <main id="account-main" class="account-shell">
+    <h1 class="visually-hidden">Your Gnosis account</h1>
 
 
     <p id="account-loading-state" class="account-loading" role="status" aria-live="polite">Checking your account session…</p>
@@ -52,7 +64,7 @@
     <section id="account-auth-view" class="account-auth-view" aria-label="Access your Gnosis account" hidden>
       <div class="account-auth-intro">
         <p class="account-eyebrow">YOUR KEY IS YOUR IDENTITY</p>
-        <p>Sign in with an existing key, or create an account to begin.</p>
+        <p>Sign in with an existing key. New account registration is available by invitation during alpha testing.</p>
       </div>
 
       <div class="account-auth-grid">
@@ -82,7 +94,7 @@
           <button id="login" type="button" class="account-primary-button">Sign in to Your Gnosis</button>
         </fieldset>
 
-        <fieldset class="account-auth-card account-auth-create">
+        <fieldset class="account-auth-card account-auth-create" hidden style="display:none">
           <legend>Create a new account</legend>
           <label for="invitation">Invitation token <span class="account-optional">(optional)</span></label>
           <input id="invitation" spellcheck="false" autocomplete="off" placeholder="Paste an invitation token">
@@ -101,6 +113,7 @@
             </div>
             <label class="confirm" for="saved"><input type="checkbox" id="saved"> I saved my key safely and understand it cannot currently be recovered.</label>
             <button id="activate" type="button" class="account-primary-button" disabled>Activate account with public key</button>
+    <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
           </div>
         </fieldset>
       </div>
@@ -124,6 +137,54 @@
       </div>
       <p id="gnosis-hub-status" class="gnosis-hub-status" role="status" aria-live="polite">Loading account activity…</p>
       <div id="gnosis-hub-panel" class="gnosis-hub-panel" hidden>
+        <!-- GNOSIS ACCOUNT CREDIT STORE UI V1 BEGIN -->
+<section id="gnosis-credit-store" class="gnosis-credit-store" aria-labelledby="gnosis-credit-title" hidden>
+  <div class="gnosis-credit-head">
+    <div>
+      <p class="gnosis-credit-eyebrow">ACCOUNT / CREDITS</p>
+      <h3 id="gnosis-credit-title">Purchase credits</h3>
+      <p>Choose a credit package and payment method. Prices are confirmed before checkout.</p>
+    </div>
+    <span id="gnosis-credit-state" class="gnosis-credit-state">CHECKOUT NOT YET ENABLED</span>
+  </div>
+  <div class="gnosis-credit-grid">
+    <div>
+      <fieldset class="gnosis-credit-fieldset">
+        <legend>Payment method</legend>
+        <div class="gnosis-credit-methods">
+          <label class="gnosis-credit-method"><input type="radio" name="gnosis-credit-method" value="stripe" checked><span><strong>Stripe</strong><small>Card / checkout</small></span></label>
+          <label class="gnosis-credit-method"><input type="radio" name="gnosis-credit-method" value="solana"><span><strong>Solana</strong><small>SOL payment</small></span></label>
+          <label class="gnosis-credit-method"><input type="radio" name="gnosis-credit-method" value="rstory"><span><strong>Rstory</strong><small>RSTORY token</small></span></label>
+        </div>
+      </fieldset>
+      <fieldset class="gnosis-credit-fieldset">
+        <legend>Credit package</legend>
+        <div id="gnosis-credit-offers" class="gnosis-credit-offers" role="group" aria-label="Available credit packages">
+          <p class="gnosis-credit-empty">Credit packages and prices will appear when checkout is available.</p>
+        </div>
+      </fieldset>
+      <p class="gnosis-credit-policy">Gnosis credits are prepaid units for eligible site services. They are not cryptocurrency, cannot be transferred or redeemed for cash, and do not promise future service availability. On-chain payments may be irreversible. Never send tokens to an address that has not been generated by the official checkout.</p>
+    </div>
+    <div class="gnosis-credit-review">
+      <h4>Order review</h4>
+      <div id="gnosis-credit-amount" class="gnosis-credit-total" aria-label="Total checkout amount">—</div>
+      <dl class="gnosis-credit-summary">
+        <dt>Receive</dt><dd id="gnosis-credit-quantity">—</dd>
+        <dt>Taxes / fees</dt><dd id="gnosis-credit-fees">—</dd>
+        <dt>Payment details</dt><dd id="gnosis-credit-network">—</dd>
+      </dl>
+      <p class="gnosis-credit-refund" id="gnosis-credit-refund">Refund conditions will be shown with a live quote.</p>
+      <label class="gnosis-credit-agreement" for="gnosis-credit-agree">
+        <input id="gnosis-credit-agree" type="checkbox">
+        <span>I have reviewed the final amount, fees and refund conditions, and agree to the <a href="/terms.html">Terms of Use</a>. I acknowledge the <a href="/privacy.html">Privacy Policy</a>. I understand credits are issued only after verified payment.</span>
+      </label>
+      <button id="gnosis-credit-submit" class="gnosis-credit-submit" type="button" disabled>Continue to payment</button>
+      <p id="gnosis-credit-status" class="gnosis-credit-status" role="status" aria-live="polite">No payment can be made on this page yet.</p>
+    </div>
+  </div>
+</section>
+<!-- GNOSIS ACCOUNT CREDIT STORE UI V1 END -->
+
         <div class="gnosis-hub-metrics" aria-label="Account credit summary">
           <div class="gnosis-hub-metric gnosis-hub-metric--available"><span>Available credits</span><strong id="gnosis-hub-available">—</strong></div>
           <div class="gnosis-hub-metric"><span>Reserved credits</span><strong id="gnosis-hub-reserved">—</strong></div>
@@ -169,12 +230,28 @@
                 <input id="gnosis-hub-email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
                 <button id="gnosis-hub-email-send" type="submit" class="account-secondary-button">Send verification link</button>
                 <p id="gnosis-hub-email-message" role="status" aria-live="polite"></p>
+              
+    <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
               </form>
               <div id="gnosis-email-verification" class="gnosis-hub-verify" hidden>
                 <p>Confirm ownership of this email address while signed in with your account key.</p>
                 <button type="button" id="gnosis-email-confirm" class="account-secondary-button">Confirm email address</button>
                 <p id="gnosis-email-verify-message" role="status" aria-live="polite"></p>
               </div>
+            </section>
+
+                        <!-- Gnosis credits V2: account-owned claim redemption, no automatic mutation. -->
+            <section class="gnosis-hub-card gnosis-credit-redeem-card" aria-labelledby="gnosis-claim-heading">
+              <p class="account-eyebrow">ACCOUNT CREDITS</p>
+              <h3 id="gnosis-claim-heading">Redeem a claim code</h3>
+              <p>Apply a one-time promotional credit code to your signed-in account.</p>
+              <form id="gnosis-claim-form" autocomplete="off">
+                <label for="gnosis-claim-code">Claim code</label>
+                <input id="gnosis-claim-code" type="text" minlength="32" maxlength="128" required
+                       autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="gnosis-claim-message">
+                <button id="gnosis-claim-submit" type="submit" class="account-secondary-button">Redeem credits</button>
+                <p id="gnosis-claim-message" role="status" aria-live="polite"></p>
+              </form>
             </section>
 
             <section class="gnosis-hub-card gnosis-hub-security" aria-labelledby="gnosis-hub-security-title">
@@ -186,8 +263,24 @@
         </div>
       </div>
     </section>
+    <!-- GNOSIS ACCOUNT NOTICES UI V1 BEGIN -->
+<section id="gnosis-account-messages" class="gnosis-account-messages" aria-labelledby="gnosis-message-title" hidden>
+  <div class="gnosis-message-head">
+    <div>
+      <p class="gnosis-credit-eyebrow">YOUR GNOSIS / UPDATES</p>
+      <h3 id="gnosis-message-title">Messages &amp; updates</h3>
+      <p>Announcements and private account notices appear here when available.</p>
+    </div>
+  </div>
+  <div class="gnosis-message-items" id="gnosis-message-items" aria-live="polite">
+    <p class="gnosis-message-placeholder">Account messages will appear here when available.</p>
+  </div>
+</section>
+<!-- GNOSIS ACCOUNT NOTICES UI V1 END -->
+
   </main>
   <script type="module" src="/assets/js/account-hub.js?v=resonance1"></script>
+  <script type="module" src="/assets/js/account-commerce.js?v=2"></script>
 		<script type="module">
 				const zone = document.getElementById('key-dropzone');
 				const input = document.getElementById('login-file');
@@ -261,9 +354,14 @@
     <span>© GNOSIS.BOT</span>
 				<a href="https://markbailey.love">CREATOR</a>
 				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+    <a href="https://t.me/rstory_official" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
 				
 				
     <a href="#top">TOP ↑</a>
+      <a href="/terms.html">TERMS</a>
+    <a href="/privacy.html">PRIVACY</a>
+      <a href="/ai-policy.html">AI POLICY</a>
   </footer>
+  <script type="module" src="/assets/js/account-claims-v2.js?v=1"></script>
 </body>
 </html>

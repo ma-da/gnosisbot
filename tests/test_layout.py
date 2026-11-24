@@ -42,14 +42,21 @@ class PageParser(HTMLParser):
 
 
 class LayoutTests(unittest.TestCase):
-    def test_single_global_stylesheet_and_compact_structure(self):
+    def test_stylesheet_layers_and_compact_structure(self):
         html = (STATIC / 'quantum-oracle.html').read_text(encoding='utf8')
         parsed = PageParser()
         parsed.feed(html)
+        asset_styles = [x for x in parsed.stylesheets if x.startswith('/assets/css/')]
         self.assertEqual(
-            [x for x in parsed.stylesheets if x.startswith('/assets/css/')],
+            asset_styles[:3],
             ['/assets/css/global.css', '/assets/css/system-health.css', '/assets/css/site-shell-v2.css']
         )
+        self.assertEqual(len(asset_styles), len(set(asset_styles)), 'Duplicate local stylesheets')
+        missing_styles = [
+            href for href in asset_styles
+            if not (STATIC / href.removeprefix('/assets/')).is_file()
+        ]
+        self.assertEqual(missing_styles, [], 'Missing local stylesheet assets')
         self.assertFalse(parsed.mode_in_header)
         self.assertEqual(parsed.options, [])
         self.assertNotIn('id="mode-select"', html)

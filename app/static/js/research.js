@@ -87,7 +87,11 @@ function drawMatrix(){
     button.title = `${nameFor(h)} · ${item.count} observed · ${item.expected.toFixed(2)} expected`;
     const symbol = matrixHexagram(h?.bits);
     button.append(symbol);
-    button.addEventListener('click', () => selectMask(mask));
+    button.addEventListener('click', () => {
+      void selectMask(mask);
+      document.dispatchEvent(new CustomEvent('gnosis:research-hexagram-open',
+        {detail: {hexagram: h, observation: item, mask}}));
+    });
     root.append(button);
   }
   // Selection redraws the matrix; retain keyboard focus without scrolling.
@@ -106,7 +110,11 @@ function drawBars(){const node=$('research-bars');node.replaceChildren();const s
     const marker=document.createElement('span');marker.className='research-bar-marker';marker.style.left=`${(x.expected/max*100).toFixed(2)}%`;
     track.append(fill,marker);const count=document.createElement('span');count.className='research-bar-number';count.textContent=nf(x.count);
     row.title=`${nameFor(h)}: observed ${x.count}, expected ${x.expected.toFixed(1)}`;
-    row.append(title,track,count);row.addEventListener('click',()=>selectMask(x.mask));node.append(row);
+    row.append(title,track,count);row.addEventListener('click',()=>{
+      void selectMask(x.mask);
+      document.dispatchEvent(new CustomEvent('gnosis:research-hexagram-open',
+        {detail: {hexagram: h, observation: x, mask: x.mask}}));
+    });node.append(row);
   }
 }
 function drawSummary(){const {dist,summary}=state;

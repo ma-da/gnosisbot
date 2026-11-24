@@ -7,6 +7,7 @@
   
   <link rel="stylesheet" href="/assets/css/global.css">
   <link rel="stylesheet" href="/assets/css/research.css?v=layout2">
+  <link rel="stylesheet" href="/assets/css/research-hexagram-modal.css?v=1">
 
   <!-- GNOSIS SITE SEO V1 BEGIN -->
   <title>Research Observatory — Quantum Readings &amp; Transparency | Gnosis.bot</title>
@@ -39,6 +40,11 @@
   <script type="module" src="/assets/js/system-health.js?v=1"></script>
   <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
   <!-- GNOSIS SHARED SHELL V2 END -->
+  <link rel="stylesheet" href="/assets/css/legal.css?v=1">
+  <link rel="stylesheet" href="/assets/css/legal-modal.css?v=1">
+  <script defer src="/assets/js/legal-modal.js?v=ai-policy-v1"></script>
+  <link rel="stylesheet" href="/assets/css/site-header-unified.css?v=unified-v1.1">
+  <script defer src="/assets/js/site-header-unified.js?v=unified-v1"></script>
 </head>
 <body id="top" class="research-page">
 <a class="skip-link" href="#gnosis-main">Skip to content</a>
@@ -113,15 +119,65 @@
     </section>
     <div class="research-footer gnosis-page-footer-note"><p>Methodology: each primary hexagram and each relating hexagram has expected marginal probability 1/64 under fair independent three-coin casting. Primary and relating values are correlated within a reading. Results are exploratory; small samples do not support asymptotic significance tests.</p><p>Aggregate data only. Individual questions, account identifiers, and measurement payloads are not published by this dashboard.</p><a href="/quantum-oracle.html">Return to the Oracle</a></div>
   </main>
+  <!-- Read-only Research Observatory hexagram summaries; no consultation or private information. -->
+  <dialog id="research-hexagram-dialog" class="research-hexagram-modal" aria-labelledby="research-hex-title" aria-describedby="research-hex-scope">
+    <div class="research-hexagram-modal__body">
+      <div class="research-hexagram-modal__head">
+        <div class="research-hexagram-modal__identity">
+          <span id="research-hex-symbol" class="research-hexagram-modal__symbol" aria-hidden="true"></span>
+          <div class="research-hexagram-modal__heading">
+            <p class="research-hexagram-modal__kicker" id="research-hex-number"></p>
+            <h2 id="research-hex-title"></h2>
+            <p class="research-hexagram-modal__subtitle" id="research-hex-identity"></p>
+            <p class="research-hexagram-modal__subtitle" id="research-hex-trigrams"></p>
+          </div>
+        </div>
+        <button type="button" id="research-hexagram-close" class="research-hexagram-modal__close" aria-label="Close hexagram summary">&times;</button>
+      </div>
+      <div class="research-hexagram-modal__stats" aria-label="Current filtered occurrence statistics">
+        <div><span class="research-hexagram-modal__stat-label">Observed</span><strong id="research-hex-observed" class="research-hexagram-modal__stat-value"></strong></div>
+        <div><span class="research-hexagram-modal__stat-label">Expected</span><strong id="research-hex-expected" class="research-hexagram-modal__stat-value"></strong></div>
+        <div><span class="research-hexagram-modal__stat-label">Observed / expected</span><strong id="research-hex-ratio" class="research-hexagram-modal__stat-value"></strong></div>
+      </div>
+      <p id="research-hex-scope" class="research-hexagram-modal__scope"></p>
+      <section class="research-hexagram-modal__section" aria-label="Classical Zhouyi passages">
+        <h3>Classical Zhouyi</h3>
+        <p class="research-hexagram-modal__label">Judgment</p>
+        <p id="research-hex-judgment" class="research-hexagram-modal__prose"></p>
+        <p class="research-hexagram-modal__label">Great Image</p>
+        <p id="research-hex-image" class="research-hexagram-modal__prose"></p>
+      </section>
+      <div class="research-hexagram-modal__traditions">
+        <section class="research-hexagram-modal__tradition" aria-label="Taoist perspective">
+          <p class="research-hexagram-modal__kicker">TAOIST · LIU YIMING</p>
+          <h3 id="research-hex-taoist-title"></h3>
+          <p id="research-hex-taoist-summary" class="research-hexagram-modal__prose"></p>
+          <details><summary>Contemporary interpretation</summary><p id="research-hex-taoist-modern" class="research-hexagram-modal__prose"></p></details>
+        </section>
+        <section class="research-hexagram-modal__tradition" aria-label="Confucian perspective">
+          <p class="research-hexagram-modal__kicker">CONFUCIAN · CHENG YI</p>
+          <h3 id="research-hex-confucian-title"></h3>
+          <p id="research-hex-confucian-summary" class="research-hexagram-modal__prose"></p>
+          <details><summary>Contemporary interpretation</summary><p id="research-hex-confucian-modern" class="research-hexagram-modal__prose"></p></details>
+        </section>
+      </div>
+      <p class="research-hexagram-modal__editorial">Gnosis Edition · AI-assisted translations and contemporary interpretations of the Zhouyi and commentaries of Liu Yiming and Cheng Yi. <span id="research-hex-editorial"></span></p>
+    </div>
+  </dialog>
   <script type="module" src="/assets/js/research.js?v=layout2"></script>
+  <script type="module" src="/assets/js/research-hexagram-modal.js?v=1"></script>
 
 <footer class="home-footer gnosis-site-footer">
     <span>© GNOSIS.BOT</span>
 				<a href="https://markbailey.love">CREATOR</a>
 				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
+    <a href="https://t.me/rstory_official" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
 				
 				
     <a href="#top">TOP ↑</a>
+      <a href="/terms.html">TERMS</a>
+    <a href="/privacy.html">PRIVACY</a>
+      <a href="/ai-policy.html">AI POLICY</a>
   </footer>
 </body>
 </html>

@@ -1,12 +1,319 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administration — Gnosis.bot</title><link rel="stylesheet" href="/admin/dashboard.css?v=1"></head><body>
-<main class="shell"><header><a class="brand" href="/">GNOSIS<span>.BOT</span></a><nav><a href="/account.html">Account</a><a href="/research">Research</a></nav></header>
-<div class="intro"><div><p class="kicker">PRIVATE / OPERATIONS</p><h1>Administration</h1><p>Reading volume, hardware inventory, operating costs and verification.</p></div><button id="refresh" type="button">Refresh dashboard</button></div>
-<p id="status" role="status" aria-live="polite">Loading protected metrics…</p><div id="dashboard" hidden>
-<section class="metrics" id="summary" aria-label="Overview"></section>
-<section class="panel" aria-labelledby="volume-title"><div class="panel-head"><div><p class="kicker">USAGE</p><h2 id="volume-title">Completed readings</h2><p>One saved consultation per reading. Replay, demonstrations and individual IBM shots are not counted.</p></div><label>Daily period (UTC) <select id="days"><option value="7">7 days</option><option selected value="30">30 days</option><option value="90">90 days</option><option value="365">365 days</option></select></label></div><div class="chart-head"><label>Chart series <select id="series"><option value="all">All reading types</option></select></label><span id="chart-summary"></span></div><div id="chart" class="chart"></div><div class="scroll"><table><thead><tr><th>Service</th><th>Period</th><th>All time</th></tr></thead><tbody id="reading-table"></tbody></table></div></section>
-<section class="panel"><p class="kicker">HARDWARE STOCK</p><h2>Quantum Past inventory</h2><p>Already-qualified committed stock is released automatically when its Bitcoin timestamp verifies. Service configuration still controls availability.</p><div class="inventory" id="inventory"></div></section>
-<section class="panel"><p class="kicker">IBM / FINANCE</p><h2>Quantum compute</h2><p>Actual charge time comes from IBM. Planning adds a configurable per-request overhead to measured pre-overhead time where recorded; otherwise IBM's reported charge is a conservative proxy. This scenario can overestimate billing.</p><div class="metrics compact" id="ibm-summary"></div><div class="scroll"><table><thead><tr><th>Engine / type</th><th>Requests</th><th>Reading yield</th><th>Measured s</th><th>Planning s</th><th>Billed s</th><th>Planning s / reading</th><th>Billed s / reading</th></tr></thead><tbody id="ibm-groups"></tbody></table></div><details><summary>Individual tracked IBM jobs</summary><div class="scroll"><table><thead><tr><th>Job</th><th>Type</th><th>Readings</th><th>Measured s</th><th>Baseline s</th><th>Basis</th><th>Planning s</th><th>Billed s</th><th>RU (if recorded)</th></tr></thead><tbody id="jobs"></tbody></table></div><p id="jobs-note" class="small"></p></details><h3>Instance funding and usage</h3><div id="funding" class="data-grid"></div><p class="small">Provider allocation is not a prepaid wallet balance. Lifetime Pay-As-You-Go spending limits and official invoices are authoritative. <a href="https://quantum.cloud.ibm.com/instances" target="_blank" rel="noopener noreferrer">IBM instances</a> · <a href="https://cloud.ibm.com/billing" target="_blank" rel="noopener noreferrer">IBM billing</a></p></section>
-<section class="panel"><p class="kicker">TRANSPARENCY</p><h2>Bitcoin timestamp verification</h2><p>Check existing proofs against the configured Bitcoin verifier. A saved proof alone does not release inventory. Successful verification automatically releases eligible committed batches; withdrawn stock stays withdrawn.</p><div id="checkpoints"></div><p id="proof-status" role="status" aria-live="polite"></p></section>
-<section class="panel"><p class="kicker">BUSINESS</p><h2>Contact and payments</h2><div class="data-grid" id="business"></div></section>
-<section class="panel"><p class="kicker">SYSTEM HEALTH</p><h2>Operational status</h2><div class="data-grid" id="operations"></div><div id="states"></div></section>
-</div><footer>Gnosis internal operations · UTC · private aggregates only</footer></main><script src="/admin/dashboard.js?v=2" type="module"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#faf9f5">
+  <title>Administration — Gnosis.bot</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
+  <link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
+  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+  <link rel="stylesheet" href="/admin/dashboard.css?v=4">
+  <link rel="stylesheet" href="/admin/contacts.css?v=1">
+  <script type="module" src="/assets/js/system-health.js?v=health-v2"></script>
+  <link rel="stylesheet" href="/admin/media.css?v=2">
+  <link rel="stylesheet" href="/admin/credits.css?v=1">
+  <link rel="stylesheet" href="/admin/finance.css?v=1">
+</head>
+<body class="admin-page" id="top">
+  <a class="skip-link" href="#admin-main">Skip to administration</a>
+  <header class="topbar home-topbar gnosis-site-header">
+    <a class="wordmark" href="/" aria-label="gnosis.bot home">gnosis<span class="brand-dot">.</span>bot</a>
+    <nav class="home-nav" aria-label="Primary navigation">
+      <a href="/quantum-oracle.html">I Ching</a>
+      <a href="/rune-oracle.html">Elder Futhark</a>
+      <a href="/account.html">Account</a>
+      <a href="/research.html">Research</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>
+  </header>
+  <main class="shell" id="admin-main">
+    <div class="admin-title-row">
+      <div><p class="kicker">PRIVATE OPERATIONS</p><h1>Administration</h1></div>
+      <button id="refresh" type="button">Refresh dashboard</button>
+    </div>
+    <nav class="admin-nav" aria-label="Administration sections">
+      <a href="#contacts">Contacts</a><a href="#finance">Financials</a><a href="#readings">Readings</a>
+      <a href="/admin/interpretations/">Interpretations</a><a href="#media">Media</a><a href="#credits">Credits</a><a href="#services">Services</a>
+      <a href="#inventory-panel">Inventory</a><a href="#compute">IBM</a><a href="#proofs">Proofs</a><a href="#operations-panel">Operations</a>
+    </nav>
+    <p id="status" class="live-status" role="status" aria-live="polite">Loading protected metrics…</p>
+    <div id="dashboard" hidden>
+      <div class="top-business-grid">
+        <section class="panel" id="contacts" aria-labelledby="contacts-heading">
+          <div class="section-heading"><h2 id="contacts-heading">Contacts</h2><span class="eyebrow">MESSAGES</span></div>
+          <div class="contact-count" id="contact-legacy" hidden aria-hidden="true" style="display:none !important"></div>
+          <p id="contact-native-summary" class="contact-native-summary" hidden aria-hidden="true" style="display:none !important"></p>
+          <details class="compact-disclosure" id="site-contact-disclosure">
+            <summary>Site submissions <strong id="contact-unread-count">— unread</strong></summary>
+            <div class="disclosure-body">
+              <p id="contact-unread-status" role="status">Native encrypted inbox not yet enabled.</p>
+              <div id="site-contact-list"></div>
+              <button id="site-contact-more" class="secondary" type="button" hidden>Load more messages</button>
+            </div>
+          </details>
+          <details class="compact-disclosure" id="incoming-disclosure">
+            <summary>Resend incoming mail <span class="new-feature">Manual check</span></summary>
+            <div class="disclosure-body"><p id="incoming-status" role="status">Incoming mail is off until enabled.</p><div id="incoming-list"></div></div>
+          </details>
+          <div class="action-row">
+            <button id="compose-open" type="button" class="secondary">Compose email</button>
+            <button id="incoming-check" type="button" class="secondary">Check incoming mail</button>
+          </div>
+          
+        </section>
+        <section class="panel" id="finance" aria-labelledby="finance-heading">
+          <div class="section-heading"><h2 id="finance-heading">Financials</h2><span class="eyebrow">REVENUE / COSTS</span></div>
+          <div class="financial-lines" id="financials"><p>Loading protected financial metrics…</p></div>
+          <p class="finance-notes" id="finance-quality">Stripe revenue is not assumed to be zero until a source is connected.</p>
+        </section>
+      </div>
+      <section class="panel finance-full" id="finance-details" aria-labelledby="finance-details-heading">
+        <div class="finance-topline section-heading"><div><h2 id="finance-details-heading">Venture financial register</h2><span class="eyebrow" id="finance-period">Since October 1, 2026</span></div><button class="secondary" type="button" id="finance-refresh">Refresh financials</button></div>
+        <p class="finance-notes">Recurring expenses are counted on their monthly anniversary beginning October 1. Planned one-time costs do not reduce net until marked incurred. Provider credits are noncash reference value, not received revenue or cash profit.</p>
+        <div class="finance-grid">
+          <div><div class="finance-subhead"><h3>Costs &amp; other revenue</h3><button type="button" class="secondary" id="finance-new-item">Add item</button></div>
+            <div class="finance-table-wrap"><table class="finance-table"><thead><tr><th>Item</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody id="finance-item-rows"></tbody></table></div>
+          </div>
+          <div><div class="finance-subhead"><h3>Provider service balances</h3><button type="button" class="secondary" id="finance-new-provider">Add provider</button></div>
+            <div class="finance-table-wrap"><table class="finance-table"><thead><tr><th>Provider</th><th>Balance</th><th>USD rate</th><th>Value</th><th>Status</th><th>Actions</th></tr></thead><tbody id="finance-provider-rows"></tbody></table></div>
+            <p class="finance-notes">IBM: latest stored usage snapshot × $1.60 per second, a published pay-as-you-go reference rate. IQM: initial estimated $0.30 per second; edit for actual backend. Unknown and unlimited balances are not valued as zero cash.</p>
+          </div>
+        </div>
+        <details><summary>Stripe cumulative receipts · manual snapshot</summary>
+          <p class="finance-notes" id="finance-stripe-state">Not connected to Stripe.</p>
+          <form id="finance-stripe-form" class="finance-simple-form">
+            <label>Gross incoming USD<input name="gross" type="number" step=".01" min="0" required value="0.00"></label>
+            <label>Stripe fees USD<input name="fees" type="number" step=".01" min="0" required value="0.00"></label>
+            <label>Refunds USD<input name="refunds" type="number" step=".01" min="0" required value="0.00"></label>
+            <label>Statement date<input name="as_of" type="date" required></label>
+            <label>Source / note<input name="source" maxlength="150" placeholder="Stripe dashboard / statement period" required></label>
+            <div class="finance-form-actions"><button type="submit">Save cumulative Stripe snapshot</button></div>
+          </form>
+          <p class="finance-notes">Enter cumulative Stripe receipts since October 1, 2026. Do not enter the same Stripe deposits as separate revenue items. A future Stripe adapter will replace manual entry.</p>
+        </details>
+        <details><summary>Financial change history</summary><button id="finance-audit-button" type="button" class="secondary">Load last 100 changes</button><div id="finance-audit" class="finance-audit"></div></details>
+        <section class="finance-blockchain" aria-labelledby="finance-chain-title">
+          <div class="section-heading"><h3 id="finance-chain-title">Blockchain balances</h3><span class="eyebrow">SOLANA · RSTORY SPL TOKEN</span></div>
+          <p class="finance-notes">Read-only integration stub. No RPC or balance lookup is active, and no wallet secrets are accepted. Specify only a public Solana address and the Rstory SPL token mint for future integration.</p>
+          <p class="finance-notes">Wallet: <code id="finance-wallet-address">Not configured</code> · Rstory token mint: <code id="finance-wallet-mint">Not configured</code></p>
+          <p><strong>SOL balance:</strong> Not connected · <strong>Rstory SPL token balance:</strong> Not connected</p>
+          <form id="finance-wallet-form" class="finance-simple-form">
+            <label>Solana public wallet address<input name="solana_address" maxlength="44" autocomplete="off" placeholder="Public address only"></label>
+            <label>Rstory SPL token mint<input name="rstory_mint" maxlength="44" autocomplete="off" placeholder="Public mint address only"></label>
+            <div class="finance-form-actions"><button type="submit">Save public addresses</button></div>
+          </form>
+        </section>
+        <p class="small" id="finance-status" role="status">Loading financial register…</p>
+      </section>
+      <dialog class="finance-dialog" id="finance-item-dialog" aria-labelledby="finance-item-title">
+        <form id="finance-item-form">
+          <h3 id="finance-item-title">Financial item</h3>
+          <label>Name<input name="name" maxlength="120" required></label>
+          <label>Category<input name="category" maxlength="70" required value="General"></label>
+          <label>Type<select name="kind"><option value="monthly_cost">Monthly expense</option><option value="one_time_cost">One-time expense</option><option value="revenue">Other revenue</option><option value="monthly_revenue">Monthly revenue</option></select></label>
+          <label>USD amount<input name="amount" type="number" step=".01" min="0" required></label>
+          <label>Status<select name="status"><option value="active">Active</option></select></label>
+          <div class="finance-simple-form finance-wide" id="finance-monthly-fields"><label>Starts<input name="starts_on" type="date" value="2026-10-01"></label><label>Ends (optional)<input name="ends_on" type="date"></label></div>
+          <div class="finance-simple-form finance-wide" id="finance-occurs-fields" hidden><label>Incurred / received date<input name="occurs_on" type="date"></label></div>
+          <label class="finance-wide">Memo<input name="memo" maxlength="500"></label>
+          <div class="finance-form-actions"><button type="submit">Save item</button><button type="button" class="secondary" id="finance-item-cancel">Cancel</button></div>
+        </form>
+      </dialog>
+      <dialog class="finance-dialog" id="finance-provider-dialog" aria-labelledby="finance-provider-title">
+        <form id="finance-provider-form">
+          <h3 id="finance-provider-title">Provider balance</h3>
+          <label>Provider ID<input name="provider_id" required pattern="[a-z][a-z0-9_-]*" maxlength="40" placeholder="e.g. iqm"></label>
+          <label>Name<input name="name" maxlength="120" required></label>
+          <label>Units<input name="units" maxlength="50" required placeholder="USD or QPU seconds"></label>
+          <label>Remaining quantity<input name="quantity" inputmode="decimal" placeholder="Blank if unknown"></label>
+          <label>USD per unit<input name="rate_usd" inputmode="decimal" placeholder="e.g. 0.30"></label>
+          <label>State<select name="state"><option value="unknown">Unknown</option><option value="reported">Reported</option><option value="unlimited">Unlimited (not valued)</option><option value="disabled">Disabled</option></select></label>
+          <label>Observed date<input type="date" name="observed_at"></label>
+          <label>Source<input name="source" maxlength="120" value="operator" required></label>
+          <label class="finance-wide">Notes<input name="notes" maxlength="500"></label>
+          <div class="finance-form-actions"><button type="submit">Save provider</button><button type="button" class="secondary" id="finance-provider-cancel">Cancel</button></div>
+        </form>
+      </dialog>
+      <div class="readings-split" id="readings">
+        <section class="panel readings-compact" aria-labelledby="volume-title">
+          <div class="section-heading"><h2 id="volume-title">Readings</h2><label>UTC period <select id="days"><option value="7">7 days</option><option selected value="30">30 days</option><option value="90">90 days</option><option value="365">365 days</option></select></label></div>
+          <div class="metrics readings-summary" id="summary"></div>
+          <details class="readings-trend">
+            <summary>Daily completed readings <span id="chart-summary"></span></summary>
+            <div class="chart-controls"><label>Series <select id="series"><option value="all">All reading types</option></select></label></div>
+            <div id="chart" class="chart"></div>
+            <p class="small">One saved completed consultation per reading. Demos, replays and individual shots are excluded.</p>
+          </details>
+        </section>
+        <section class="panel" id="credits" aria-labelledby="credits-heading">
+          <div class="section-heading"><h2 id="credits-heading">Credits</h2><span class="eyebrow">ACCOUNT + PROMOTIONS</span></div>
+          <div class="credit-metrics">
+            <div><span>Created</span><strong id="credit-created">—</strong></div>
+            <div><span>Destroyed</span><strong id="credit-destroyed">—</strong></div>
+            <div><span>Active</span><strong id="credit-active">—</strong></div>
+          </div>
+          <div class="credit-reserves">
+            <div><small>Min IBM seconds reserve</small><strong id="credit-ibm-min">—</strong><small id="credit-ibm-actual">Actual: —</small></div>
+            <div><small>Min replay inventory</small><strong id="credit-replay-min">—</strong><small id="credit-replay-actual">Actual: —</small></div>
+          </div>
+          <p class="small">Account credits: <span id="credit-owned">—</span> · Allocated unclaimed: <span id="credit-unclaimed">—</span></p>
+          <p class="small" id="credit-reconcile"></p>
+          <div class="credit-actions"><button type="button" id="credit-refresh" class="secondary">Refresh credits</button><button type="button" id="credit-report" class="secondary">Usage report</button></div>
+          <div class="credit-history" id="credit-report-output"></div>
+          <details><summary>Issue grouped claim codes</summary>
+            <form id="credit-issue-form">
+              <label>Group<select name="group"><option>Alpha Test</option><option>Media</option><option>Promo</option></select></label>
+              <label>Codes<input name="quantity" type="number" min="1" max="100" value="48" required></label>
+              <label>Credits / code<input name="credits_each" type="number" min="1" max="100000" value="16" required></label>
+              <label>Expires in days<input name="expires_days" type="number" min="1" max="365" value="90" required></label>
+              <button type="submit">Create and download codes</button>
+            </form>
+            <p class="small">Codes are shown once as a private CSV download. Issuance increases active supply immediately.</p>
+          </details>
+          <details><summary>Grant credits to an existing account</summary>
+            <form id="credit-grant-form">
+              <label>Account ID<input name="account_id" minlength="64" maxlength="64" required></label>
+              <label>Credits<input name="credits" type="number" min="1" max="100000" required></label>
+              <label>Reason<input name="reason" minlength="6" maxlength="240" required></label>
+              <button type="submit">Grant credits</button>
+            </form>
+          </details>
+          <details><summary>Claim-code batches</summary><div id="credit-batches" class="credit-history"></div><div id="credit-group-stats" class="credit-history"></div></details>
+          <p role="status" class="small" id="credit-status">Credit metrics loading…</p>
+        </section>
+      </div>
+      <section class="panel media-full-width" id="media" aria-labelledby="media-heading">
+          <div class="section-heading"><h2 id="media-heading">Media</h2><span class="eyebrow">OUTREACH</span></div>
+          
+                    <div id="media-crm-root">
+            <div class="media-tools">
+              <form id="media-search-form" class="media-search-form" aria-label="Search media contacts">
+                <label for="media-search">Search contacts or outlets</label>
+                <div class="media-search-inline">
+                  <input id="media-search" type="search" maxlength="160" placeholder="Name, outlet, topic…">
+                  <button type="submit" class="secondary">Search</button>
+                </div>
+              </form>
+              <label class="media-status-filter" for="media-filter">Status
+                <select id="media-filter">
+                  <option value="">All statuses</option>
+                  <option value="researching">Researching</option>
+                  <option value="ready">Ready</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="follow_up">Follow up</option>
+                  <option value="responded">Responded</option>
+                  <option value="published">Published</option>
+                  <option value="declined">Declined</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </label>
+              <button id="media-new" class="media-add" type="button">Add contact</button>
+            </div>
+            <p id="media-feedback" class="media-feedback" role="status" aria-live="polite">Loading media contacts…</p>
+            <div class="media-list"><table class="media-table"><thead><tr>
+              <th scope="col">Contact / outlet</th><th scope="col">Status</th><th scope="col">Follow-up</th>
+              <th scope="col">Claim code</th><th scope="col">Actions</th>
+            </tr></thead><tbody id="media-rows"></tbody></table></div>
+            <div class="media-pagination">
+              <button id="media-prev" class="secondary" type="button">Previous</button>
+              <span id="media-range" class="small">0 of 0</span>
+              <button id="media-next" class="secondary" type="button">Next</button>
+            </div>
+            <div id="media-activity-section" class="media-history" hidden>
+              <div class="section-heading"><h3 id="media-activity-heading">Outreach history</h3>
+                <button id="media-activity-close" type="button" class="secondary">Close</button></div>
+              <ul id="media-activity-list"></ul>
+              <label for="media-activity-note">Add activity note</label>
+              <textarea id="media-activity-note" maxlength="2000" rows="3"></textarea>
+              <div class="media-activity-controls">
+                <select id="media-activity-kind" aria-label="Activity type">
+                  <option value="note">General note</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="reply">Received reply</option>
+                  <option value="follow_up">Followed up</option>
+                  <option value="coverage">Coverage published</option>
+                </select>
+                <button id="media-add-activity" type="button">Record activity</button>
+              </div>
+            </div>
+            <dialog id="media-dialog" aria-labelledby="media-dialog-title">
+              <h3 id="media-dialog-title">Add media contact</h3>
+              <form id="media-form">
+                <label>Name <input name="name" maxlength="160" autocomplete="off"></label>
+                <label>Outlet / organization <input name="outlet" maxlength="160" autocomplete="off"></label>
+                <label>Email <input name="email" type="email" maxlength="254" autocomplete="off"></label>
+                <label>Role / beat <input name="role" maxlength="160"></label>
+                <label class="wide">Topics <input name="topics" maxlength="500"></label>
+                <label>Status <select name="status">
+                  <option value="researching">Researching</option><option value="ready">Ready</option>
+                  <option value="contacted">Contacted</option><option value="follow_up">Follow up</option>
+                  <option value="responded">Responded</option><option value="published">Published</option>
+                  <option value="declined">Declined</option><option value="archived">Archived</option>
+                </select></label>
+                <label>Next follow-up <input name="next_followup" type="date"></label>
+                <label class="wide">Published coverage URL (HTTPS) <input name="published_url" type="url" maxlength="800" placeholder="https://…"></label>
+                <label class="wide">Notes <textarea name="notes" maxlength="5000" rows="4"></textarea></label>
+                <label class="wide"><span><input name="claim_code_given" type="checkbox"> Credit claim code given</span></label>
+                <p id="media-editor-feedback" class="media-editor-feedback small" role="status">Records only whether a code was provided. No balances or redeemable codes stored.</p>
+                <div class="media-dialog-buttons"><button id="media-cancel" type="button" class="secondary">Cancel</button>
+                  <button id="media-save" type="submit">Save contact</button></div>
+              </form>
+            </dialog>
+          </div>
+
+        </section>
+      <details class="panel collapsible" id="services">
+        <summary><span>Service breakdown</span><span class="summary-description">Completed readings by service · period / all time</span></summary>
+        <div class="details-body"><div class="scroll"><table><thead><tr><th>Service</th><th>Period</th><th>All time</th></tr></thead><tbody id="reading-table"></tbody></table></div></div>
+      </details>
+      <details class="panel collapsible" id="inventory-panel">
+        <summary><span>Quantum Past inventory</span><span class="summary-description">Commitments · release · provenance</span></summary>
+        <div class="details-body"><p class="small">Qualified stock may be committed but not available while a service is disabled. Verification and release are distinct from mere proof presence.</p><div class="inventory" id="inventory"></div></div>
+      </details>
+      <details class="panel collapsible" id="compute">
+        <summary><span>IBM compute and funding</span><span class="summary-description">Recorded timing · allocations · tracked jobs</span></summary>
+        <div class="details-body"><p class="small">Planning adds configurable overhead to recorded measurements, where available. IBM billed seconds, RU and USD expenses are not equivalent.</p>
+          <div class="metrics" id="ibm-summary"></div>
+          <div class="scroll"><table><thead><tr><th>Engine / type</th><th>Requests</th><th>Reading yield</th><th>Measured s</th><th>Planning s</th><th>Billed s</th><th>Planning s / reading</th><th>Billed s / reading</th></tr></thead><tbody id="ibm-groups"></tbody></table></div>
+          <details class="compact-disclosure"><summary>Individual tracked IBM jobs</summary><div class="scroll"><table><thead><tr><th>Job</th><th>Type</th><th>Readings</th><th>Measured s</th><th>Baseline s</th><th>Basis</th><th>Planning s</th><th>Billed s</th><th>RU (if recorded)</th></tr></thead><tbody id="jobs"></tbody></table></div><p id="jobs-note" class="small"></p></details>
+          <h3>Instance funding and usage</h3><div id="funding" class="data-grid"></div>
+          <p class="small">An IBM allocation is not cash credit. <a href="https://quantum.cloud.ibm.com/instances" target="_blank" rel="noopener noreferrer">IBM instances</a> · <a href="https://cloud.ibm.com/billing" target="_blank" rel="noopener noreferrer">IBM billing</a></p>
+        </div>
+      </details>
+      <details class="panel collapsible critical-disclosure" id="proofs">
+        <summary><span>Bitcoin timestamp verification</span><span class="summary-description">Proof status · potentially state-changing release</span></summary>
+        <div class="details-body"><p class="warn small"><strong>CAUTION:</strong> The verification buttons below can release eligible quantum stock. They are not read-only refresh controls.</p><div id="checkpoints"></div><p id="proof-status" role="status" aria-live="polite"></p></div>
+      </details>
+      <details class="panel collapsible" id="operations-panel">
+        <summary><span>Operational status</span><span class="summary-description">SQLite · disk · consultations · jobs · notifications</span></summary>
+        <div class="details-body"><div class="data-grid" id="operations"></div><div id="states"></div></div>
+      </details>
+    </div>
+  </main>
+  <dialog id="mail-composer" class="mail-dialog" aria-labelledby="mail-title">
+    <div class="mail-composer-content">
+      <div class="section-heading"><h2 id="mail-title">Compose email</h2><button id="compose-close" type="button" class="secondary" aria-label="Close composer">Close</button></div>
+      <label>From <input id="mail-from" type="email" value="quantum@gnosis.bot" list="sender-presets" pattern="[A-Za-z0-9._%+-]+@gnosis\.bot" autocomplete="off" aria-describedby="sender-help"><datalist id="sender-presets"><option value="quantum@gnosis.bot"></option><option value="readings@gnosis.bot"></option><option value="support@gnosis.bot"></option></datalist></label>
+      <p id="sender-help" class="small">Approved senders: quantum@gnosis.bot, readings@gnosis.bot and support@gnosis.bot.</p>
+      <label>To <input id="mail-to" type="email" placeholder="recipient@example.com"></label>
+      <label>Subject <input id="mail-subject" type="text" maxlength="200"></label>
+      <label>Message <textarea id="mail-message" rows="8" maxlength="10000"></textarea></label>
+      <p id="mail-feedback" class="small" role="status">Email sending disabled until configured.</p>
+      <button id="mail-send" type="button" disabled>Send email</button>
+    </div>
+  </dialog>
+  <footer class="home-footer gnosis-site-footer">
+    <span>© GNOSIS.BOT</span><a href="https://markbailey.love">CREATOR</a><a href="https://github.com/ma-da/gnosisbot">GITHUB</a><a href="#top">TOP ↑</a>
+  </footer>
+  <script src="/admin/dashboard.js?v=3" type="module"></script>
+  <script src="/admin/contacts.js?v=1" type="module"></script>
+  <script src="/admin/media.js?v=1" type="module"></script>
+  <script src="/admin/credits.js?v=1" type="module"></script>
+  <script src="/admin/finance.js?v=1" type="module"></script>
+</body>
+</html>

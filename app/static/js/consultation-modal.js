@@ -207,8 +207,14 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
       setMessage('Enter a valid email address to receive your results.', 'error');
       email.focus(); return;
     }
+    if (get('consultation-research-consent').checked && !get('consultation-question').value.trim()) {
+      setMessage('Enter a question to opt into public research, or uncheck the box.', 'error');
+      get('consultation-question').focus();
+      return;
+    }
     const inquiry = {
       question: get('consultation-question').value,
+      researchPublicationConsent: get('consultation-research-consent').checked,
       inquiryStyle: selected('consultation-style'),
       mode: mode(),
       qrngProvider: mode() === 'qrng' ? selected('consultation-qrng-provider') : null,
@@ -226,7 +232,10 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
       // Caller is responsible for securely storing authorized inquiry metadata.
       // Returning true means it accepted the request; false keeps the dialog open.
       const accepted = await onSubmit(inquiry);
-      if (accepted === true) dialog.close();
+      if (accepted === true) {
+        get('consultation-research-consent').checked = false;
+        dialog.close();
+      }
       else setMessage('This casting method is not connected yet.');
     } catch (error) {
       setMessage(error?.message || 'Unable to start this reading.', 'error');

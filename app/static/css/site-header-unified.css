@@ -1,0 +1,235 @@
+/* GNOSIS.BOT — site-wide home-style header, v1.
+ * This file loads last and overrides older per-page header geometry only.
+ * All main content, page widgets, and footer styles are intentionally untouched.
+ */
+body > header.gnosis-site-header.home-topbar {
+  box-sizing: border-box;
+  position: relative;
+  inset: auto;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: 10px 18px;
+  width: 100%;
+  max-width: var(--page-max, 1100px);
+  min-height: var(--header-h, 56px);
+  height: auto;
+  margin: 0 auto;
+  padding: 9px 24px;
+  border: 0;
+  border-bottom: 1px solid var(--light, #e0e3e0);
+  background: transparent;
+  color: var(--text, #202527);
+  font-family: var(--font-body, 'DM Sans', Arial, sans-serif);
+  border-radius: 0;
+}
+body > header.gnosis-site-header .gnosis-header-main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: clamp(12px, 2vw, 24px);
+  row-gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+body > header.gnosis-site-header .wordmark {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  font: 700 21px/1.25 var(--font-display, 'Space Mono', monospace);
+  letter-spacing: -1.2px;
+  color: var(--text, #202527);
+  text-decoration: none;
+  white-space: nowrap;
+}
+body > header.gnosis-site-header .brand-dot { color: var(--teal, #1ea8b3); }
+body > header.gnosis-site-header .home-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  gap: 8px clamp(11px, 1.65vw, 26px);
+  width: auto;
+  min-width: 0;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+body > header.gnosis-site-header .home-nav a {
+  color: var(--ink-soft, #4d5658);
+  font: 600 12px/1.4 var(--font-body, 'DM Sans', Arial, sans-serif);
+  text-decoration: none;
+  white-space: nowrap;
+}
+body > header.gnosis-site-header .home-nav a[aria-current='page'],
+body > header.gnosis-site-header .home-nav a:hover,
+body > header.gnosis-site-header .home-nav a:focus-visible {
+  color: var(--teal, #1ea8b3);
+}
+body > header.gnosis-site-header .gnosis-header-context {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  min-width: 0;
+  color: var(--muted, #707779);
+  font: 500 11px/1.5 var(--font-body, 'DM Sans', Arial, sans-serif);
+}
+body > header.gnosis-site-header .gnosis-header-context .topbar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body > header.gnosis-site-header .gnosis-header-context .topnote {
+  display: inline;
+  color: var(--muted, #707779);
+  font: 500 10px/1.5 var(--font-display, 'Space Mono', monospace);
+  letter-spacing: .015em;
+  overflow-wrap: anywhere;
+}
+body > header.gnosis-site-header .gnosis-header-context :is(a,button) {
+  white-space: normal;
+}
+body > header.gnosis-site-header > .system-health-trigger {
+  justify-self: end;
+  align-self: center;
+  flex: 0 0 auto;
+  margin: 0;
+  white-space: nowrap;
+  border-radius: 0;
+}
+body > header.gnosis-site-header :is(a,button):focus-visible {
+  outline: 2px solid var(--teal, #1ea8b3);
+  outline-offset: 3px;
+}
+/* Hide the old-row fallback only once the shared JS has moved its contents. */
+body > header.gnosis-site-header:not([data-gnosis-unified-header]) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+@media (max-width: 860px) {
+  body > header.gnosis-site-header .home-nav { margin-left: 0; }
+}
+@media (max-width: 680px) {
+  body > header.gnosis-site-header.home-topbar {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas: 'brand health' 'nav nav';
+    align-items: center;
+    gap: 8px 12px;
+    padding: 12px 15px;
+  }
+  body > header.gnosis-site-header.home-topbar:has(.gnosis-header-context) {
+    grid-template-areas: 'brand health' 'nav nav' 'context context';
+  }
+  body > header.gnosis-site-header .gnosis-header-main { display: contents; }
+  body > header.gnosis-site-header .wordmark { grid-area: brand; }
+  body > header.gnosis-site-header .home-nav {
+    grid-area: nav;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 7px 15px;
+    margin: 0;
+  }
+  body > header.gnosis-site-header .home-nav a { font-size: 11px; }
+  body > header.gnosis-site-header .gnosis-header-context { grid-area: context; width: 100%; }
+  body > header.gnosis-site-header > .system-health-trigger { grid-area: health; }
+}
+@media (max-width: 380px) {
+  body > header.gnosis-site-header .wordmark { font-size: 18px; }
+  body > header.gnosis-site-header .home-nav { gap: 6px 11px; }
+  body > header.gnosis-site-header .home-nav a { font-size: 10px; }
+}
+
+/* GNOSIS CENTERED HEADER V1.1 — desktop three-region header.
+ * Brand LEFT, primary navigation centered on the header, health RIGHT.
+ * Optional account/status/edition information is centered below navigation,
+ * never below the brand; mobile stacks navigation + context gracefully.
+ * Intended to load after the v1 shared-header rules in the same stylesheet. */
+body > header.gnosis-site-header.home-topbar[data-gnosis-unified-header] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+  grid-template-areas: "brand nav health";
+  align-items: center;
+  column-gap: clamp(12px, 2vw, 30px);
+  row-gap: 5px;
+}
+body > header.gnosis-site-header.home-topbar[data-gnosis-unified-header]:has(.gnosis-header-context) {
+  grid-template-areas: "brand nav health" ". context .";
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] > .gnosis-header-main {
+  display: contents;
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] .wordmark {
+  grid-area: brand;
+  justify-self: start;
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] .home-nav {
+  grid-area: nav;
+  justify-self: center;
+  justify-content: center;
+  align-self: center;
+  flex: none;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] .gnosis-header-context {
+  grid-area: context;
+  justify-self: center;
+  justify-content: center;
+  max-width: 100%;
+  text-align: center;
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] .gnosis-header-context .topbar-actions {
+  justify-content: center;
+}
+body > header.gnosis-site-header[data-gnosis-unified-header] > .system-health-trigger {
+  grid-area: health;
+  justify-self: end;
+  align-self: center;
+  background: transparent;
+  color: var(--ink-soft, #4d5658);
+  border: 1px solid var(--light, #e0e3e0);
+  padding: 7px 11px;
+  font: 500 10px/1.25 var(--font-display, 'Space Mono', monospace);
+  letter-spacing: .035em;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+@media (max-width: 900px) {
+  body > header.gnosis-site-header.home-topbar[data-gnosis-unified-header] {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas: "brand health" "nav nav";
+    row-gap: 8px;
+  }
+  body > header.gnosis-site-header.home-topbar[data-gnosis-unified-header]:has(.gnosis-header-context) {
+    grid-template-areas: "brand health" "nav nav" "context context";
+  }
+  body > header.gnosis-site-header[data-gnosis-unified-header] .home-nav {
+    width: auto;
+    max-width: 100%;
+    justify-content: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    gap: 8px clamp(10px, 2vw, 20px);
+  }
+  body > header.gnosis-site-header[data-gnosis-unified-header] .gnosis-header-context {
+    justify-self: center;
+    text-align: center;
+  }
+}
+@media (max-width: 380px) {
+  body > header.gnosis-site-header[data-gnosis-unified-header] .home-nav {
+    width: auto;
+    justify-content: center;
+  }
+}
