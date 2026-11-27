@@ -6,7 +6,7 @@ import json
 from . import gqtp as g
 
 
-def release_verified(db, n, checkpoint_bytes, proof_sha256, method, evidence):
+def release_verified(db, n, checkpoint_bytes, proof_sha256, method, evidence, *, promote_job=None):
     g.require(db.in_transaction, 'Verification record and stock release must be atomic')
     g.require(g.enforced(db), 'Inventory enforcement not established')
     env=json.loads(checkpoint_bytes)
@@ -18,7 +18,7 @@ def release_verified(db, n, checkpoint_bytes, proof_sha256, method, evidence):
     g.require(g.root([g.leaf(g.canonical(e)) for e in events]).hex()==c['root'],'Signed ledger prefix mismatch')
     results=[]
     for b in db.execute('SELECT * FROM gqtp_batches ORDER BY seq').fetchall():
-        if b['seq']>n:continue
+        if b['seq']>n or (promote_job is not None and b['job_id']!=promote_job):continue
         bt,it=g.batch_tables(b['engine']); job=b['job_id']; bid=b['batch_id']
         live=db.execute(f'SELECT * FROM {bt} WHERE batch_id=?',(bid,)).fetchone()
         g.require(live is not None,'Missing registered batch')
@@ -42,14 +42,25 @@ def release_verified(db, n, checkpoint_bytes, proof_sha256, method, evidence):
             g.require(s['state']==('available' if i['disposition']=='commercial' else 'void'),'Unexpected stock state')
             commercial+=int(i['disposition']=='commercial')
         g.require(commercial==event['commercial_count'] and commercial>0,'Commercial count mismatch')
+        hold=db.execute('SELECT * FROM gnosis_reserve_holds WHERE job_id=?',(job,)).fetchone()
+        if hold is not None and hold['promoted_at'] is None:
+            g.require(hold['engine']==b['engine'] and b['release_checkpoint'] is None,'Reserve state mismatch')
+            if promote_job is None:
+                db.execute('UPDATE gnosis_reserve_holds SET verified_checkpoint=?,proof_sha256=? WHERE job_id=?',(n,proof_sha256,job))
+                continue
+            db.execute('UPDATE gnosis_reserve_holds SET verified_checkpoint=?,proof_sha256=?,promoted_at=? WHERE job_id=?',(n,proof_sha256,g.stamp(),job))
+        elif promote_job is not None:
+            raise ValueError('Not an unpromoted reserve batch')
+        operator='operator_reserve_promotion' if promote_job is not None else 'admin_btc_auto_release'
         if b['release_checkpoint'] is None:
-            note={'method':method,'proof_sha256':proof_sha256,'operator':'admin_btc_auto_release','verified_at':g.stamp(),'evidence':evidence}
+            note={'method':method,'proof_sha256':proof_sha256,'operator':operator,'verified_at':g.stamp(),'evidence':evidence}
             db.execute('UPDATE gqtp_batches SET release_checkpoint=?,verification_note=? WHERE job_id=?',(n,g.canonical(note).decode('ascii'),job))
             g.append(db,'batch_released',{'ibm_job_id':job,'checkpoint_size':n,'ots_proof_sha256':proof_sha256,'verification_method':method})
         else:
             # A previously verified but not approved batch may be approved after a fresh valid proof.
             g.require(b['release_checkpoint']<=n,'Previously released checkpoint not covered')
-        changed=db.execute(f"UPDATE {bt} SET status='approved',approved_at=?,approved_by=? WHERE batch_id=? AND status='quarantined'",(g.stamp(),'admin_btc_auto_release',bid)).rowcount
+        changed=db.execute(f"UPDATE {bt} SET status='approved',approved_at=?,approved_by=? WHERE batch_id=? AND status='quarantined'",(g.stamp(),operator,bid)).rowcount
         g.require(changed==1,'Inventory release race')
         results.append({'engine':b['engine'],'ibm_job_id':job,'commercial_count':commercial})
+    if promote_job is not None:g.require(len(results)==1,'Selected reserve not eligible or not covered by proof')
     return results

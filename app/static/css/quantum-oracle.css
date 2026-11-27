@@ -1,0 +1,85 @@
+/* Gnosis.bot I Ching tradition explorer. Entirely scoped below the existing instrument. */
+.gnosis-traditions-explorer {
+  --gte-ink: var(--text, #202527);
+  --gte-muted: var(--ink-soft, #536163);
+  --gte-rule: var(--light, #d9dfda);
+  --gte-teal: #028090;
+  border-top: 2px solid #1a5e63;
+  margin-top: 32px;
+  padding-top: 24px;
+  color: var(--gte-ink);
+  font-family: var(--font-body, 'DM Sans', Arial, sans-serif);
+}
+.gnosis-traditions-explorer[hidden] { display: none !important; }
+.gnosis-traditions-explorer *, .gnosis-traditions-explorer *::before, .gnosis-traditions-explorer *::after { box-sizing: border-box; }
+.gte-header { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+.gte-eyebrow, .gte-phase-label, .gte-card-tradition, .gte-field-label { font-family: var(--font-display, 'Space Mono', monospace); letter-spacing: .06em; }
+.gte-eyebrow { font-size: 10px; font-weight: 700; color: #1a5e63; margin: 0 0 8px; }
+.gte-header h2 { font-size: clamp(23px, 3.2vw, 38px); letter-spacing: -.035em; line-height: 1.14; margin: 0; }
+.gte-note { font-size: 12px; line-height: 1.65; color: var(--gte-muted); margin: 8px 0; white-space: pre-line; }
+.gte-phase-label { font-size: 10px; white-space: nowrap; border: 1px solid var(--gte-rule); padding: 7px 9px; color: #1a5e63; }
+.gte-toolbar { margin: 18px 0 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; justify-content: space-between; }
+.gte-choice-group { display: inline-flex; flex-wrap: wrap; gap: 0; border: 1px solid #1a5e63; }
+.gte-tab { appearance: none; border: 0; border-right: 1px solid #1a5e63; border-radius: 0; padding: 10px 14px; background: transparent; color: #1a5e63; cursor: pointer; font: 650 12px var(--font-body, sans-serif); }
+.gte-tab:last-child { border-right: 0; }
+.gte-tab:hover { background: #f0f3bd; }
+.gte-tab[aria-pressed="true"] { background: #1a5e63; color: white; }
+.gte-tab:focus-visible, .gte-lines-button:focus-visible, .gte-source-link:focus-visible, .gte-details summary:focus-visible { outline: 3px solid #c64191; outline-offset: 2px; }
+.gte-toolbar > .gte-note { max-width: 440px; margin: 0; }
+.gte-details { border: 1px solid var(--gte-rule); border-radius: 0; margin: 12px 0 0; }
+.gte-details > summary { cursor: pointer; padding: 12px 13px; font-size: 13px; line-height: 1.45; font-weight: 700; color: #1a5e63; }
+.gte-details[open] > summary { border-bottom: 1px solid var(--gte-rule); }
+.gte-details-body { padding: 12px 14px 16px; }
+.gte-details-body > .gte-details { margin-top: 11px; }
+.gte-details-body > .gte-details > summary { font-size: 12px; }
+.gte-originals, .gte-chinese { font-family: 'Noto Serif SC', serif; white-space: pre-wrap; overflow-wrap: anywhere; }
+.gte-traditions-grid { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.gte-traditions-grid[data-columns="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gte-card { border: 1px solid var(--gte-rule); border-top: 4px solid #028090; padding: clamp(16px, 2vw, 22px); min-width: 0; }
+.gte-card--confucian { border-top-color: #c64191; }
+.gte-card-tradition { color: #1a5e63; font-size: 10px; font-weight: 700; margin: 0 0 8px; }
+.gte-card-title { font-size: clamp(19px, 2.1vw, 25px); line-height: 1.28; letter-spacing: -.02em; margin: 0 0 15px; }
+.gte-field { min-width: 0; margin: 0 0 15px; }
+.gte-field-label { font-size: 10px; font-weight: 700; color: #1a5e63; margin: 0 0 5px; text-transform: uppercase; }
+.gte-field-copy { font-size: 14px; line-height: 1.72; margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+.gte-essence .gte-field-copy { font-size: 16px; font-weight: 600; line-height: 1.55; }
+.gte-source-link { display: inline-block; color: #028090; font-size: 12px; padding: 5px 0; }
+.gte-lines { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--gte-rule); }
+.gte-lines-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.gte-lines h3 { font-size: 22px; letter-spacing: -.02em; margin: 0; }
+.gte-lines-button { appearance: none; background: transparent; border: 1px solid #1a5e63; color: #1a5e63; border-radius: 0; cursor: pointer; font: 600 12px var(--font-body, sans-serif); padding: 9px 13px; }
+.gte-lines-button:hover, .gte-lines-button[aria-pressed="true"] { background: #f0f3bd; }
+.gte-line-list { margin-top: 17px; display: grid; gap: 14px; }
+.gte-line { border: 1px solid var(--gte-rule); padding: 16px; }
+.gte-line-heading { font-size: 17px; margin: 0 0 12px; }
+.gte-line-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; margin-top: 12px; }
+.gte-line-grid[data-columns="2"] { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.gte-line-commentary { border-left: 3px solid #028090; padding-left: 12px; min-width: 0; }
+.gte-line-commentary:nth-child(2) { border-color: #c64191; }
+.gte-line-commentary h5 { font-size: 13px; font-weight: 700; margin: 0 0 10px; }
+.gte-line-commentary .gte-field-copy { font-size: 13px; }
+.gte-line .gte-details > summary { font-size: 12px; }
+.gte-line .gte-chinese { padding: 0 13px 13px; font-size: 13px; line-height: 1.8; }
+.gte-footer { margin-top: 20px; border-top: 1px solid var(--gte-rule); padding-top: 12px; }
+.gte-warning { color: #9a3131; }
+@media (max-width: 740px) {
+  .gte-traditions-grid[data-columns="2"], .gte-line-grid[data-columns="2"] { grid-template-columns: minmax(0,1fr); }
+  .gte-header { flex-wrap: wrap; }
+  .gte-header h2 { font-size: 27px; }
+  .gte-tab { flex: 1 1 auto; padding: 10px; }
+  .gte-choice-group { display: flex; width: 100%; }
+  .gte-traditions-grid { gap: 12px; }
+  .gte-lines-heading { align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .gnosis-traditions-explorer * { scroll-behavior: auto; } }
+
+/* Static oracle positions (formerly inline styles). */
+.math-token--1 { --dx:-80px;--dy:-26px;--rot:-30deg }
+.math-token--2 { --dx:42px;--dy:34px;--rot:40deg }
+.math-token--3 { --dx:80px;--dy:-28px;--rot:25deg }
+.math-token--4 { --dx:-50px;--dy:32px;--rot:-45deg }
+.math-token--5 { --dx:65px;--dy:20px;--rot:30deg }
+.consultation-mode--system { --mode-area: system; }
+.consultation-mode--quantum { --mode-area: quantum; }
+.consultation-mode--past { --mode-area: past; }
+.consultation-mode--future { --mode-area: future; }

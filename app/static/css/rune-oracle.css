@@ -1,5 +1,5 @@
 /* GNOSIS.BOT — Elder Futhark visual alpha 0.2.3
- * Scoped component styles. Shared tokens and typography remain in global.css.
+ * Scoped component styles. Shared tokens and typography remain in style.css.
  * Palette colors are user preferences, never recognition criteria.
  */
 
@@ -103,7 +103,7 @@ button.rune-pathway-member:hover {
 .rune-provider-actions { gap: 12px; justify-content: flex-end; }
 /* Native color inputs, compact and discoverable. Accessible names supplied in JS. */
 .rune-palette { display: inline-flex; gap: 5px; align-items: center; }
-.rune-color-swatch { appearance: none; width: 22px; height: 22px; border: 1px solid var(--ring-muted); border-radius: 2px; padding: 2px; background: var(--bg); cursor: pointer; }
+.rune-color-swatch { appearance: none; width: 22px; height: 22px; border: 1px solid var(--ring-muted); border-radius: 0; padding: 2px; background: var(--bg); cursor: pointer; }
 .rune-color-swatch::-webkit-color-swatch-wrapper { padding: 0; }
 .rune-color-swatch::-webkit-color-swatch { border: 0; }
 .rune-color-swatch::-moz-color-swatch { border: 0; }
@@ -928,7 +928,7 @@ button.rune-pathway-member:hover {
 .rune-production-status { max-width:var(--rune-instrument-max,1100px); margin:12px auto; padding:14px; border:1px solid var(--light); color:var(--ink-soft); font-size:13px; }
 .rune-production-status p { margin:0 0 9px; }
 .rune-production-status a,.rune-production-status button { margin-right:12px; }
-/* Rune consultation uses the I Ching .consultation-* component in global.css.
+/* Rune consultation uses the I Ching .consultation-* component in style.css.
  * These rules address only rune-specific method/account controls and disabled options. */
 #rune-consultation .rune-method-toggle { margin-top:0!important; margin-bottom:13px; }
 #rune-consultation .consultation-mode:has(input:disabled),

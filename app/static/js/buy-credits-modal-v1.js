@@ -394,7 +394,10 @@
     trigger.setAttribute('aria-haspopup','dialog');
     trigger.setAttribute('aria-controls',MODAL_ID);
     trigger.addEventListener('click', open);
-    copyButton.before(trigger);
+    // GNOSIS ACCOUNT LAYOUT V0.3.2: action beside Log out, not inside Account Info.
+    const logout = $('#logout');
+    if (!logout || !logout.parentElement?.classList.contains('account-session-tools')) return false;
+    logout.before(trigger);
 
     modal.addEventListener('close', () => {
       if (returnFocus && returnFocus.isConnected && typeof returnFocus.focus === 'function') returnFocus.focus();

@@ -62,8 +62,23 @@ def _catalog_entry(p):
 
 
 @router.get('/services/catalog')
-def services_catalog():
+def services_catalog(request: Request=None, response: _RuneResponse=None):
     entries = [_catalog_entry(p) for p in SERVICES.values()]
+    from .future_trial import allowed
+    from .auth_api import COOKIE
+    from .identity import session_account
+    user=None
+    if request is not None:
+        with closing(connect()) as db:
+            row=session_account(db,request.cookies.get(COOKIE,''))
+            if row: user=dict(row)
+    if response is not None:
+        response.headers['Cache-Control']='private, no-store'
+        response.headers['Vary']='Cookie'
+    for entry in entries:
+        if entry['service_id'].endswith('.quantum_future') and allowed(user,entry['service_id']):
+            from .future_auto_policy import production_enabled
+            entry.update(available=True,availability='ibm_live' if production_enabled() else 'controlled_admin_trial',price_provisional=False)
     from .public_inventory import load_snapshot
     try:
         inventory = {x['service_id']: x for x in load_snapshot(connect)['engines']}
@@ -128,6 +143,9 @@ def consultation_status(consultation_id: str,user: dict=Depends(authenticated),r
 
 
 def _map_transaction_error(exc):
+    from .transactions import FutureCapacityError
+    if isinstance(exc,FutureCapacityError):
+        return HTTPException(503, {'code':exc.code,'message':str(exc)})
     if isinstance(exc, InsufficientCredits):
         return HTTPException(402, {'code':exc.code,'message':str(exc)})
     if isinstance(exc,CooldownActive):

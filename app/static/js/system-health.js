@@ -113,7 +113,39 @@ export function buildHealthView(catalog, inventory, diagnostics, browserCrypto, 
   const batchCount=engines.reduce((n,e)=>n+(Number.isSafeInteger(e.batch_count)&&e.batch_count>=0?e.batch_count:0),0);
   const verified=engines.reduce((n,e)=>n+(Number.isSafeInteger(e.check_counts?.bitcoin_verified)?e.check_counts.bitcoin_verified:0),0);
   const released=engines.reduce((n,e)=>n+(Number.isSafeInteger(e.check_counts?.released)?e.check_counts.released:0),0);
-  group('QUANTUM TRANSPARENCY', [{name:'Signed inventory & Bitcoin',description:'Recorded GQTP verification',status:!inventory || !batchCount ? 'unknown' : verified===batchCount && released===batchCount && inventory.inventory_enforced===true ? 'healthy' : 'degraded',detail:!inventory?'Public inventory API unavailable':`Checkpoint ${count(inventory.latest_checkpoint)} · ${verified}/${batchCount} batches Bitcoin verified · ${released}/${batchCount} released · Release enforcement ${inventory.inventory_enforced===true?'on':'not confirmed'}`}]);
+  const batches=engines.flatMap(
+    e=>Array.isArray(e.batches)?e.batches:[]
+  );
+
+  const verifiedReserve=batches.filter(b=>
+    b.reserve_held===true &&
+    b.checks?.bitcoin_verified===true &&
+    b.checks?.released===false
+  ).length;
+
+  const operational=
+    verified===batchCount &&
+    released+verifiedReserve===batchCount &&
+    inventory?.inventory_enforced===true;
+
+  const checkpoints=batches.flatMap(b=>[
+    b.release_checkpoint,
+    b.reserve_verified_checkpoint
+  ]).filter(n=>Number.isSafeInteger(n)&&n>0);
+
+  const latestVerified=checkpoints.length
+    ? Math.max(...checkpoints) : null;
+
+  group('QUANTUM TRANSPARENCY', [{
+    name:'Signed inventory & Bitcoin',
+    description:'Recorded GQTP verification',
+    status:!inventory || !batchCount
+      ? 'unknown'
+      : operational ? 'healthy' : 'degraded',
+    detail:!inventory
+      ? 'Public inventory API unavailable'
+      : `Latest signed checkpoint ${count(inventory.latest_checkpoint)} · Latest batch verification checkpoint ${count(latestVerified)} · ${verified}/${batchCount} batches Bitcoin verified · ${released}/${batchCount} released · ${verifiedReserve} verified reserve batches · Release enforcement ${inventory.inventory_enforced===true?'on':'not confirmed'}`
+  }]);
   const backends=Array.isArray(diagnostics?.ibm_backends)?diagnostics.ibm_backends:[];
   group('IBM QUANTUM HARDWARE',backends.length ? backends.map(b=>({name:b.name || 'IBM backend',description:Number.isInteger(b.qubits)?`${b.qubits} qubits`:'Quantum processor',status:!fresh?'unknown':b.status || (b.operational===true?'healthy':b.operational===false?'unavailable':'unknown'),detail:!fresh?'Cached hardware status stale':Number.isInteger(b.pending_jobs ?? b.queue) && (b.pending_jobs ?? b.queue)>=0?`${b.pending_jobs ?? b.queue} queued jobs`:'Queue unavailable'})) : [{name:'Live backend monitoring',description:'IBM processor and queue diagnostics',status:'unknown',detail:'No current backend status reported; historical stock is independent'}]);
   return {groups, fresh, partial:!catalog || !inventory || !diagnostics};
@@ -191,7 +223,7 @@ function createModal() {
 
   footer.append(note, refresh);
 
-  dialog.append(header, summary, details, footer);
+  dialog.append(header, details, footer);
 
   dialog.addEventListener('click', event => {
     if (event.target === dialog) dialog.close();

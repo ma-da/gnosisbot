@@ -15,8 +15,14 @@ def validate():
     require(os.getenv('GNOSIS_ALLOW_INSECURE_COOKIE')!='1','Insecure cookies forbidden')
     require(s.data_dir==Path('/var/lib/gnosis') and s.db_path.is_relative_to(s.data_dir),'Private state location mismatch')
     require(s.db_path.is_file(),'Database missing: initialize or restore before startup')
-    for k in ('GNOSIS_ENABLE_IBM_LIVE_SUBMISSION','GNOSIS_ENABLE_IBM_AUTO_SUBMIT','GNOSIS_ENABLE_IBM_PILOT','GNOSIS_ENABLE_IBM_ADMIN_TRIAL','GNOSIS_ENABLE_TRIAL_EMAIL','GNOSIS_PROVISION_ADMIN'):
+    for k in ('GNOSIS_ENABLE_IBM_LIVE_SUBMISSION','GNOSIS_ENABLE_IBM_AUTO_SUBMIT','GNOSIS_ENABLE_IBM_PILOT','GNOSIS_ENABLE_TRIAL_EMAIL','GNOSIS_PROVISION_ADMIN'):
         require(os.getenv(k)!='YES',k+' must be disabled in this alpha service')
+
+    if os.getenv('GNOSIS_ENABLE_IBM_ADMIN_TRIAL')=='YES':
+        require(
+            os.getenv('GNOSIS_ALLOW_CONTROLLED_ADMIN_TRIAL')=='YES',
+            'Administrator Future trial requires explicit controlled-test authorization'
+        )
     require(os.getenv('GNOSIS_ENABLE_CONSULTATION_SANDBOX')!='1','Sandbox disabled in production')
     if os.getenv('GNOSIS_ENABLE_QCI')=='1':require(bool(os.getenv('QCI_API_TOKEN')),'QCI credential missing')
     if any(os.getenv(k)=='YES' for k in ('GNOSIS_ENABLE_EMAIL_VERIFICATION','GNOSIS_ENABLE_COMPLETION_EMAIL')):

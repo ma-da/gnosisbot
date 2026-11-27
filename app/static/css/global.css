@@ -168,7 +168,7 @@ a {
   border-bottom: 1px solid var(--light);
   position: relative;
   z-index: 1000;
-  isolation: isolate;		
+  isolation: isolate;
 }
 
 .wordmark {
@@ -240,7 +240,7 @@ main {
   margin-inline: auto;
   padding: 0 var(--home-main-gutter) 72px;
   position: relative;
-  z-index: 0;		
+  z-index: 0;
 }
 
 /* 04. QUANTUM ORACLE — INSTRUMENT AND SIMILARITY FIELD ------------------------ */
@@ -759,10 +759,10 @@ main {
 .detail {
   border-top: 1px solid var(--light);
   margin-top: 20px;
-  margin-bottom: 20px;		
+  margin-bottom: 20px;
   padding-top: 16px;
-  padding-bottom: 16px;		
-  border-bottom: 1px solid var(--light);		
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--light);
 }
 
 .detail summary {
@@ -1577,7 +1577,7 @@ footer {
 		.archive-explorer.explorer-introduced::after {
 				animation: none;
 				opacity: 0;
-  }		
+  }
 }
 
 

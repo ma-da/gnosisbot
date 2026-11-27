@@ -1,3 +1,4 @@
+/* ===== RESEARCH ===== */
 /* GNOSIS / Research Observatory — layout 2
    Page-local styles; global typography, navigation and shell remain shared. */
 .research-page {
@@ -46,8 +47,15 @@
 /* Compatibility with older tile renderers; the new renderer omits these nodes. */
 .research-matrix .research-tile small, .research-matrix .research-count { display: none; }
 .research-legend { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 15px auto 0; font: 10px/1.5 var(--font-display); color: var(--r-muted); }
-.research-gradient { flex: 0 1 146px; height: 7px; background: linear-gradient(90deg, #b4b4b4, #1e1e1e); }
+.research-gradient { display: flex; gap: 2px; flex: 0 1 146px; height: 7px; background: transparent; }
 .research-panel .research-footnote { font-size: 11px; margin: 10px 0 0; color: var(--r-muted); }
+
+.research-gradient > span { flex: 1; background: var(--legend-tone); }
+.research-gradient > span:nth-child(1) { --legend-tone: #b4b4b4; }
+.research-gradient > span:nth-child(2) { --legend-tone: #8e8e8e; }
+.research-gradient > span:nth-child(3) { --legend-tone: #696969; }
+.research-gradient > span:nth-child(4) { --legend-tone: #434343; }
+.research-gradient > span:nth-child(5) { --legend-tone: #1e1e1e; }
 
 /* Combined distribution, statistics and filters. */
 .research-analysis { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 30px; border-top: 1px solid var(--r-edge); padding: 18px 0 20px; align-items: start; }
@@ -122,3 +130,55 @@
   .research-selected strong { font-size: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .research-page * { transition: none !important; } }
+
+
+/* ===== HEXAGRAM DIALOG ===== */
+/* Research hexagram summary only. Square geometry, flat colors, no gradients. */
+.research-hexagram-modal {
+  width: min(760px, calc(100vw - 28px));
+  max-width: 760px;
+  max-height: min(88dvh, 850px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0;
+  border: 1px solid var(--r-edge, #d8dcd9);
+  border-radius: 0;
+  background: var(--paper, #fff);
+  color: var(--r-deep, #202527);
+  box-shadow: 0 14px 54px rgba(18, 39, 38, .18);
+}
+.research-hexagram-modal::backdrop { background: rgba(18, 32, 34, .65); }
+.research-hexagram-modal__body { padding: clamp(17px, 3vw, 30px); }
+.research-hexagram-modal :is(h2,h3,p) { margin: 0; }
+.research-hexagram-modal__head { display: flex; align-items: flex-start; gap: 14px; justify-content: space-between; }
+.research-hexagram-modal__identity { display: flex; gap: 15px; align-items: flex-start; min-width: 0; }
+.research-hexagram-modal__symbol { font-family: serif; font-size: clamp(51px, 8vw, 73px); line-height: 1; color: var(--r-teal, #028090); flex: 0 0 auto; }
+.research-hexagram-modal__heading { min-width: 0; }
+.research-hexagram-modal__kicker { font: 600 10px/1.5 var(--font-display, monospace); letter-spacing: .09em; color: var(--r-muted, #707779); }
+.research-hexagram-modal h2 { font-size: clamp(22px, 4.2vw, 33px); line-height: 1.13; letter-spacing: -.045em; margin: 5px 0 6px; overflow-wrap: anywhere; }
+.research-hexagram-modal__subtitle { font-size: 12px; line-height: 1.6; color: var(--r-muted, #707779); }
+.research-hexagram-modal__close { flex: 0 0 auto; width: 36px; height: 36px; padding: 0; border: 1px solid var(--r-edge, #d8dcd9); border-radius: 0; background: transparent; color: inherit; cursor: pointer; font-size: 25px; line-height: 1; }
+.research-hexagram-modal__close:hover { color: var(--r-teal, #028090); }
+.research-hexagram-modal :is(button,summary):focus-visible { outline: 2px solid var(--r-teal, #028090); outline-offset: 3px; }
+.research-hexagram-modal__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 21px 0 7px; padding: 12px 0; border-top: 1px solid var(--r-edge, #d8dcd9); border-bottom: 1px solid var(--r-edge, #d8dcd9); }
+.research-hexagram-modal__stat-label { display: block; color: var(--r-muted, #707779); font-size: 11px; line-height: 1.5; }
+.research-hexagram-modal__stat-value { display: block; font-size: 24px; line-height: 1.25; font-variant-numeric: tabular-nums; font-weight: 600; }
+.research-hexagram-modal__scope { color: var(--r-muted, #707779); font-size: 11px; line-height: 1.5; }
+.research-hexagram-modal__section { margin-top: 22px; }
+.research-hexagram-modal__section > h3 { font-size: 17px; font-weight: 650; margin-bottom: 10px; }
+.research-hexagram-modal__label { color: var(--r-muted, #707779); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; margin: 11px 0 5px !important; }
+.research-hexagram-modal__prose { font-size: 13px; line-height: 1.7; color: var(--r-deep, #202527); overflow-wrap: anywhere; white-space: pre-line; }
+.research-hexagram-modal__traditions { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 21px; border-top: 1px solid var(--r-edge, #d8dcd9); margin-top: 21px; padding-top: 18px; }
+.research-hexagram-modal__tradition { min-width: 0; }
+.research-hexagram-modal__tradition h3 { font-size: 17px; font-weight: 650; line-height: 1.35; margin: 7px 0 9px; }
+.research-hexagram-modal__tradition details { border-top: 1px solid var(--r-edge, #d8dcd9); margin-top: 11px; padding-top: 10px; }
+.research-hexagram-modal__tradition summary { cursor: pointer; font-size: 12px; font-weight: 600; }
+.research-hexagram-modal__tradition details p { padding-top: 9px; }
+.research-hexagram-modal__editorial { border-top: 1px solid var(--r-edge, #d8dcd9); margin-top: 24px !important; padding-top: 12px; color: var(--r-muted, #707779); font-size: 11px; line-height: 1.65; }
+@media (max-width: 580px) {
+  .research-hexagram-modal__traditions { grid-template-columns: minmax(0,1fr); gap: 19px; }
+  .research-hexagram-modal__identity { gap: 10px; }
+  .research-hexagram-modal__stats { gap: 6px; }
+  .research-hexagram-modal__stat-value { font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .research-hexagram-modal * { transition: none !important; } }

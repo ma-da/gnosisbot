@@ -1,0 +1,449 @@
+{
+  "approval": "owner_approved_2026-11-24",
+  "hexagrams": {
+    "1": {
+      "one_liner": "Cultivate creative strength through disciplined, timely practice.",
+      "source_version": "0.9.1",
+      "title": "Qian: The Creative (Heaven)"
+    },
+    "10": {
+      "one_liner": "Approach danger with watchful, unhurried sincerity rather than force.",
+      "source_version": "0.9.1",
+      "title": "Treading"
+    },
+    "11": {
+      "one_liner": "Balance inner firmness and outer yielding to restore harmony.",
+      "source_version": "0.9.1",
+      "title": "Peace"
+    },
+    "12": {
+      "one_liner": "Recognize blockage and prepare for a timely inner renewal.",
+      "source_version": "0.9.1",
+      "title": "Standstill"
+    },
+    "13": {
+      "one_liner": "Build open, selfless fellowship grounded in principle.",
+      "source_version": "0.9.1",
+      "title": "Fellowship"
+    },
+    "14": {
+      "one_liner": "Govern inner strength with clarity and renew virtue daily.",
+      "source_version": "0.9.1",
+      "title": "Great Possession"
+    },
+    "15": {
+      "one_liner": "Temper false strength through humility and receptive discipline.",
+      "source_version": "0.9.1",
+      "title": "Humility"
+    },
+    "16": {
+      "one_liner": "Let timely, whole-hearted movement arise from inner receptivity.",
+      "source_version": "0.9.1",
+      "title": "Ease"
+    },
+    "17": {
+      "one_liner": "Follow what is correct with disciplined attention and reciprocal trust.",
+      "source_version": "0.9.1",
+      "title": "Following"
+    },
+    "18": {
+      "one_liner": "Repair corruption through vigilant practice and a return to what is true.",
+      "source_version": "0.9.1",
+      "title": "Decay"
+    },
+    "19": {
+      "one_liner": "Protect emerging strength without forcing or missing its moment.",
+      "source_version": "0.9.1",
+      "title": "Approach"
+    },
+    "2": {
+      "one_liner": "Yield with discernment and cultivate stillness so clarity can emerge.",
+      "source_version": "0.9.1",
+      "title": "Kun (Earth)"
+    },
+    "20": {
+      "one_liner": "Cultivate watchful discernment through sincere inner reverence.",
+      "source_version": "0.9.1",
+      "title": "Viewing"
+    },
+    "21": {
+      "one_liner": "Clarify what is right before taking decisive action.",
+      "source_version": "0.9.1",
+      "title": "Biting Through"
+    },
+    "22": {
+      "one_liner": "Protect inner radiance through stillness and timely expression.",
+      "source_version": "0.9.1",
+      "title": "Grace"
+    },
+    "23": {
+      "one_liner": "Preserve remaining strength instead of forcing progress through dissolution.",
+      "source_version": "0.9.1",
+      "title": "Splitting Apart"
+    },
+    "24": {
+      "one_liner": "Recognize the first impulse of renewal and nurture it patiently.",
+      "source_version": "0.9.1",
+      "title": "Return"
+    },
+    "25": {
+      "one_liner": "Align intention and action with sincerity, correctness and timing.",
+      "source_version": "0.9.1",
+      "title": "Innocence"
+    },
+    "26": {
+      "one_liner": "Hold creative power in stillness until it matures into expression.",
+      "source_version": "0.9.1",
+      "title": "Great Accumulation"
+    },
+    "27": {
+      "one_liner": "Seek genuine nourishment through balance and disciplined inner attention.",
+      "source_version": "0.9.1",
+      "title": "Nourishment"
+    },
+    "28": {
+      "one_liner": "Restore balance by tempering firmness with yielding before excess breaks it.",
+      "source_version": "0.9.1",
+      "title": "Great Exceeding"
+    },
+    "29": {
+      "one_liner": "Meet recurring danger with sincerity and conscious self-examination.",
+      "source_version": "0.9.1",
+      "title": "The Abysmal (Water)"
+    },
+    "3": {
+      "one_liner": "Protect emerging potential; act with firmness when the time is right.",
+      "source_version": "0.9.1",
+      "title": "Zhun (Beginning Difficulties)"
+    },
+    "30": {
+      "one_liner": "Nurture inner brightness so clear action arises without exhaustion.",
+      "source_version": "0.9.1",
+      "title": "Clinging Fire"
+    },
+    "31": {
+      "one_liner": "Allow authentic influence to arise through still, disciplined openness.",
+      "source_version": "0.9.1",
+      "title": "Influence"
+    },
+    "32": {
+      "one_liner": "Remain constant in what is right, advancing without haste or slackness.",
+      "source_version": "0.9.1",
+      "title": "Constancy"
+    },
+    "33": {
+      "one_liner": "Withdraw in good time to gather and protect inner strength.",
+      "source_version": "0.9.1",
+      "title": "Retreat"
+    },
+    "34": {
+      "one_liner": "Root strength in principle and temper force with humility.",
+      "source_version": "0.9.1",
+      "title": "Great Strength"
+    },
+    "35": {
+      "one_liner": "Advance from sincerity toward clarity through disciplined self-refinement.",
+      "source_version": "0.9.1",
+      "title": "Progress"
+    },
+    "36": {
+      "one_liner": "Protect inner brightness through hardship with receptive stillness.",
+      "source_version": "0.9.1",
+      "title": "Brightness Wounded"
+    },
+    "37": {
+      "one_liner": "Order the inner household through disciplined attention and authentic presence.",
+      "source_version": "0.9.1",
+      "title": "The Family"
+    },
+    "38": {
+      "one_liner": "Meet opposition through small, disciplined acts of inner reconciliation.",
+      "source_version": "0.9.1",
+      "title": "Opposition"
+    },
+    "39": {
+      "one_liner": "Turn inward in obstruction and cultivate virtue until the way opens.",
+      "source_version": "0.9.1",
+      "title": "Obstruction"
+    },
+    "4": {
+      "one_liner": "Quiet acquired cleverness and return to childlike clarity.",
+      "source_version": "0.9.1",
+      "title": "Youthful Folly"
+    },
+    "40": {
+      "one_liner": "Recognize the moment of renewal and dissolve danger through balanced action.",
+      "source_version": "0.9.1",
+      "title": "Release"
+    },
+    "41": {
+      "one_liner": "Reduce acquired desires to recover innate clarity and strength.",
+      "source_version": "0.9.1",
+      "title": "Decrease"
+    },
+    "42": {
+      "one_liner": "Increase what is genuine and diminish what is false through gradual practice.",
+      "source_version": "0.9.1",
+      "title": "Increase"
+    },
+    "43": {
+      "one_liner": "Remove entrenched habits with discernment, timing and tempered firmness.",
+      "source_version": "0.9.1",
+      "title": "Decisive Breakthrough"
+    },
+    "44": {
+      "one_liner": "Recognize subtle disturbances early and transform them without suppression.",
+      "source_version": "0.9.1",
+      "title": "Coming to Meet"
+    },
+    "45": {
+      "one_liner": "Gather scattered energies through sincerity and steady cultivation.",
+      "source_version": "0.9.1",
+      "title": "Gathering"
+    },
+    "46": {
+      "one_liner": "Ascend gradually with humility, correct timing and guidance.",
+      "source_version": "0.9.1",
+      "title": "Ascending"
+    },
+    "47": {
+      "one_liner": "Stay centered under pressure and allow hardship to temper inner strength.",
+      "source_version": "0.9.1",
+      "title": "Oppression"
+    },
+    "48": {
+      "one_liner": "Cultivate inner depth before offering nourishment to others.",
+      "source_version": "0.9.1",
+      "title": "The Well"
+    },
+    "49": {
+      "one_liner": "Transform old conditioning through clarity and the refinement of selfish desire.",
+      "source_version": "0.9.1",
+      "title": "Radical Change"
+    },
+    "5": {
+      "one_liner": "Nourish inner strength while waiting sincerely for the right moment.",
+      "source_version": "0.9.1",
+      "title": "Waiting"
+    },
+    "50": {
+      "one_liner": "Transform inner conditioning through balanced, disciplined cultivation.",
+      "source_version": "0.9.1",
+      "title": "The Cauldron"
+    },
+    "51": {
+      "one_liner": "Meet shock with outward composure and active self-examination.",
+      "source_version": "0.9.1",
+      "title": "Thunder"
+    },
+    "52": {
+      "one_liner": "Practice stillness grounded in principle, not passive withdrawal.",
+      "source_version": "0.9.1",
+      "title": "Keeping Still"
+    },
+    "53": {
+      "one_liner": "Allow gradual, ordered progress through unhurried, correct practice.",
+      "source_version": "0.9.1",
+      "title": "Gradual Advance"
+    },
+    "54": {
+      "one_liner": "Reclaim inner stillness when longing disperses your strength.",
+      "source_version": "0.9.1",
+      "title": "The Marrying Maiden"
+    },
+    "55": {
+      "one_liner": "Unite clarity with action, then preserve abundance through restraint.",
+      "source_version": "0.9.1",
+      "title": "Abundance"
+    },
+    "56": {
+      "one_liner": "Keep authentic nature while passing through changing circumstances.",
+      "source_version": "0.9.1",
+      "title": "Traveling"
+    },
+    "57": {
+      "one_liner": "Advance gently and consistently through yielding and disciplined timing.",
+      "source_version": "0.9.1",
+      "title": "Xun (The Gentle, Wind)"
+    },
+    "58": {
+      "one_liner": "Let joy arise from inner truth rather than external pursuit.",
+      "source_version": "0.9.1",
+      "title": "Joy"
+    },
+    "59": {
+      "one_liner": "Reunite scattered energies through sincerity and gradual cultivation.",
+      "source_version": "0.9.1",
+      "title": "Dispersing"
+    },
+    "6": {
+      "one_liner": "Meet contention with caution, self-examination and inner correction.",
+      "source_version": "0.9.1",
+      "title": "Litigation"
+    },
+    "60": {
+      "one_liner": "Honor appropriate limits with flexibility rather than rigid restraint.",
+      "source_version": "0.9.1",
+      "title": "Limitation"
+    },
+    "61": {
+      "one_liner": "Embody sincerity and trust while moving through adversity.",
+      "source_version": "0.9.1",
+      "title": "Inner Truth"
+    },
+    "62": {
+      "one_liner": "Turn from forceful gathering to quiet, careful nurturing.",
+      "source_version": "0.9.1",
+      "title": "Small Excess"
+    },
+    "63": {
+      "one_liner": "Protect achieved harmony through continued clarity and vigilance.",
+      "source_version": "0.9.1",
+      "title": "After Completion"
+    },
+    "64": {
+      "one_liner": "Refine what obscures clarity and await the right moment to cross.",
+      "source_version": "0.9.1",
+      "title": "Not Yet Across"
+    },
+    "7": {
+      "one_liner": "Marshal diverse inner forces through mature, balanced discipline.",
+      "source_version": "0.9.1",
+      "title": "The Army"
+    },
+    "8": {
+      "one_liner": "Gather around what is true through sincere self-refinement.",
+      "source_version": "0.9.1",
+      "title": "Holding Together"
+    },
+    "9": {
+      "one_liner": "Restrain strength with humility and nurture potential through timing.",
+      "source_version": "0.9.1",
+      "title": "Small Restraint"
+    }
+  },
+  "review_csv_sha256": "d9c51ee7df99f70d92f310361958cf1af64a350b5f7fbf7d594ce4d95408011b",
+  "runes": {
+    "0": {
+      "one_liner": "The Force of Becoming",
+      "source_version": "0.2.0-draft",
+      "title": "Fehu"
+    },
+    "1": {
+      "one_liner": "The Cosmic Seed",
+      "source_version": "0.2.0-draft",
+      "title": "Uruz"
+    },
+    "10": {
+      "one_liner": "The Primordial Stillness",
+      "source_version": "0.2.0-draft",
+      "title": "Isa"
+    },
+    "11": {
+      "one_liner": "The Solar Cycle",
+      "source_version": "0.2.0-draft",
+      "title": "Jera"
+    },
+    "12": {
+      "one_liner": "The Living Axis",
+      "source_version": "0.2.0-draft",
+      "title": "Eihwaz"
+    },
+    "13": {
+      "one_liner": "The Hidden Causal Layer",
+      "source_version": "0.2.0-draft",
+      "title": "Perthro"
+    },
+    "14": {
+      "one_liner": "The Protective Emissary",
+      "source_version": "0.2.0-draft",
+      "title": "Algiz"
+    },
+    "15": {
+      "one_liner": "The Archetypal Sun",
+      "source_version": "0.2.0-draft",
+      "title": "Sowilo"
+    },
+    "16": {
+      "one_liner": "The Column of Justice",
+      "source_version": "0.2.0-draft",
+      "title": "Tiwaz"
+    },
+    "17": {
+      "one_liner": "The Concealed Cycle",
+      "source_version": "0.2.0-draft",
+      "title": "Berkano"
+    },
+    "18": {
+      "one_liner": "The Harmony of Two",
+      "source_version": "0.2.0-draft",
+      "title": "Ehwaz"
+    },
+    "19": {
+      "one_liner": "The Divine Human Form",
+      "source_version": "0.2.0-draft",
+      "title": "Mannaz"
+    },
+    "2": {
+      "one_liner": "The Force of Instinctual Will",
+      "source_version": "0.2.0-draft",
+      "title": "Thurisaz"
+    },
+    "20": {
+      "one_liner": "The Water of Life",
+      "source_version": "0.2.0-draft",
+      "title": "Laguz"
+    },
+    "21": {
+      "one_liner": "The Gestating Potential",
+      "source_version": "0.2.0-draft",
+      "title": "Ingwaz"
+    },
+    "22": {
+      "one_liner": "The Alchemical Awakening",
+      "source_version": "0.2.0-draft",
+      "title": "Dagaz"
+    },
+    "23": {
+      "one_liner": "The Living Inheritance",
+      "source_version": "0.2.0-draft",
+      "title": "Othala"
+    },
+    "3": {
+      "one_liner": "The Animating Spirit",
+      "source_version": "0.2.0-draft",
+      "title": "Ansuz"
+    },
+    "4": {
+      "one_liner": "The Rhythm of Divine Order",
+      "source_version": "0.2.0-draft",
+      "title": "Raidho"
+    },
+    "5": {
+      "one_liner": "The Regenerative Fire",
+      "source_version": "0.2.0-draft",
+      "title": "Kenaz"
+    },
+    "6": {
+      "one_liner": "The Gift of Divine Exchange",
+      "source_version": "0.2.0-draft",
+      "title": "Gebo"
+    },
+    "7": {
+      "one_liner": "The Harmonious Bond",
+      "source_version": "0.2.0-draft",
+      "title": "Wunjo"
+    },
+    "8": {
+      "one_liner": "The Cosmic Egg",
+      "source_version": "0.2.0-draft",
+      "title": "Hagalaz"
+    },
+    "9": {
+      "one_liner": "The Fire of Necessity",
+      "source_version": "0.2.0-draft",
+      "title": "Nauthiz"
+    }
+  },
+  "version": "certificate-copy-v1.0"
+}

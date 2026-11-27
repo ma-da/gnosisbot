@@ -14,7 +14,7 @@ import {GnosisViz} from './viz.js?v=0.6';
 import {GnosisInterference} from './interference.js?v=0.6';
 import {clusterReadings} from './clusters.js?v=0.6';
 
-import {initConsultation} from './consultation-modal.js?v=research-consent-v1';
+import {initConsultation} from './consultation-modal.js?v=future068';
 import {renderTraditionExplorer} from './traditions-explorer.js?v=gnosis-dual-traditions-v1';
 import {lookupConsultationAccount} from './consultation-auth.js?v=1';
 import './oracle-account-status.js?v=1'; // Session badge; avoids HTML patch
@@ -779,6 +779,7 @@ function initMedoidModal() {
   const hint = trigger?.closest('.medoid-hint');
 
   if (!trigger || !dialog || !hint) return;
+  dialog.querySelector('.medoid-dialog-x')?.addEventListener('click', () => dialog.close());
 
   let enableTimer;
   let disableTimer;
@@ -942,7 +943,7 @@ async function bootstrap(){
         });
         const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-          throw new Error(data.detail?.message || data.detail?.code || 'IBM Future trial unavailable');
+          throw new Error(data.detail?.message || data.detail?.code || 'IBM Future unavailable');
         }
         if (!data.consultation_id) throw new Error('Missing consultation receipt');
         window.location.assign('/ibm-trial-pending.html?id=' + encodeURIComponent(data.consultation_id));

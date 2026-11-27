@@ -1,0 +1,26 @@
+[
+  {
+    "name": "@fontsource-variable/dm-sans",
+    "version": "5.2.8",
+    "integrity": "sha512-AxkvMTvNWgfrmlyjiV05vlHYJa+nRQCf1EfvIrQAPBpFJW0O9VTz7oAFr9S3lvbWdmnFoBk7yFqQL86u64nl2g==",
+    "tarball": "https://registry.npmjs.org/@fontsource-variable/dm-sans/-/dm-sans-5.2.8.tgz"
+  },
+  {
+    "name": "@fontsource/space-mono",
+    "version": "5.2.9",
+    "integrity": "sha512-b61faFOHEISQ/pD25G+cfGY9o/WW6lRv6hBQQfpWvEJ4y1V+S4gmth95EVyBE2VL3qDYHeVQ8nBzrplzdXTDDg==",
+    "tarball": "https://registry.npmjs.org/@fontsource/space-mono/-/space-mono-5.2.9.tgz"
+  },
+  {
+    "name": "@fontsource-variable/noto-serif-sc",
+    "version": "5.2.10",
+    "integrity": "sha512-TRhuDxWAnqUUtRZFCy8aoJB3/7HsuCaW/4B3wBTE0hzE8QVapklTjE2aY7s/wXWFXHLdflYNroloZoXekoKClw==",
+    "tarball": "https://registry.npmjs.org/@fontsource-variable/noto-serif-sc/-/noto-serif-sc-5.2.10.tgz"
+  },
+  {
+    "name": "d3",
+    "version": "7.9.0",
+    "integrity": "sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==",
+    "tarball": "https://registry.npmjs.org/d3/-/d3-7.9.0.tgz"
+  }
+]

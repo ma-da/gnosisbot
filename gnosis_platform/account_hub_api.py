@@ -18,19 +18,38 @@ class VerifyEmail(BaseModel):
     token:str=Field(min_length=24,max_length=256)
 
 @router.get('/hub')
-def account_hub(user:dict=Depends(authenticated),limit:int=30,offset:int=0):
+def account_hub(user:dict=Depends(authenticated),limit:int=30,offset:int=0,mode:str|None=None,focus:str|None=None):
     if not (1<=limit<=100 and 0<=offset<=100000):raise HTTPException(422,'Invalid pagination')
+    if mode not in (None,'coins','pouch','sticks'):
+        raise HTTPException(422,'Invalid reading mode')
+    mode_where = ''
+    mode_args = []
+    if mode == 'coins':
+        mode_where = "AND c.application_id='iching'"
+    elif mode in ('pouch','sticks'):
+        mode_where = ("AND c.application_id='runes' AND EXISTS (SELECT 1 FROM service_requests sr_mode "
+                      "WHERE sr_mode.consultation_id=c.consultation_id AND sr_mode.service_id LIKE ?)")
+        mode_args = [f'runes.{mode}.%']
+    if focus is not None and (len(focus)!=32 or any(x not in '0123456789abcdef' for x in focus)):
+        raise HTTPException(422,'Invalid reading reference')
     with closing(connect()) as db:
-        records=db.execute('''SELECT c.consultation_id,c.application_id,c.question,c.status,c.created_at,
+        if focus:
+            target=db.execute(f'SELECT c.created_at,c.consultation_id FROM consultations c WHERE c.account_id=? {mode_where} AND c.consultation_id=?',(user['account_id'],*mode_args,focus)).fetchone()
+            if target:
+                rank=db.execute(f"SELECT count(*) FROM consultations c WHERE c.account_id=? {mode_where} AND (c.created_at>? OR (c.created_at=? AND c.consultation_id>?))",(user['account_id'],*mode_args,target[0],target[0],target[1])).fetchone()[0]
+                offset=min(100000,(rank//limit)*limit)
+        records=db.execute(f'''SELECT c.consultation_id,c.application_id,c.question,c.status,c.created_at,
           c.finished_at,r.service_id,r.provider,r.request_id,r.credits_cost,
           j.status AS hardware_status,j.backend,j.shots,
-          o.status AS email_status
+          o.status AS email_status,e.state AS certificate_event_state
           FROM consultations c LEFT JOIN service_requests r ON r.consultation_id=c.consultation_id
           LEFT JOIN ibm_future_jobs j ON j.request_id=r.request_id
           LEFT JOIN gnosis_completion_outbox o ON o.request_id=r.request_id
-          WHERE c.account_id=? ORDER BY c.created_at DESC,c.consultation_id DESC
-          LIMIT ? OFFSET ?''',(user['account_id'],limit,offset)).fetchall()
-        total=db.execute('SELECT count(*) FROM consultations WHERE account_id=?',(user['account_id'],)).fetchone()[0]
+          LEFT JOIN reading_completion_events e ON e.request_id=r.request_id
+          WHERE c.account_id=? {mode_where} ORDER BY c.created_at DESC,c.consultation_id DESC
+          LIMIT ? OFFSET ?''',(user['account_id'],*mode_args,limit,offset)).fetchall()
+        total=db.execute(f'SELECT count(*) FROM consultations c WHERE c.account_id=? {mode_where}',
+                         (user['account_id'],*mode_args)).fetchone()[0]
         pending=db.execute("SELECT count(*) FROM consultations WHERE account_id=? AND status='pending'",(user['account_id'],)).fetchone()[0]
         activities=[]
         for rec in records:
@@ -42,6 +61,8 @@ def account_hub(user:dict=Depends(authenticated),limit:int=30,offset:int=0):
                 item['open_url']='/rune-oracle.html?reading='+item['consultation_id']
             item['status_url']='/account.html?view=activity&reading='+item['consultation_id']
             # No raw IBM shots or private encryption metadata in dashboard payload.
+            from .certificate_store import summary as certificate_summary
+            certificate_summary(db,item)
             activities.append(item)
         from .reading_resonance import attach_to_activity
         attach_to_activity(db, activities)

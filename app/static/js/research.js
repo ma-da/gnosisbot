@@ -158,8 +158,8 @@ async function selectMask(mask){selected=mask;drawMatrix();const item=state.dist
   try{const data=await api('/api/v1/research/timeseries?'+p);if(seq===request&&mask===selected)drawTrend(data)}catch(e){if(seq===request)showError(e)}
 }
 async function refresh(){const seq=++request;const p=params();$('research-loading').hidden=false;$('research-error').hidden=true;
-  try{const [dist,summary]=await Promise.all([api('/api/v1/research/hexagrams?'+p),api('/api/v1/research/summary?'+p)]);
-    if(seq!==request)return;state={dist,summary};populateSources(allSources);drawSummary();drawMatrix();drawBars();drawMoving();
+  try{const [dist,summary,all]=await Promise.all([api('/api/v1/research/hexagrams?'+p),api('/api/v1/research/summary?'+p),api('/api/v1/research/summary')]);
+    if(seq!==request)return;allSources=all.sources;state={dist,summary};populateSources(allSources);drawSummary();drawMatrix();drawBars();drawMoving();
     if(!byMask.has(selected))selected=0;await selectMask(selected);
   }catch(error){if(seq===request)showError(error)}finally{if(seq===request)$('research-loading').hidden=true}
 }
@@ -178,4 +178,11 @@ try{
   const all = await api('/api/v1/research/summary');
   allSources = all.sources;
   await refresh();
+
+  // Refresh live research data when returning to this tab.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      void refresh();
+    }
+  });
 }catch(error){$('research-loading').hidden=true;showError(error)}

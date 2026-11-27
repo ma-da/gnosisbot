@@ -155,7 +155,16 @@
       } catch { /* Optional inventory display never enables admission. */ }
     }
     function open(nextMode=mode) {
-      if(receiptId){setStatus('A reading is still being processed. Check its status or Your Gnosis.', 'Check status');return;}
+      if(receiptId){
+        // A known Future receipt is durable and independently accessible in Your Gnosis.
+        // Do not abandon an uncertain POST, or a receipt whose service is not yet verified.
+        if(!attempt && !polling && safeId(receiptId) && expected?.endsWith('.quantum_future') && markerRead()===`receipt:${receiptId}`){
+          clearTimeout(poll);receiptId=null;expected=null;pausedPolling=false;backoff=4000;
+          unlock();clearInquiry();
+          const url=new URL(location.href);url.searchParams.delete('reading');history.replaceState(null,'',url);
+          setStatus('Previous Future request remains in Your Gnosis. Starting another reading does not cancel it.');
+        }else{setStatus('A reading is still being processed. Check its status or Your Gnosis.', 'Check status');return;}
+      }
       if(locked && !attempt){setStatus('A previous request may have been interrupted. Check Your Gnosis before starting another reading.','');$('rune-unlock').hidden=false;return;}
       if(!attempt){mode=nextMode; checkMode();}
       if(!dialog.open)dialog.showModal();
@@ -166,7 +175,7 @@
     function resolveCurrent(id){if(attempt || markerRead()===`receipt:${id}`)unlock();}
     function finish(d,id,service){checkEnvelope(d,id,service);showReading(d);resolveCurrent(id);clearInquiry();receiptId=null;expected=null;clearTimeout(poll);setQuery(id);setStatus('');if(dialog.open)dialog.close();busy=false;sync();}
     function fail(text){resolveCurrent(receiptId);receiptId=null;expected=null;clearTimeout(poll);setStatus(text);onFailure(text);if(dialog.open)dialog.close();busy=false;sync();}
-    function follow(id, service){pausedPolling=false;if(!safeId(id))throw Error('Invalid consultation receipt ID.');receiptId=id;expected=service;if(attempt){attempt=null;locked=true;markerWrite(`receipt:${id}`);clearInquiry();}$('rune-unlock').hidden=true;retry.onclick=checkStatus;setQuery(id);onPending();if(dialog.open)dialog.close();setStatus('Reading is being processed. No additional reading will be requested.','Check status');schedule(0);}
+    function follow(id, service){pausedPolling=false;if(!safeId(id))throw Error('Invalid consultation receipt ID.');receiptId=id;expected=service;if(attempt){attempt=null;locked=true;markerWrite(`receipt:${id}`);clearInquiry();}$('rune-unlock').hidden=true;retry.onclick=checkStatus;setQuery(id);onPending();if(dialog.open)dialog.close();setStatus(service?.endsWith('.quantum_future')?'Reading queued. You can start another reading or check Your Gnosis.':'Reading is being processed. No additional reading will be requested.','Check status');schedule(0);}
     function schedule(delay=backoff){clearTimeout(poll);if(receiptId && !document.hidden && !pausedPolling)poll=setTimeout(checkStatus,delay);}
     async function checkStatus(){if(!receiptId || polling || document.hidden)return;const id=receiptId;polling=true;pausedPolling=false;try{
       const r=await request(`${ROOT}/${id}`);if(id!==receiptId)return;

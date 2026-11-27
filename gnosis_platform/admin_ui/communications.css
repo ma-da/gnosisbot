@@ -1,0 +1,32 @@
+/* Gnosis Communicate V0.4: compact, brand-matched admin UI, no gradients/rounding. */
+#communications{min-width:0}
+#communications .comms-grid{display:grid;grid-template-columns:minmax(310px,1fr) minmax(300px,1.2fr);gap:16px;align-items:start}
+#communications .comms-form{display:grid;gap:8px;min-width:0}
+#communications .comms-form label{display:grid;gap:4px;font:650 11px/1.4 var(--font-body,Arial,sans-serif);color:var(--ink-soft,#4d5658)}
+#communications :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;border:1px solid #cad8d5;border-radius:0;background:#fff;color:#222;padding:8px;font:400 12px/1.45 var(--font-body,Arial,sans-serif)}
+#communications .comms-form textarea{min-height:95px;resize:vertical}
+#communications .comms-audience-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#communications .comms-form-buttons{display:flex;gap:8px;flex-wrap:wrap}
+#communications button{border-radius:0}
+#communications .comms-aside{font-size:11px;line-height:1.5;color:var(--muted,#707779);margin:0}
+#communications .comms-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#communications .comms-list{max-height:510px;overflow:auto;border-top:1px solid #cad8d5;margin-top:8px}
+#communications .comms-item{border-bottom:1px solid #cad8d5;padding:10px 0}
+#communications .comms-item-heading{display:flex;gap:8px;align-items:baseline;justify-content:space-between;font-size:13px}
+#communications .comms-state{font:700 10px/1.4 var(--font-display,monospace);color:#028090;text-transform:uppercase}
+#communications .comms-meta{margin:5px 0;color:var(--muted,#707779);font-size:11px;overflow-wrap:anywhere}
+#communications .comms-body{margin:5px 0;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+#communications .comms-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+#communications .comms-actions button{min-height:28px;padding:5px 9px;font-size:11px}
+#communications #comms-feedback{font-size:11px;min-height:16px;margin:8px 0;color:var(--ink-soft,#4d5658)}
+#communications #comms-feedback[data-error="true"]{color:#a0344a}
+#communications [hidden]{display:none!important}
+#communications :is(button,input,textarea,select):focus-visible{outline:2px solid #028090;outline-offset:2px}
+@media(max-width:800px){#communications .comms-grid{grid-template-columns:1fr}}
+@media(max-width:490px){#communications .comms-audience-row{grid-template-columns:1fr}}
+
+/* V0.4.1 — opt-in reply and archived history controls. */
+#communications .comms-reply-choice{display:flex!important;align-items:center;gap:8px;font-weight:500!important}
+#communications .comms-reply-choice input{width:auto;min-width:0;margin:0;accent-color:#028090}
+#communications .comms-show-archived{display:inline-flex;align-items:center;gap:5px;margin-right:8px;font-size:11px;color:#4d5658}
+#communications .comms-show-archived input{width:auto;min-width:0;margin:0;accent-color:#028090}

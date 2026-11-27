@@ -15,6 +15,9 @@ from .identity import iso, now
 class TransactionError(ValueError):
     code = 'invalid_request'
 
+class FutureCapacityError(TransactionError):
+    code='future_capacity_unavailable'
+
 class InsufficientCredits(TransactionError):
     code = 'insufficient_credits'
 
@@ -52,7 +55,7 @@ def _get_request(db, request_id):
 
 def begin_consultation(db, *, account_id, service_id, idempotency_key,
                        question='', inquiry_style='direct', research_publication_consent=False,
-                       cooldown_seconds=None):
+                       cooldown_seconds=None, admin_future_trial=False):
     """Reserve credits; for no-cost services record pending request without debit.
 
     Idempotent retries return the same record before cooldown or balance checks.
@@ -90,6 +93,10 @@ def begin_consultation(db, *, account_id, service_id, idempotency_key,
         if not account or account['status']!='active':
             raise TransactionError('Account not active')
         # Admins bypass cooldown ONLY. Paid provider executions still consume credits.
+        if admin_future_trial:
+            from .future_trial import allowed
+            if not allowed(dict(account),service_id):
+                raise TransactionError('Future service authorization required')
         if account['available']<max(policy.min_balance,policy.credits):
             raise InsufficientCredits('Insufficient available credits')
         if not account['is_admin'] and cooldown:
@@ -121,8 +128,17 @@ def begin_consultation(db, *, account_id, service_id, idempotency_key,
         # The assigned ticket records COMMITTED admission order, not network arrival order.
         db.execute('INSERT INTO consultation_admissions(request_id,account_id,admitted_at) VALUES(?,?,?)',
                    (rid,account_id,stamp))
+        if admin_future_trial:
+            from .future_auto_policy import production_enabled
+            db.execute("INSERT INTO ibm_future_jobs(request_id,status,created_at,updated_at,metadata_json) VALUES(?,'queued',?,?,?)",(rid,stamp,stamp,json.dumps({'controlled_trial':True,'production':production_enabled()})))
+        if admin_future_trial:
+            from .future_auto_policy import allocate
+            allocate(db,rid)
         result=_get_request(db,rid)
         db.commit()
+        if admin_future_trial:
+            from .future_automation import wake_for
+            wake_for(db)
         return result
     except Exception:
         db.rollback()
@@ -203,15 +219,19 @@ def finish_request(db, request_id, *, success, result_json=None, provenance_json
                    (target,stamp,request_id))
         # M4D: durable notification event in the SAME transaction as successful settlement.
         # No Resend network I/O or HTML operation happens inside this transaction.
-        if success and row['service_id']=='iching.quantum_future':
+        from .reading_completion import enabled as completion_events_enabled, enqueue as enqueue_completion, wake_for as wake_completion
+        if success and row['service_id']=='iching.quantum_future' and not completion_events_enabled():
             from .completion_outbox import enqueue_after_settlement
             enqueue_after_settlement(db,request_id=request_id,
                  consultation_id=row['consultation_id'], account_id=row['account_id'])
+        queued=False
         if success:
             from .gqtp import record_completion
             record_completion(db,row['consultation_id'])
+            queued=enqueue_completion(db,row)
         result=_get_request(db,request_id)
         db.commit()
+        if queued and not row['service_id'].endswith('.quantum_future'):wake_completion(db)
         return result
     except Exception:
         db.rollback()

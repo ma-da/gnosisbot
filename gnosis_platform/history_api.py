@@ -43,6 +43,8 @@ def account_readings(user:dict=Depends(authenticated),limit:int=25,offset:int=0,
             else:
                 item['moving_count']=len(reading.get('moving_positions_bottom_to_top',[]))
                 item['lines']=reading.get('lines',[])
+            from .certificate_store import summary as certificate_summary
+            certificate_summary(db,item)
             items.append(item)
     return {'items':items,'total':total,'limit':limit,'offset':offset}
 
@@ -66,3 +68,5 @@ def account_reading(consultation_id:str,user:dict=Depends(authenticated),respons
 
 from . import gqtp_api as _gqtp_api
 router.include_router(_gqtp_api.router)
+from .certificate_api import router as _certificate_router
+router.include_router(_certificate_router)

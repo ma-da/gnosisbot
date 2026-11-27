@@ -87,6 +87,8 @@ def complete_email_verification(db, *, account_id, token):
         from .completion_outbox import activate_for_verified_account
         activate_for_verified_account(db,account_id,cid)
         db.commit()
+        from .reading_completion import wake_for
+        wake_for(db)
         return {'verified':True,'masked_email':mask_email(email)}
     except Exception:
         db.rollback();raise

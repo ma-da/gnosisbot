@@ -63,6 +63,9 @@ def build_reading(service_id,cid,staged):
     if provider=='ibm_inventory':
         from .rune_past_inventory import build_past_reading
         return build_past_reading(service_id,cid,staged)
+    if provider=='ibm_runtime':
+        from .future_execution import build_rune
+        return build_rune(service_id,cid,staged)
     raw=bytes.fromhex(staged['raw_hex']); provenance=dict(staged['provenance'])
     if provenance['provider']!=provider or provenance['entropy_sha256']!=hashlib.sha256(raw).hexdigest() or len(raw)!=(24 if mode=='pouch' else 144):
         raise ValueError('Entropy provenance mismatch')
@@ -86,6 +89,9 @@ def persist_completed(db,row,reading,provenance,private,stamp,schema_version):
     stage=db.execute('SELECT status,staged_json FROM rune_executions WHERE request_id=?',(row['request_id'],)).fetchone()
     if not stage or stage['status']!='staged' or schema_version!=SCHEMA or not isinstance(private,dict):
         raise ValueError('Rune settlement requires staged entropy')
+    if provider=='ibm_runtime':
+        from .future_execution import validate_staged_job
+        validate_staged_job(db,row['request_id'],json.loads(stage['staged_json']))
     # Validate canonical payload, including every frame, against the frozen decoder.
     expected,ep,ea=build_reading(row['service_id'],cid,json.loads(stage['staged_json']))
     if packed(expected)!=packed(reading) or packed(ep)!=packed(provenance) or packed(ea)!=packed(private):

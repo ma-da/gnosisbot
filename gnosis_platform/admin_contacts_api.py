@@ -30,10 +30,10 @@ SENDERS={'quantum@gnosis.bot','readings@gnosis.bot','support@gnosis.bot'}
 def response(value):return JSONResponse(value,headers=HEADERS)
 
 @router.get('/contact-messages')
-def get_contacts(offset:int=Query(0,ge=0,le=100000), limit:int=Query(50,ge=1,le=100)):
+def get_contacts(offset:int=Query(0,ge=0,le=100000), limit:int=Query(50,ge=1,le=100), quarantine:bool=False):
     if not enabled():return response({'configured':False,'messages':[],'counts':{'total':None,'unread':None},'has_more':False})
     try:
-        with closing(connect()) as db: return response({'configured':True,**list_messages(db,offset=offset,limit=limit)})
+        with closing(connect()) as db: return response({'configured':True,**list_messages(db,offset=offset,limit=limit,quarantine=quarantine)})
     except Exception as exc:
         raise HTTPException(503,'Contact inbox unavailable',headers={'Cache-Control':'no-store'}) from exc
 

@@ -53,11 +53,14 @@ def snapshot(db, public_dir):
              ORDER BY q.seq''',(engine,)).fetchall()
         totals=dict(committed=0,commercial=0,available=0,approved_available=0,pending_release=0,
                     reserved=0,delivered=0,demo=0,excluded=0,unavailable=0)
+        totals['reserve_held']=0; totals['reserve_verified']=0
         checks={k:0 for k in ['ibm_matched','committed','signed','timestamp_submitted','bitcoin_verified','released']}
         batches=[]
         for r in rows:
             job=r['job_id']; last=r['last_seq']; released=r['release_checkpoint'] is not None and r['status']=='approved'
-            verified=r['release_checkpoint'] is not None
+            hold=db.execute('SELECT * FROM gnosis_reserve_holds WHERE job_id=?',(job,)).fetchone()
+            held=hold is not None and hold['promoted_at'] is None
+            verified=r['release_checkpoint'] is not None or (held and hold['verified_checkpoint'] is not None)
             signed=any(n>=last for n in sizes)
             submitted=any(n>=last for n in stamped) or verified
             try: matched=json.loads(r['qualification'] or '{}').get('remote_measurements_match') is True
@@ -82,10 +85,12 @@ def snapshot(db, public_dir):
                     if enforced and enabled(engine): counts['available']+=n
                 elif state=='available' and r['status']=='quarantined': counts['pending_release']+=n
                 else: counts['unavailable']+=n
+            counts['reserve_held']=counts['pending_release'] if held else 0
+            counts['reserve_verified']=counts['reserve_held'] if verified else 0
             for k,v in counts.items(): totals[k]+=v
             batches.append({'ibm_job_id':job,'status':r['status'],'counts':counts,'checks':stages,
                             'signed_checkpoint':next((n for n in reversed(sizes) if n>=last),None),
-                            'release_checkpoint':r['release_checkpoint']})
+                            'release_checkpoint':r['release_checkpoint'],'reserve_held':held,'reserve_verified_checkpoint':hold['verified_checkpoint'] if hold else None})
         result.append(dict(engine=engine,label=label,service_id=service,service_enabled=enabled(engine),
                            counts=totals,batch_count=len(rows),check_counts=checks,batches=batches))
     return {'schema_version':'gnosis.public-inventory.v1','as_of':datetime.now(timezone.utc).isoformat(),

@@ -22,6 +22,15 @@ if os.environ.get('GNOSIS_ENABLE_ACCOUNTS_API') == '1':
     app.include_router(consultations_router)
     app.include_router(ibm_admin_trial_router)
     app.include_router(account_hub_router)
+    # GNOSIS ACCOUNT IDENTITY V0.5: authenticated, signed public-wallet links.
+    from gnosis_platform.account_wallet_api import router as wallet_router
+    app.include_router(wallet_router)
+    # GNOSIS COMMUNICATIONS V0.4 — authenticated notices and admin composer.
+    from gnosis_platform.account_communications_api import account_router as account_notices_router, admin_router as admin_notices_router
+    app.include_router(account_notices_router)
+    app.include_router(admin_notices_router)
+    from gnosis_platform.account_workspace_feed import router as workspace_feed_router
+    app.include_router(workspace_feed_router)
     # Staging-only authenticated purchase UI contract; no live payment processing.
     from gnosis_platform.commerce_stage_api import router as commerce_preview_router
     app.include_router(commerce_preview_router)
@@ -127,3 +136,17 @@ if _m5a_os.environ.get('GNOSIS_ENABLE_RUNE_DEMO') == '1':
 # I Ching corpus — scoped presentation boundary
 from app.services.corpus import CorpusPresentation as _CorpusPresentation
 app.add_middleware(_CorpusPresentation)
+
+# V0.6.4: startup recovery plus actual settlement/verification events. No timer.
+from gnosis_platform.reading_completion import wake as _wake_reading_completion
+from gnosis_platform.certificate_public_guard import PublicCertificateGuard, install_access_log_filter
+app.add_middleware(PublicCertificateGuard)
+@app.on_event('startup')
+def recover_reading_completion():
+    install_access_log_filter()
+    _wake_reading_completion()
+
+# V0.6.7: request-triggered administrator canary; no idle provider queries.
+from gnosis_platform.future_automation import start as _start_future_auto, stop as _stop_future_auto
+app.on_event('startup')(_start_future_auto)
+app.on_event('shutdown')(_stop_future_auto)

@@ -123,7 +123,10 @@ def deliver_pending(db, request_id):
             raise TransactionError('Could not atomically consume the approved IBM sample')
         from .gqtp import record_completion
         record_completion(db,cid)
+        from .reading_completion import enqueue as enqueue_completion,wake_for as wake_completion
+        queued=enqueue_completion(db,req)
         db.commit()
+        if queued:wake_completion(db)
         return {'status':'completed','replayed':False, 'consultation_id':cid,
                 'item_id':item['item_id'], 'backend':item['backend']}
     except Exception:

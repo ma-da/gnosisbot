@@ -1,0 +1,11 @@
+.history-shell{max-width:960px;margin:2rem auto;padding:1rem 1.25rem;color:var(--text,#e6eae8)}
+.history-nav{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.history-nav a{color:#00bfb2}
+.history-item{border:1px solid #568d8b55;border-radius: 0;padding:1.1rem;margin:.7rem 0;background:#173d3f16;}
+.history-item h2{font-size:1.12rem;margin:0 0 .5rem}
+.history-item .meta{opacity:.72;font-size:.83rem}
+.history-item .question{white-space:pre-wrap;overflow-wrap:anywhere}
+.history-item a{color:#00bfb2}
+.history-controls{display:flex;gap:.6rem;margin:1rem 0;align-items:center}
+.history-controls button{padding:.5rem 1rem;cursor:pointer}
+#history-status[role=status]{margin:1rem 0}

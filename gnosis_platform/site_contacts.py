@@ -11,7 +11,9 @@ from uuid import uuid4
 from .account_email import canonical, cipher, email_hash, stamp
 
 MAX_NAME = 120
-MAX_MESSAGE = 5000
+MAX_MESSAGE = 4000
+
+from .contact_protection import (AdmissionError, now_ms, verify, policy, record, prune, statistics, quarantine_reason)
 
 
 def enabled():
@@ -30,24 +32,35 @@ def validated(name, email, message):
     return name, canonical(email), message
 
 
-def submit(db, *, name, email, message):
-    name,email,message = validated(name,email,message)
-    key = cipher()  # Fail closed BEFORE trying to insert anything.
-    digest = email_hash(email)
-    now = stamp()
-    cutoff_sender = stamp(datetime.now(timezone.utc)-timedelta(hours=1))
-    cutoff_global = stamp(datetime.now(timezone.utc)-timedelta(minutes=10))
+def submit(db, *, name, email, message, token=None, website=''):
+    now=now_ms()
     db.execute('BEGIN IMMEDIATE')
     try:
-        same = db.execute('SELECT count(*) FROM gnosis_site_contact_messages WHERE email_digest=? AND created_at>=?',(digest,cutoff_sender)).fetchone()[0]
-        total = db.execute('SELECT count(*) FROM gnosis_site_contact_messages WHERE created_at>=?',(cutoff_global,)).fetchone()[0]
-        if same >= 4 or total >= 60:
-            raise OverflowError('Contact submission rate exceeded')
+        nonce,expires=verify(token,now)
+        if db.execute('SELECT 1 FROM gnosis_contact_consumed_tokens WHERE token_id=?',(nonce,)).fetchone():
+            raise AdmissionError(409,'token_used')
+        if website:
+            # Reject without reserving storage or disclosing the honeypot.
+            record(db,'rejected',now)
+            db.commit()
+            return {'received':True}
+        name,email,message=validated(name,email,message)
+        key=cipher()
+        digest=email_hash(email)
+        _,_,per_email,global_limit,_=policy()
+        prune(db,now)
+        same=db.execute('SELECT count(*) FROM gnosis_contact_consumed_tokens WHERE email_digest=? AND accepted_ms>?',(digest,now-86400000)).fetchone()[0]
+        total=db.execute('SELECT count(*) FROM gnosis_contact_consumed_tokens WHERE accepted_ms>?',(now-3600000,)).fetchone()[0]
+        if same>=per_email or total>=global_limit:
+            raise AdmissionError(429,'rate_limited')
+        reason=quarantine_reason(message)
+        db.execute('INSERT INTO gnosis_contact_consumed_tokens VALUES(?,?,?,?)',(nonce,digest,now,expires))
         db.execute('''INSERT INTO gnosis_site_contact_messages
-          (message_id,name_ciphertext,email_ciphertext,email_digest,message_ciphertext,source,created_at)
-          VALUES(?,?,?,?,?,'homepage',?)''',
+          (message_id,name_ciphertext,email_ciphertext,email_digest,message_ciphertext,source,created_at,quarantine_reason)
+          VALUES(?,?,?,?,?,'homepage',?,?)''',
           (uuid4().hex,key.encrypt(name.encode('utf8')),key.encrypt(email.encode('utf8')),digest,
-           key.encrypt(message.encode('utf8')),now))
+           key.encrypt(message.encode('utf8')),stamp(),reason))
+        record(db,'quarantined' if reason else 'accepted',now)
         db.commit()
     except Exception:
         db.rollback()
@@ -57,14 +70,21 @@ def submit(db, *, name, email, message):
 
 def counts(db):
     values=db.execute('''SELECT count(*) AS n, SUM(CASE WHEN read_at IS NULL AND archived_at IS NULL THEN 1 ELSE 0 END) AS unread
-       FROM gnosis_site_contact_messages WHERE deleted_at IS NULL''').fetchone()
-    return {'total':values['n'],'unread':values['unread'] or 0}
+       FROM gnosis_site_contact_messages WHERE deleted_at IS NULL AND quarantine_reason IS NULL''').fetchone()
+    return {'total':values['n'],'unread':values['unread'] or 0, 'quarantine':db.execute('SELECT count(*) FROM gnosis_site_contact_messages WHERE deleted_at IS NULL AND quarantine_reason IS NOT NULL').fetchone()[0]}
 
 
-def list_messages(db, *, offset=0, limit=50):
+def list_messages(db, *, offset=0, limit=50, quarantine=False):
+    db.execute('BEGIN IMMEDIATE')
+    try:
+        prune(db)
+        db.commit()
+    except Exception:
+        db.rollback();raise
     key=cipher()
-    rows=db.execute('''SELECT * FROM gnosis_site_contact_messages
-      WHERE deleted_at IS NULL
+    condition='quarantine_reason IS NOT NULL' if quarantine else 'quarantine_reason IS NULL' 
+    rows=db.execute(f'''SELECT * FROM gnosis_site_contact_messages
+      WHERE deleted_at IS NULL AND {condition}
       ORDER BY (CASE WHEN archived_at IS NULL AND read_at IS NULL THEN 0
                      WHEN archived_at IS NULL THEN 1 ELSE 2 END), created_at DESC, message_id DESC
       LIMIT ? OFFSET ?''',(limit,offset)).fetchall()
@@ -75,26 +95,38 @@ def list_messages(db, *, offset=0, limit=50):
             'name':key.decrypt(r['name_ciphertext']).decode('utf8'),
             'email':key.decrypt(r['email_ciphertext']).decode('utf8'),
             'message':key.decrypt(r['message_ciphertext']).decode('utf8'),
-            'created_at':r['created_at'], 'read_at':r['read_at'], 'archived_at':r['archived_at']
+            'created_at':r['created_at'], 'read_at':r['read_at'], 'archived_at':r['archived_at'], 'quarantine_reason':r['quarantine_reason']
         })
     return {'counts':counts(db),'messages':result,'offset':offset,'limit':limit,
-            'has_more': db.execute('SELECT count(*) FROM gnosis_site_contact_messages WHERE deleted_at IS NULL').fetchone()[0] > offset+len(rows)}
+            'spam':statistics(db), 'has_more': db.execute(f'SELECT count(*) FROM gnosis_site_contact_messages WHERE deleted_at IS NULL AND {condition}').fetchone()[0] > offset+len(rows)}
 
 
 def change_state(db, *, message_id, actor_account_id, action):
-    if action not in ('mark_read','mark_unread','archive','restore','delete'):
+    if action not in ('mark_read','mark_unread','archive','restore','delete','release'):
         raise ValueError('Unknown action')
     now=stamp()
     db.execute('BEGIN IMMEDIATE')
     try:
-        before=db.execute('SELECT read_at, archived_at, deleted_at FROM gnosis_site_contact_messages WHERE message_id=?',(message_id,)).fetchone()
+        before=db.execute('SELECT read_at, archived_at, deleted_at, quarantine_reason FROM gnosis_site_contact_messages WHERE message_id=?',(message_id,)).fetchone()
         if before is None or before['deleted_at'] is not None: raise LookupError('Message missing')
+        if before['quarantine_reason'] is not None and action not in ('release','delete'):
+            raise ValueError('Release quarantined message first')
+        if action=='release':
+            if before['quarantine_reason'] is None: raise ValueError('Message not quarantined')
+            # Refuse release after retention even if the admin page was left open.
+            from .contact_protection import policy
+            cutoff=stamp(datetime.now(timezone.utc)-timedelta(days=policy()[4]))
+            updated=db.execute("UPDATE gnosis_site_contact_messages SET quarantine_reason=NULL,read_at=NULL,archived_at=NULL WHERE message_id=? AND created_at>?",(message_id,cutoff))
+            if not updated.rowcount: raise LookupError('Message expired')
+            db.execute('INSERT INTO gnosis_contact_quarantine_releases VALUES(?,?,?)',(message_id,actor_account_id,now))
+            db.commit()
+            return {'changed':True,'counts':counts(db)}
         if action=='delete':
             # Erase the locally stored encrypted personal fields; preserve only a
             # pseudonymous row ID so existing audit and outbound FK links remain valid.
             updated=db.execute('''UPDATE gnosis_site_contact_messages
                SET name_ciphertext=X'', email_ciphertext=X'', message_ciphertext=X'',
-                   email_digest=lower(hex(randomblob(32))), deleted_at=?,
+                   email_digest=lower(hex(randomblob(32))), quarantine_reason=NULL, deleted_at=?,
                    read_at=COALESCE(read_at,?), archived_at=COALESCE(archived_at,?)
                WHERE message_id=? AND deleted_at IS NULL''',(now,now,now,message_id))
             if updated.rowcount:

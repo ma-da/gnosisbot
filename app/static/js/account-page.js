@@ -132,8 +132,74 @@ document
     });
   });
 		
-function shortAccountId(accountId) {
-  if (!accountId || accountId.length < 16) return accountId || '';
-  return `${accountId.slice(0, 12)}…${accountId.slice(-8)}`;
-}		
 updateSession();
+
+// Account key-file drag and drop; moved from inline HTML.
+(() => {
+  const zone = document.getElementById('key-dropzone');
+  const input = document.getElementById('login-file');
+  const feedback = document.getElementById('key-drop-feedback');
+
+  if (zone && input) {
+  		let dragDepth = 0;
+
+  		zone.addEventListener('dragenter', event => {
+  				if (!event.dataTransfer.types.includes('Files')) return;
+  				event.preventDefault();
+  				dragDepth++;
+  				zone.classList.add('is-dragover');
+  		});
+
+  		zone.addEventListener('dragover', event => {
+  				event.preventDefault();
+  				event.dataTransfer.dropEffect = 'copy';
+  		});
+
+  		zone.addEventListener('dragleave', () => {
+  				dragDepth--;
+  				if (dragDepth <= 0) {
+  						dragDepth = 0;
+  						zone.classList.remove('is-dragover');
+  				}
+  		});
+
+  		zone.addEventListener('drop', event => {
+  				event.preventDefault();
+  				dragDepth = 0;
+  				zone.classList.remove('is-dragover');
+
+  				const files = event.dataTransfer.files;
+
+  				if (files.length !== 1) {
+  						feedback.textContent = 'Please select one account key file.';
+  						return;
+  				}
+
+  				const file = files[0];
+
+  				if (!/\.(key|json|txt)$/i.test(file.name)) {
+  						feedback.textContent = 'Use a .key, .json, or .txt file.';
+  						return;
+  				}
+
+  				// Transfer the dropped file into the existing input.
+  				const transfer = new DataTransfer();
+  				transfer.items.add(file);
+  				input.files = transfer.files;
+
+  				// Trigger the existing file-upload handler.
+  				input.dispatchEvent(new Event('change', {
+  						bubbles: true
+  				}));
+
+  				feedback.textContent = `${file.name} selected.`;
+  		});
+
+  		input.addEventListener('change', () => {
+  				if (input.files.length) {
+  						feedback.textContent =
+  								`${input.files[0].name} selected.`;
+  				}
+  		});
+  }
+})();

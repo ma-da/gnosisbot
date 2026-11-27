@@ -65,12 +65,13 @@ def job_rows(db):
       LEFT JOIN gqtp_qualifications q USING(batch_id) JOIN gqtp_events e ON e.seq=b.seq'''):
         q=json_obj(r['metadata_json']); counts={x['disposition']:x['n'] for x in db.execute('SELECT disposition,count(*) n FROM gqtp_items WHERE job_id=? GROUP BY disposition',(r['job_id'],))}
         jobs[r['job_id']]=dict(job_id=r['job_id'],engine=r['engine'],kind='inventory',state='acquired',commercial=counts.get('commercial',0),attempted=sum(counts.values()),actual_seconds=number(q.get('qpu_seconds')),resource_units=number(q.get('resource_units')),acquired_at=q.get('acquired_at'),actual_source='IBM final qualification' if number(q.get('qpu_seconds')) is not None else None)
-    for r in db.execute('''SELECT j.external_job_id,j.status,j.backend,j.submitted_at,j.finished_at,s.service_id,c.status AS consultation_status
+    for r in db.execute('''SELECT j.external_job_id,j.status,j.backend,j.submitted_at,j.finished_at,j.metadata_json,s.service_id,c.status AS consultation_status
       FROM ibm_future_jobs j JOIN service_requests s USING(request_id) JOIN consultations c USING(consultation_id)
       WHERE j.external_job_id IS NOT NULL'''):
         if r['external_job_id'] in jobs:continue
         engine=r['service_id'].split('.')[1] if r['service_id'].startswith('runes.') else 'iching'
-        jobs[r['external_job_id']]=dict(job_id=r['external_job_id'],engine=engine,kind='future',state=r['status'],commercial=1 if r['consultation_status']=='completed' else 0,attempted=None,actual_seconds=None,resource_units=None,acquired_at=r['finished_at'] or r['submitted_at'],actual_source=None)
+        meta=json_obj(r['metadata_json']); provider=meta.get('provider_usage') or {}; billing=meta.get('operator_billing') or {}
+        jobs[r['external_job_id']]=dict(job_id=r['external_job_id'],engine=engine,kind='future',state=r['status'],commercial=1 if r['consultation_status']=='completed' else 0,attempted=None,actual_seconds=None,resource_units=number(provider.get('resource_units')),operator_billed_seconds=number(billing.get('billed_seconds')),operator_billing_source=billing.get('source'),acquired_at=r['finished_at'] or r['submitted_at'],actual_source=None)
     usage={r['job_id']:r for r in db.execute('SELECT * FROM gnosis_admin_ibm_usage')}
     timing={r['job_id']:r for r in db.execute('SELECT * FROM gnosis_admin_ibm_timing')}
     extra=overhead()

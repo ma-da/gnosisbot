@@ -4,14 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#faf9f5">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/global.css?v=0.7.2">
-  <link rel="stylesheet" href="/assets/css/account-hub.css?v=resonance1">
-  <link rel="stylesheet" href="/assets/css/account-commerce.css?v=1">
-  <script type="module" src="/assets/js/account-page.js?v=1"></script>
+
+  <link rel="stylesheet" href="/assets/css/style.css?v=frontend2">
+  <link rel="stylesheet" href="/assets/css/account.css?v=frontend2">
+
+  <script type="module" src="/assets/js/account-page.js?v=1-frontend2"></script>
 
   <!-- GNOSIS SITE SEO V1 BEGIN -->
   <title>Your Gnosis — Account &amp; Reading History | Gnosis.bot</title>
@@ -21,20 +18,20 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/social/gnosis-icon.png">
   <!-- GNOSIS SITE SEO V1 END -->
   <!-- GNOSIS SHARED SHELL V2 BEGIN -->
-  <link rel="stylesheet" href="/assets/css/system-health.css?v=1">
+
   <script type="module" src="/assets/js/system-health.js?v=1"></script>
-  <link rel="stylesheet" href="/assets/css/site-shell-v2.css?v=2">
+
   <!-- GNOSIS SHARED SHELL V2 END -->
-  <link rel="stylesheet" href="/assets/css/legal.css?v=1">
-  <link rel="stylesheet" href="/assets/css/legal-modal.css?v=1">
+
   <script defer src="/assets/js/legal-modal.js?v=ai-policy-v1"></script>
-  <link rel="stylesheet" href="/assets/css/site-header-unified.css?v=unified-v1.1">
+
   <script defer src="/assets/js/site-header-unified.js?v=unified-v1"></script>
-  <link rel="stylesheet" href="/assets/css/account-claims-v2.css?v=1">
+
   <!-- GNOSIS BUY CREDITS MODAL V1 BEGIN -->
-  <link rel="stylesheet" href="/assets/css/buy-credits-modal-v1.css?v=2">
-  <script defer src="/assets/js/buy-credits-modal-v1.js?v=4"></script>
+
+  <script defer src="/assets/js/buy-credits-modal-v1.js?v=5"></script>
   <!-- GNOSIS BUY CREDITS MODAL V1 END -->
+
 </head>
 <body class="account-page" data-gnosis-session="loading" id="top">
   <a class="visually-hidden account-skip" href="#account-main">Skip to account content</a>
@@ -47,16 +44,12 @@
 						<a href="/research.html">Research</a>
       <a href="/#contact">Contact</a>
     </nav>
-      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>				
-			
+      <button type="button" class="system-health-trigger" data-system-health aria-haspopup="dialog">SYSTEM HEALTH</button>
+
   </header>
-
-
-  
 
   <main id="account-main" class="account-shell">
     <h1 class="visually-hidden">Your Gnosis account</h1>
-
 
     <p id="account-loading-state" class="account-loading" role="status" aria-live="polite">Checking your account session…</p>
 
@@ -94,7 +87,7 @@
           <button id="login" type="button" class="account-primary-button">Sign in to Your Gnosis</button>
         </fieldset>
 
-        <fieldset class="account-auth-card account-auth-create" hidden style="display:none">
+        <fieldset class="account-auth-card account-auth-create" hidden>
           <legend>Create a new account</legend>
           <label for="invitation">Invitation token <span class="account-optional">(optional)</span></label>
           <input id="invitation" spellcheck="false" autocomplete="off" placeholder="Paste an invitation token">
@@ -121,23 +114,96 @@
       <p class="account-security-note">Accounts use an Ed25519 key that remains under your control. Gnosis stores your public key and a revocable session, not your private key. Anyone who obtains your private key can control your account; keep secure backups.</p>
     </section>
 
-    <!-- This view is shown ONLY after /api/v1/accounts/hub succeeds. -->
-    <section id="gnosis-account-hub" class="gnosis-hub" aria-labelledby="gnosis-hub-heading" hidden>
-      <div class="gnosis-hub-topline">
-        <div class="gnosis-hub-topline-heading">
-          <p class="account-eyebrow">ACCOUNT OVERVIEW</p>
-          <h2 id="gnosis-hub-heading">Quantum Portal Dashboard</h2>
-        </div>
-        <div class="account-session-tools">
-          <p id="session" role="status" class="account-session-label">Checking session…</p>
-          <button id="copy-account-id" type="button" class="account-copy-button account-quiet-button" aria-label="Copy public account ID" title="Copy public account ID">Copy ID</button>
-          <span id="copy-account-feedback" aria-live="polite" class="visually-hidden"></span>
-          <button id="logout" type="button" class="account-quiet-button" hidden>Log out</button>
-        </div>
+<!-- GNOSIS ACCOUNT DASHBOARD V0.3 BEGIN -->
+<!-- This view is shown ONLY after /api/v1/accounts/hub succeeds. -->
+<section id="gnosis-account-hub" class="gnosis-hub" aria-labelledby="gnosis-hub-heading" hidden>
+  <div class="gnosis-hub-topline">
+    <div class="gnosis-hub-topline-heading">
+      <h2 id="gnosis-hub-heading">Quantum Portal Dashboard</h2>
+      <p class="gnosis-dashboard-summary" aria-live="polite"><strong id="gnosis-hub-available">—</strong> available credits <span aria-hidden="true">·</span> <strong id="gnosis-hub-pending-count">—</strong> active requests</p>
+    </div>
+    <div class="account-session-tools">
+      <button id="logout" type="button" class="account-quiet-button" hidden>Log out</button>
+    </div>
+  </div>
+  <p id="gnosis-hub-status" class="gnosis-hub-status" role="status" aria-live="polite">Loading account activity…</p>
+    <!-- GNOSIS ACCOUNT NOTICES UI V1 BEGIN -->
+    <!-- GNOSIS WORKSPACE V0.3 BEGIN: original account notices IDs preserved. -->
+    <section id="gnosis-account-messages" class="gnosis-account-messages gnosis-workspace" aria-label="Collaborate" hidden>
+      <div class="gnosis-workspace-grid" aria-label="Communication and work opportunities">
+        <section class="gnosis-workspace-module" aria-labelledby="gnosis-workspace-communicate-title">
+      <div class="gnosis-workspace-module-head"><button type="button" class="gnosis-workspace-opener" aria-expanded="false" aria-controls="gnosis-workspace-panel-communicate" aria-label="Open Communicate"><svg class="gnosis-alchemy-symbol" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.65" stroke-linecap="square" stroke-linejoin="miter"><path d="M8 5 C9 14 23 14 24 5"/><circle cx="16" cy="18" r="6.5"/><path d="M16 24.5V30M11 28H21"/></svg></button><h4 id="gnosis-workspace-communicate-title">Communicate</h4></div>
+      <div class="gnosis-workspace-panel" id="gnosis-workspace-panel-communicate" hidden><div class="gnosis-workspace-panel-bar"><span>Communicate</span><button type="button" class="gnosis-workspace-panel-close" aria-label="Close Communicate">Close ×</button></div>          <p class="gnosis-workspace-deck">Announcements, group updates and private account messages.</p>
+          <div class="gnosis-message-items" id="gnosis-message-items" aria-live="polite">
+            <p class="gnosis-message-placeholder">Account messages will appear here when available.</p>
+          </div>
+
       </div>
-      <p id="gnosis-hub-status" class="gnosis-hub-status" role="status" aria-live="polite">Loading account activity…</p>
-      <div id="gnosis-hub-panel" class="gnosis-hub-panel" hidden>
-        <!-- GNOSIS ACCOUNT CREDIT STORE UI V1 BEGIN -->
+    </section>
+        <section class="gnosis-workspace-module" aria-labelledby="gnosis-workspace-soul-title">
+      <div class="gnosis-workspace-module-head"><button type="button" class="gnosis-workspace-opener" aria-expanded="false" aria-controls="gnosis-workspace-panel-soul" aria-label="Open Soul Work"><svg class="gnosis-alchemy-symbol" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.65" stroke-linecap="square" stroke-linejoin="miter"><path d="M16 4 L4.5 28 H27.5 Z"/></svg></button><h4 id="gnosis-workspace-soul-title">Soul Work</h4></div>
+      <div class="gnosis-workspace-panel" id="gnosis-workspace-panel-soul" hidden><div class="gnosis-workspace-panel-bar"><span>Soul Work</span><button type="button" class="gnosis-workspace-panel-close" aria-label="Close Soul Work">Close ×</button></div>          <p class="gnosis-workspace-deck">Do you know what your soul work is? Do you want to contribute your efforts to our shared direction? If so, contact us and we'll try to find you an assignment. Payments in publicly traded blockchain tokens only.</p>
+          <div class="gnosis-workspace-tabs" role="group" aria-label="Soul Work views">
+            <button type="button" class="gnosis-workspace-tab" data-workspace-view="assignments" aria-controls="gnosis-soul-assignments" aria-pressed="true">Assignments</button>
+            <button type="button" class="gnosis-workspace-tab" data-workspace-view="bounties" aria-controls="gnosis-soul-bounties" aria-pressed="false">Bounties</button>
+          </div>
+          <div id="gnosis-soul-assignments">
+            <p class="gnosis-workspace-status">No live assignments have been issued through this workspace yet.</p>
+            <div class="gnosis-workspace-card">
+              <p class="gnosis-workspace-kicker">EXAMPLE ONLY · NOT ASSIGNED</p>
+              <h5>Spend 3 minutes not thinking</h5>
+              <p>If you notice yourself not thinking, you have to start over.</p>
+              <button class="gnosis-workspace-action" type="button" id="gnosis-soul-brief-toggle" aria-expanded="false" aria-controls="gnosis-soul-brief">View sample brief</button>
+              <div class="gnosis-workspace-brief" id="gnosis-soul-brief" hidden>
+                <strong>Can you use the oracle without thinking?</strong>
+                <ul><li>Does that change the experience?</li><li>Do you think it changed the outcome?</li><li>Is it possible to have important thoughts that you're unaware of?</li></ul>
+                <p>Demonstration only. Claiming, submissions and payments are not enabled.</p>
+              </div>
+            </div>
+          </div>
+          <div id="gnosis-soul-bounties" hidden>
+            <p class="gnosis-workspace-status">No funded Gnosis bounties are posted yet.</p>
+            <div class="gnosis-workspace-card"><span class="gnosis-workspace-pill">SOL</span><span class="gnosis-workspace-pill">RSTORY</span><p class="gnosis-workspace-muted">When enabled, bounties will show exact rewards, funding evidence, acceptance criteria and payment status before anyone claims work.</p></div>
+          </div>
+
+      </div>
+    </section>
+        <section class="gnosis-workspace-module" aria-labelledby="gnosis-workspace-robot-title">
+      <div class="gnosis-workspace-module-head"><button type="button" class="gnosis-workspace-opener" aria-expanded="false" aria-controls="gnosis-workspace-panel-robot" aria-label="Open Work for Robots"><svg class="gnosis-alchemy-symbol" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.65" stroke-linecap="square" stroke-linejoin="miter"><path d="M16 4 L4.5 28 H27.5 Z"/><path d="M7.5 21 H24.5"/></svg></button><h4 id="gnosis-workspace-robot-title">Work for Robots</h4></div>
+      <div class="gnosis-workspace-panel" id="gnosis-workspace-panel-robot" hidden><div class="gnosis-workspace-panel-bar"><span>If you need money for quantum credits a robot will pay you to complete tasks</span><button type="button" class="gnosis-workspace-panel-close" aria-label="Close Work for Robots">Close ×</button></div>
+          <div id="gnosis-robot-list" aria-live="polite"><p class="gnosis-workspace-status">Checking remote opportunities…</p></div>
+          <p class="gnosis-workspace-note">Listings and funding status are reported by RentAHuman, not independently verified by Gnosis Bot. No applications or payments are handled here.</p>
+          <a class="gnosis-workspace-source" href="https://rentahuman.ai/bounties" target="_blank" rel="noopener noreferrer">Explore all RentAHuman bounties ↗</a>
+
+      </div>
+    </section>
+        <section class="gnosis-workspace-module gnosis-workspace-weather" aria-labelledby="gnosis-workspace-weather-title">
+      <div class="gnosis-workspace-module-head"><button type="button" class="gnosis-workspace-opener" aria-expanded="false" aria-controls="gnosis-workspace-panel-weather" aria-label="Open Weather on Other Planets"><svg class="gnosis-alchemy-symbol" viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.65" stroke-linecap="square" stroke-linejoin="miter"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="2.8" fill="currentColor" stroke="none"/></svg></button><h4 id="gnosis-workspace-weather-title">Weather on Other Planets</h4></div>
+      <div class="gnosis-workspace-panel" id="gnosis-workspace-panel-weather" hidden><div class="gnosis-workspace-panel-bar"><span>Weather on Other Planets</span><button type="button" class="gnosis-workspace-panel-close" aria-label="Close Weather on Other Planets">Close ×</button></div>
+          <ul class="gnosis-planet-list" aria-label="Solar system mean temperatures in degrees Fahrenheit">
+              <li class="gnosis-planet-row" title="Photosphere; not a planetary surface"><span class="gnosis-planet-name">Sun</span><span class="gnosis-planet-symbol" aria-hidden="true">☉</span><span class="gnosis-planet-temp">10,000°F</span></li>
+              <li class="gnosis-planet-row" title="Global average across hot days and cold nights"><span class="gnosis-planet-name">Moon</span><span class="gnosis-planet-symbol" aria-hidden="true">☽</span><span class="gnosis-planet-temp">−4°F</span></li>
+              <li class="gnosis-planet-row" title="Mean surface temperature"><span class="gnosis-planet-name">Mercury</span><span class="gnosis-planet-symbol" aria-hidden="true">☿</span><span class="gnosis-planet-temp">333°F</span></li>
+              <li class="gnosis-planet-row" title="Mean surface temperature"><span class="gnosis-planet-name">Venus</span><span class="gnosis-planet-symbol" aria-hidden="true">♀</span><span class="gnosis-planet-temp">867°F</span></li>
+              <li class="gnosis-planet-row" title="Mean surface temperature"><span class="gnosis-planet-name">Earth</span><span class="gnosis-planet-symbol" aria-hidden="true">♁</span><span class="gnosis-planet-temp">59°F</span></li>
+              <li class="gnosis-planet-row" title="Mean surface temperature"><span class="gnosis-planet-name">Mars</span><span class="gnosis-planet-symbol" aria-hidden="true">♂</span><span class="gnosis-planet-temp">−85°F</span></li>
+              <li class="gnosis-planet-row" title="Atmospheric temperature near 1 bar; no solid surface"><span class="gnosis-planet-name">Jupiter</span><span class="gnosis-planet-symbol" aria-hidden="true">♃</span><span class="gnosis-planet-temp">−166°F</span></li>
+              <li class="gnosis-planet-row" title="Atmospheric temperature near 1 bar; no solid surface"><span class="gnosis-planet-name">Saturn</span><span class="gnosis-planet-symbol" aria-hidden="true">♄</span><span class="gnosis-planet-temp">−220°F</span></li>
+              <li class="gnosis-planet-row" title="Atmospheric temperature near 1 bar; no solid surface"><span class="gnosis-planet-name">Uranus</span><span class="gnosis-planet-symbol" aria-hidden="true">♅</span><span class="gnosis-planet-temp">−319°F</span></li>
+              <li class="gnosis-planet-row" title="Atmospheric temperature near 1 bar; no solid surface"><span class="gnosis-planet-name">Neptune</span><span class="gnosis-planet-symbol" aria-hidden="true">♆</span><span class="gnosis-planet-temp">−328°F</span></li>
+          </ul>
+          <p class="gnosis-workspace-note gnosis-planet-context">NASA reference averages. Sun = photosphere; Moon = day/night mean; giant planets = atmosphere at ~1 bar (no solid surface). Earth, Uranus and Neptune use later astronomical symbols.</p>
+          <div class="gnosis-planet-sources"><a class="gnosis-workspace-source" href="https://science.nasa.gov/resource/solar-system-temperatures/" target="_blank" rel="noopener noreferrer">NASA temperatures ↗</a><a class="gnosis-workspace-source" href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank" rel="noopener noreferrer">NASA Moon average ↗</a></div>
+
+      </div>
+    </section>
+      </div>
+    </section>
+    <!-- GNOSIS WORKSPACE COLLAPSE V0.3.3 -->
+<!-- GNOSIS WORKSPACE V0.3 END -->
+    <!-- GNOSIS ACCOUNT NOTICES UI V1 END -->
+  <div id="gnosis-hub-panel" class="gnosis-hub-panel" hidden>
+    <!-- GNOSIS ACCOUNT CREDIT STORE UI V1 BEGIN -->
 <section id="gnosis-credit-store" class="gnosis-credit-store" aria-labelledby="gnosis-credit-title" hidden>
   <div class="gnosis-credit-head">
     <div>
@@ -184,184 +250,127 @@
   </div>
 </section>
 <!-- GNOSIS ACCOUNT CREDIT STORE UI V1 END -->
-
-        <div class="gnosis-hub-metrics" aria-label="Account credit summary">
-          <div class="gnosis-hub-metric gnosis-hub-metric--available"><span>Available credits</span><strong id="gnosis-hub-available">—</strong></div>
-          <div class="gnosis-hub-metric"><span>Reserved credits</span><strong id="gnosis-hub-reserved">—</strong></div>
-          <div class="gnosis-hub-metric"><span>Total credits</span><strong id="gnosis-hub-total">—</strong></div>
-          <div class="gnosis-hub-metric"><span>Active requests</span><strong id="gnosis-hub-pending-count">—</strong></div>
+    <div class="gnosis-hub-layout gnosis-hub-layout-v03">
+      <section class="gnosis-hub-card gnosis-hub-activity-card" aria-labelledby="gnosis-hub-activity-title">
+        <div class="gnosis-hub-section-head">
+          <div><p class="account-eyebrow">READING ARCHIVE</p><h3 id="gnosis-hub-activity-title">Reading History</h3></div>
+          <button type="button" id="gnosis-hub-refresh" class="account-quiet-button">Refresh</button>
         </div>
-
-        <div class="gnosis-hub-layout">
-          <section class="gnosis-hub-card gnosis-hub-activity-card" aria-labelledby="gnosis-hub-activity-title">
-            <div class="gnosis-hub-section-head">
-              <div>
-                <p class="account-eyebrow">PERSONAL ACTIVITY</p>
-                <h3 id="gnosis-hub-activity-title">Consultations &amp; requests</h3>
-              </div>
-              <button type="button" id="gnosis-hub-refresh" class="account-quiet-button">Refresh</button>
-            </div>
-            <p class="gnosis-hub-description">Saved readings and active requests across your Gnosis applications.</p>
-            <div id="gnosis-hub-activity" role="list" aria-live="polite"></div>
-            <div class="gnosis-hub-controls" aria-label="Activity pagination">
-              <button type="button" id="gnosis-hub-prev" class="account-quiet-button" disabled>Previous</button>
-              <span id="gnosis-hub-page" aria-live="polite"></span>
-              <button type="button" id="gnosis-hub-next" class="account-quiet-button" disabled>Next</button>
-            </div>
-          </section>
-
-          <aside class="gnosis-hub-aside" aria-label="Applications and account settings">
-            <section class="gnosis-hub-card" aria-labelledby="gnosis-hub-apps-title">
-              <p class="account-eyebrow">YOUR GNOSIS</p>
-              <h3 id="gnosis-hub-apps-title">Applications</h3>
-              <nav id="gnosis-hub-apps" class="gnosis-hub-nav" aria-label="Your applications">
-                <a href="/quantum-oracle.html">I Ching Oracle</a>
-                <a href="#gnosis-hub-activity-title">Your activity</a>
-                <a href="#gnosis-hub-email-title">Notifications</a>
-              </nav>
-            </section>
-
-            <section class="gnosis-hub-card" aria-labelledby="gnosis-hub-email-title">
-              <p class="account-eyebrow">NOTIFICATIONS</p>
-              <h3 id="gnosis-hub-email-title">Completion email</h3>
-              <p id="gnosis-hub-email-status" class="gnosis-hub-email-status">Checking verified email…</p>
-              <form id="gnosis-hub-email-form" class="gnosis-hub-email-form">
-                <label for="gnosis-hub-email">Verify a notification address</label>
-                <input id="gnosis-hub-email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
-                <button id="gnosis-hub-email-send" type="submit" class="account-secondary-button">Send verification link</button>
-                <p id="gnosis-hub-email-message" role="status" aria-live="polite"></p>
-              
-    <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
-              </form>
-              <div id="gnosis-email-verification" class="gnosis-hub-verify" hidden>
-                <p>Confirm ownership of this email address while signed in with your account key.</p>
-                <button type="button" id="gnosis-email-confirm" class="account-secondary-button">Confirm email address</button>
-                <p id="gnosis-email-verify-message" role="status" aria-live="polite"></p>
-              </div>
-            </section>
-
-                        <!-- Gnosis credits V2: account-owned claim redemption, no automatic mutation. -->
-            <section class="gnosis-hub-card gnosis-credit-redeem-card" aria-labelledby="gnosis-claim-heading">
-              <p class="account-eyebrow">ACCOUNT CREDITS</p>
-              <h3 id="gnosis-claim-heading">Redeem a claim code</h3>
-              <p>Apply a one-time promotional credit code to your signed-in account.</p>
-              <form id="gnosis-claim-form" autocomplete="off">
-                <label for="gnosis-claim-code">Claim code</label>
-                <input id="gnosis-claim-code" type="text" minlength="32" maxlength="128" required
-                       autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="gnosis-claim-message">
-                <button id="gnosis-claim-submit" type="submit" class="account-secondary-button">Redeem credits</button>
-                <p id="gnosis-claim-message" role="status" aria-live="polite"></p>
-              </form>
-            </section>
-
-            <section class="gnosis-hub-card gnosis-hub-security" aria-labelledby="gnosis-hub-security-title">
-              <p class="account-eyebrow">IDENTITY &amp; SECURITY</p>
-              <h3 id="gnosis-hub-security-title">Your keys</h3>
-              <p>Your Ed25519 private key stays under your control. Keep secure backups. Lost private keys cannot currently be recovered.</p>
-            </section>
-          </aside>
+        <div class="gnosis-reading-tabs" role="tablist" aria-label="Reading method">
+          <button id="gnosis-tab-coins" type="button" role="tab" data-reading-mode="coins" aria-selected="true" tabindex="0" aria-controls="gnosis-hub-activity">Coins</button>
+          <button id="gnosis-tab-pouch" type="button" role="tab" data-reading-mode="pouch" aria-selected="false" tabindex="-1" aria-controls="gnosis-hub-activity">Pouch</button>
+          <button id="gnosis-tab-sticks" type="button" role="tab" data-reading-mode="sticks" aria-selected="false" tabindex="-1" aria-controls="gnosis-hub-activity">Sticks</button>
         </div>
-      </div>
-    </section>
-    <!-- GNOSIS ACCOUNT NOTICES UI V1 BEGIN -->
-<section id="gnosis-account-messages" class="gnosis-account-messages" aria-labelledby="gnosis-message-title" hidden>
-  <div class="gnosis-message-head">
-    <div>
-      <p class="gnosis-credit-eyebrow">YOUR GNOSIS / UPDATES</p>
-      <h3 id="gnosis-message-title">Messages &amp; updates</h3>
-      <p>Announcements and private account notices appear here when available.</p>
+        <div id="gnosis-hub-activity" role="tabpanel" aria-labelledby="gnosis-tab-coins" aria-live="polite"></div>
+        <div class="gnosis-hub-controls" aria-label="Reading history pagination">
+          <button type="button" id="gnosis-hub-prev" class="account-quiet-button" disabled>Previous</button>
+          <span id="gnosis-hub-page" aria-live="polite"></span>
+          <button type="button" id="gnosis-hub-next" class="account-quiet-button" disabled>Next</button>
+        </div>
+      </section>
+      <aside class="gnosis-hub-aside" aria-label="Account information">
+        <section class="gnosis-hub-card gnosis-account-info" aria-labelledby="gnosis-account-info-title">
+          <div class="gnosis-account-info-toprow">
+            <div><p class="account-eyebrow">ACCOUNT</p><h3 id="gnosis-account-info-title">Account Info</h3></div>
+            <button id="copy-account-id" type="button" class="account-quiet-button" title="Copy public account ID">Copy ID</button>
+          </div>
+          <p id="session" class="account-session-label gnosis-screen-reader-only" role="status">Checking session…</p>
+          <div class="gnosis-account-info-block">
+            <h4>Account ID</h4>
+            <code id="gnosis-account-id-display" class="gnosis-account-id-display">Loading…</code>
+            <span id="copy-account-feedback" class="gnosis-account-form-status" aria-live="polite"></span>
+          </div>
+          <div class="gnosis-account-info-block">
+            <h4>Email notifications</h4>
+            <p id="gnosis-hub-email-status" class="gnosis-hub-email-status">Checking verified email…</p>
+            <button id="gnosis-hub-email-change" type="button" class="gnosis-email-change" hidden>Change email</button>
+            <form id="gnosis-hub-email-form" class="gnosis-hub-email-form">
+              <label for="gnosis-hub-email">Register email address</label>
+              <input id="gnosis-hub-email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+              <button id="gnosis-hub-email-send" type="submit" class="account-secondary-button">Send verification link</button>
+              <p id="gnosis-hub-email-message" role="status" aria-live="polite"></p>
+              <p class="gnosis-legal-form-links" data-gnosis-legal-links>Read our <a href="/terms.html">Terms of Use</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/ai-policy.html">AI Policy</a>.</p>
+            </form>
+            <div id="gnosis-email-verification" class="gnosis-hub-verify" hidden>
+              <p>Confirm ownership of this email address while signed in with your account key.</p>
+              <button type="button" id="gnosis-email-confirm" class="account-secondary-button">Confirm email address</button>
+              <p id="gnosis-email-verify-message" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="gnosis-account-info-block gnosis-wallet-preview gnosis-wallet-block">
+            <h4>Link Solana address</h4>
+            <div id="gnosis-wallet-unlinked" class="gnosis-wallet-data">
+              <button id="gnosis-wallet-connect" type="button" class="account-secondary-button">Connect wallet</button>
+              <p class="gnosis-wallet-note">Connect only when you choose. Verification signs a message, never a transaction.</p>
+            </div>
+            <div id="gnosis-wallet-linked" class="gnosis-wallet-data" hidden>
+              <div class="gnosis-wallet-address-row">
+                <code id="gnosis-wallet-address" class="gnosis-wallet-public-address">—</code>
+                <button type="button" id="gnosis-wallet-copy" class="gnosis-wallet-icon-button" title="Copy Solana public address" aria-label="Copy Solana public address">⧉</button>
+              </div>
+              <div class="gnosis-wallet-balances" aria-label="Public on-chain balances">
+                <div class="gnosis-wallet-balance"><small>SOL</small><strong id="gnosis-wallet-sol">—</strong></div>
+                <div class="gnosis-wallet-balance"><small>RSTORY</small><strong id="gnosis-wallet-rstory">—</strong></div>
+              </div>
+              <p class="gnosis-wallet-note" id="gnosis-wallet-balance-timestamp">Balances not loaded</p>
+              <div class="gnosis-wallet-actions">
+                <button type="button" id="gnosis-wallet-refresh" class="account-secondary-button">Refresh balances</button>
+                <button type="button" id="gnosis-wallet-unlink" class="account-secondary-button">Unlink</button>
+              </div>
+            </div>
+            <p id="gnosis-wallet-registration-status" class="gnosis-account-form-status" role="status" aria-live="polite"></p>
+          </div>
+          <div class="gnosis-account-info-block gnosis-credit-redeem-card">
+            <h4 id="gnosis-claim-heading">Claim code</h4>
+            <form id="gnosis-claim-form" autocomplete="off">
+              <label for="gnosis-claim-code">Redeem a promotional code</label>
+              <input id="gnosis-claim-code" type="text" minlength="32" maxlength="128" required autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="gnosis-claim-message">
+              <button id="gnosis-claim-submit" type="submit" class="account-secondary-button">Redeem credits</button>
+              <p id="gnosis-claim-message" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <button type="button" id="gnosis-security-notice-trigger" class="gnosis-account-security-link" aria-haspopup="dialog">Security Notice</button>
+        </section>
+      </aside>
     </div>
   </div>
-  <div class="gnosis-message-items" id="gnosis-message-items" aria-live="polite">
-    <p class="gnosis-message-placeholder">Account messages will appear here when available.</p>
-  </div>
 </section>
-<!-- GNOSIS ACCOUNT NOTICES UI V1 END -->
+<dialog id="gnosis-security-notice" class="gnosis-account-security-dialog" aria-labelledby="gnosis-security-notice-title">
+  <div class="gnosis-account-security-dialog-heading">
+    <h2 id="gnosis-security-notice-title">Account security</h2>
+    <button type="button" id="gnosis-security-notice-close" class="account-quiet-button">Close</button>
+  </div>
+  <p>Your Gnosis identity is controlled by your Ed25519 private account key. The site uses your public key and revocable browser sessions; it does not retain a backup copy of your private key.</p>
+  <p><strong>No account recovery:</strong> If your private key is lost, Gnosis currently cannot recover your account or its account-bound credits and history. Keep secure, independent backups.</p>
+  <p>Never send your private key, key file, seed phrase or wallet recovery phrase to support staff, moderators, other users or automated agents. Anyone who obtains a private credential may gain control of the corresponding account or wallet.</p>
+  <p>Solana wallet registration, when available, will verify control using an appropriate signed challenge, not by requesting secret keys. Connecting a wallet to Gnosis never requires sharing its recovery phrase.</p>
+  <p>Only follow links and payment instructions from the official Gnosis Bot website. Report suspicious messages and impersonation attempts through the site's official contact channel.</p>
+  <p><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms of Use</a></p>
+</dialog>
+<!-- GNOSIS ACCOUNT LAYOUT V0.3.2 -->
+<!-- GNOSIS ACCOUNT DASHBOARD V0.3 END -->
 
   </main>
-  <script type="module" src="/assets/js/account-hub.js?v=resonance1"></script>
-  <script type="module" src="/assets/js/account-commerce.js?v=2"></script>
-		<script type="module">
-				const zone = document.getElementById('key-dropzone');
-				const input = document.getElementById('login-file');
-				const feedback = document.getElementById('key-drop-feedback');
+  <script type="module" src="/assets/js/account-hub.js?v=064"></script>
+  <script type="module" src="/assets/js/account-commerce.js?v=41"></script>
+  <script type="module" src="/assets/js/account-layout-v03.js?v=3"></script>
+  <script type="module" src="/assets/js/account-workspace-v03.js?v=3"></script>
+  <script type="module" src="/assets/js/account-workspace-fold-v033.js?v=33"></script>
 
-				if (zone && input) {
-						let dragDepth = 0;
-
-						zone.addEventListener('dragenter', event => {
-								if (!event.dataTransfer.types.includes('Files')) return;
-								event.preventDefault();
-								dragDepth++;
-								zone.classList.add('is-dragover');
-						});
-
-						zone.addEventListener('dragover', event => {
-								event.preventDefault();
-								event.dataTransfer.dropEffect = 'copy';
-						});
-
-						zone.addEventListener('dragleave', () => {
-								dragDepth--;
-								if (dragDepth <= 0) {
-										dragDepth = 0;
-										zone.classList.remove('is-dragover');
-								}
-						});
-
-						zone.addEventListener('drop', event => {
-								event.preventDefault();
-								dragDepth = 0;
-								zone.classList.remove('is-dragover');
-
-								const files = event.dataTransfer.files;
-
-								if (files.length !== 1) {
-										feedback.textContent = 'Please select one account key file.';
-										return;
-								}
-
-								const file = files[0];
-
-								if (!/\.(key|json|txt)$/i.test(file.name)) {
-										feedback.textContent = 'Use a .key, .json, or .txt file.';
-										return;
-								}
-
-								// Transfer the dropped file into the existing input.
-								const transfer = new DataTransfer();
-								transfer.items.add(file);
-								input.files = transfer.files;
-
-								// Trigger the existing file-upload handler.
-								input.dispatchEvent(new Event('change', {
-										bubbles: true
-								}));
-
-								feedback.textContent = `${file.name} selected.`;
-						});
-
-						input.addEventListener('change', () => {
-								if (input.files.length) {
-										feedback.textContent =
-												`${input.files[0].name} selected.`;
-								}
-						});
-				}
-		</script>		
 
 <footer class="home-footer gnosis-site-footer">
     <span>© GNOSIS.BOT</span>
 				<a href="https://markbailey.love">CREATOR</a>
 				<a href="https://github.com/ma-da/gnosisbot">GITHUB</a>
     <a href="https://t.me/rstory_official" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
-				
-				
+
     <a href="#top">TOP ↑</a>
       <a href="/terms.html">TERMS</a>
     <a href="/privacy.html">PRIVACY</a>
       <a href="/ai-policy.html">AI POLICY</a>
   </footer>
   <script type="module" src="/assets/js/account-claims-v2.js?v=1"></script>
+  <!-- GNOSIS ACCOUNT IDENTITY V0.5 -->
+  <script type="module" src="/assets/js/account-wallet-v05.js?v=5"></script>
 </body>
 </html>

@@ -36,7 +36,7 @@ def claim_next_submission(db):
     """
     db.execute('BEGIN IMMEDIATE')
     try:
-        row=db.execute('''SELECT request_id FROM ibm_future_jobs WHERE status='queued'
+        row=db.execute('''SELECT j.request_id FROM ibm_future_jobs j JOIN service_requests r USING(request_id) WHERE j.status='queued' AND r.service_id='iching.quantum_future' AND COALESCE(json_extract(j.metadata_json,'$.controlled_trial'),0)=0
           ORDER BY created_at,request_id LIMIT 1''').fetchone()
         if not row:
             db.commit();return None

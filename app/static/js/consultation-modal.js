@@ -48,6 +48,17 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
 
   // gnosis-nist-choice-v1
   let qrngProbeSerial = 0;
+  const futureOption = form.querySelector('input[name="consultation-mode"][value="future"]');
+  function setFuture(enabled) {
+    if (!futureOption) return;
+    futureOption.disabled = !enabled;
+    futureOption.title = enabled ? 'Live IBM quantum reading' : 'Quantum Future is not enabled for this account';
+    if (!enabled && futureOption.checked) {
+      const classic = form.querySelector('input[name="consultation-mode"][value="classic"]');
+      if (classic) classic.checked = true;
+      updateView();
+    }
+  }
   async function refreshQuantumSources() {
     if (!qrng) return;
     const selector = 'input[name="consultation-qrng-provider"]';
@@ -74,6 +85,7 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
     }
 
     const myProbe = ++qrngProbeSerial;
+    if (futureOption) futureOption.disabled = true;
     nistOption.disabled = true; // Fail closed until the server confirms availability.
     nistOption.title = 'Checking NIST availability';
     try {
@@ -85,12 +97,14 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
       const enabled = body?.services?.some(service =>
         service.service_id === 'iching.qrng_public' && service.available === true);
       if (myProbe !== qrngProbeSerial) return;
+      setFuture(body?.services?.some(service => service.service_id === 'iching.quantum_future' && service.available === true));
       nistOption.disabled = !enabled;
       nistOption.title = enabled
         ? 'Uses the NIST public, timestamped randomness beacon'
         : 'NIST Public Beacon is not enabled on this server';
     } catch (error) {
       if (myProbe !== qrngProbeSerial) return;
+      setFuture(false);
       nistOption.disabled = true;
       nistOption.title = 'Unable to check the NIST service';
       console.warn('Gnosis: NIST availability check failed', error);
@@ -142,6 +156,7 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
       sessionVerified = true;
       auth.hidden = true;
       window.dispatchEvent(new Event('gnosis:account-session-changed'));
+      void refreshQuantumSources();
       // A successful login leaves only a revocable cookie, not a credential in the form.
       account.value = '';
       keyFile.value = '';
@@ -198,6 +213,7 @@ export function initConsultation({ lookupAccount = null, onSubmit = null } = {})
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (busy) return;
+    if (mode() === 'future' && futureOption?.disabled) { setMessage('Quantum Future is not enabled for this account.', 'error'); return; }
     if (needsAccount()) {
       if (!hasCredentials()) { setMessage('Enter your account code or select your key file.', 'error'); return; }
       if (verifiedCredits === null) { setMessage('Account verification is required before submitting.', 'error'); return; }

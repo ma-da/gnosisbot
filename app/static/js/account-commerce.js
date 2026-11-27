@@ -51,6 +51,7 @@ function clearQuote() {
   submit.disabled=true;
 }
 function reset() {
+  closeCommunicationReply();
   generation++;store=null;offerId=null;submitting=false;clearQuote();
   for (const m of methods) {m.disabled=false;m.checked=m.value==='stripe';}
   offersNode.replaceChildren();
@@ -154,25 +155,146 @@ submit.addEventListener('click',async()=>{
   }catch(error){status('Unable to start checkout. No credits have been issued. Try again or contact support.',true);}
   finally{submitting=false;submit.disabled=!quote||!orderTerms.checked;}
 });
+// GNOSIS COMMUNICATIONS V0.4.1 — recipient actions and opt-in replies.
+/** Gnosis Communications V0.4.1: authenticated notices and admin-directed replies.
+ * Safe DOM/textContent only. Server owns all recipient and reply authorization.
+ */
+let communicationDialog = null;
+let communicationReturnFocus = null;
+let communicationReplyNotice = null;
+let communicationRequestId = null;
+let communicationSending = false;
+function closeCommunicationReply(){
+  if(communicationDialog?.open) communicationDialog.close();
+  communicationReplyNotice = null;
+  communicationRequestId = null;
+  const body=communicationDialog?.querySelector('textarea');
+  if(body)body.value='';
+}
+function communicationIcon(kind){
+  const button=document.createElement('button');button.type='button';
+  button.className='gnosis-communication-icon';
+  const label=kind==='copy'?'Copy message':'Delete message from my inbox';
+  button.setAttribute('aria-label',label);button.title=label;
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');
+  const paths=kind==='copy'
+    ? ['M8 4H19V17','M5 7H16V20H5Z']
+    : ['M4 7H20','M9 7V4H15V7','M6 7L7 21H17L18 7','M10 11V17','M14 11V17'];
+  for(const d of paths){const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);svg.append(p);}
+  button.append(svg);return button;
+}
+function ensureCommunicationDialog(){
+  if(communicationDialog)return communicationDialog;
+  const dialog=document.createElement('dialog');dialog.id='gnosis-communication-reply-modal';
+  dialog.className='gnosis-communication-dialog';dialog.setAttribute('aria-labelledby','gnosis-communication-reply-title');
+  const heading=document.createElement('div');heading.className='gnosis-communication-dialog-heading';
+  const h=document.createElement('h2');h.id='gnosis-communication-reply-title';h.textContent='Reply to message';
+  const close=document.createElement('button');close.type='button';close.textContent='Close ×';
+  close.setAttribute('aria-label','Close reply composer');close.addEventListener('click',()=>dialog.close());
+  heading.append(h,close);
+  const context=document.createElement('p');context.id='gnosis-communication-reply-context';
+  const note=document.createElement('p');note.textContent='Your reply is delivered privately to the original administrator’s Gnosis account inbox. It is not an email or public post.';
+  const form=document.createElement('form');form.id='gnosis-communication-reply-form';
+  const label=document.createElement('label');label.htmlFor='gnosis-communication-reply-text';label.textContent='Message';
+  const textarea=document.createElement('textarea');textarea.id='gnosis-communication-reply-text';
+  textarea.maxLength=2500;textarea.required=true;textarea.rows=6;
+  const send=document.createElement('button');send.type='submit';send.className='gnosis-communication-send';send.textContent='Send reply';
+  const status=document.createElement('p');status.className='gnosis-communication-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+  form.append(label,textarea,send,status);dialog.append(heading,context,note,form);
+  // Native dialog owns Escape. Do not let the workspace flyout handler close the parent underneath it.
+  dialog.addEventListener('keydown',event=>event.stopPropagation());
+  dialog.addEventListener('pointerdown',event=>event.stopPropagation());
+  dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+  dialog.addEventListener('close',()=>{
+    if(communicationReturnFocus?.isConnected&&isAuthed())communicationReturnFocus.focus();
+    communicationReturnFocus=null;communicationReplyNotice=null;communicationRequestId=null;
+    textarea.value='';status.textContent='';send.disabled=false;communicationSending=false;
+  });
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(communicationSending||!communicationReplyNotice||!isAuthed())return;
+    const body=textarea.value.trim();
+    if(!body||body.length>2500){status.textContent='Enter a reply of 1–2500 characters.';status.dataset.error='true';return;}
+    const noticeId=communicationReplyNotice;
+    communicationRequestId ||= crypto.randomUUID().replaceAll('-','');
+    communicationSending=true;send.disabled=true;status.dataset.error='false';status.textContent='Sending reply…';
+    try{
+      const result=await requestJSON(`/api/v1/accounts/notices/${noticeId}/reply`,{
+        method:'POST',body:JSON.stringify({body,client_request_id:communicationRequestId})
+      });
+      if(!isAuthed()||result?.sent!==true)throw new Error('Reply could not be confirmed');
+      status.textContent='Reply delivered to the administrator’s account inbox.';
+      textarea.value='';communicationReplyNotice=null;communicationRequestId=null;
+      send.disabled=true;
+    }catch(error){status.textContent='Unable to send reply. Check your connection or retry.';status.dataset.error='true';send.disabled=false;}
+    finally{communicationSending=false;}
+  });
+  document.body.append(dialog);communicationDialog=dialog;return dialog;
+}
+function openCommunicationReply(item,button){
+  if(!isAuthed()||item?.reply_enabled!==true||typeof item.notice_id!=='string'||!/^[0-9a-f]{32}$/.test(item.notice_id))return;
+  const dialog=ensureCommunicationDialog();
+  communicationReturnFocus=button;communicationReplyNotice=item.notice_id;communicationRequestId=null;
+  dialog.querySelector('#gnosis-communication-reply-context').textContent='Regarding: '+item.title.slice(0,160);
+  dialog.querySelector('.gnosis-communication-status').textContent='';
+  dialog.querySelector('.gnosis-communication-send').disabled=false;
+  dialog.showModal();dialog.querySelector('textarea').focus();
+}
+async function hideCommunicationMessage(item,button){
+  if(!isAuthed()||typeof item?.message_id!=='string'||!/^[0-9a-f]{32}$/.test(item.message_id)||!['notice','reply'].includes(item.message_type))return;
+  if(!window.confirm('Delete this message from your inbox? It will remain in the sender’s records.'))return;
+  button.disabled=true;
+  try{
+    await requestJSON(`/api/v1/accounts/notices/${item.message_id}/hide`,{
+      method:'POST',body:JSON.stringify({message_type:item.message_type})
+    });
+    if(isAuthed())await getNotices(generation);
+  }catch(error){button.disabled=false;button.title='Unable to delete message. Retry.';}
+}
 function appendNotices(data) {
   noticeItems.replaceChildren();
   if(data?.schema!=='gnosis.account-notices.v1'||!Array.isArray(data.items)) {
     noticeItems.append(par('gnosis-message-placeholder','Account messages are currently unavailable.'));return;
   }
   if(!data.items.length){noticeItems.append(par('gnosis-message-placeholder','No new account messages.'));return;}
-  for(const x of data.items.slice(0,12)){
-    if(!x||typeof x.title!=='string'||!x.title.trim()||typeof x.body!=='string')continue;
+  for(const item of data.items.slice(0,12)){
+    if(!item||typeof item.title!=='string'||!item.title.trim()||typeof item.body!=='string')continue;
     const card=document.createElement('article');card.className='gnosis-message-item';
-    const h=document.createElement('h4');h.textContent=x.title.slice(0,160);
-    const p=par('',x.body.slice(0,4000));card.append(h,p);
-    if(typeof x.published_at==='string' && !Number.isNaN(Date.parse(x.published_at))){
-      const t=document.createElement('small');t.textContent=new Date(x.published_at).toLocaleDateString();card.append(t);
+    const head=document.createElement('div');head.className='gnosis-communication-item-head';
+    const h=document.createElement('h4');h.textContent=item.title.slice(0,160);
+    head.append(h);
+    const actions=document.createElement('div');actions.className='gnosis-communication-item-actions';
+    const copy=communicationIcon('copy');
+    copy.addEventListener('click',async()=>{
+      const textToCopy=item.title+'\n\n'+item.body;
+      try{
+        await navigator.clipboard.writeText(textToCopy);
+        copy.title='Copied to clipboard';copy.setAttribute('aria-label','Message copied to clipboard');
+      }catch{copy.title='Clipboard unavailable';copy.setAttribute('aria-label','Clipboard unavailable');}
+    });
+    actions.append(copy);
+    if(/^[0-9a-f]{32}$/.test(item.message_id||'')&&['notice','reply'].includes(item.message_type)){
+      const del=communicationIcon('delete');
+      del.addEventListener('click',()=>void hideCommunicationMessage(item,del));actions.append(del);
     }
-    const href=safeSameOrigin(x.action?.href);
-    if(href&&typeof x.action?.label==='string'&&x.action.label.trim()){
-      const a=document.createElement('a');a.href=href;a.textContent=x.action.label.slice(0,100);card.append(a);
+    head.append(actions);card.append(head,par('',item.body.slice(0,4000)));
+    if(typeof item.from_account==='string' && item.message_type==='reply'){
+      card.append(par('gnosis-communication-from','From account '+item.from_account.slice(0,24)));
     }
-    noticeItems.append(card);
+    const footer=document.createElement('div');footer.className='gnosis-communication-footer';
+    if(typeof item.published_at==='string'&&!Number.isNaN(Date.parse(item.published_at))){
+      const t=document.createElement('small');t.textContent=new Date(item.published_at).toLocaleDateString();footer.append(t);
+    }
+    const href=safeSameOrigin(item.action?.href);
+    if(href&&typeof item.action?.label==='string'&&item.action.label.trim()){
+      const a=document.createElement('a');a.href=href;a.textContent=item.action.label.slice(0,100);footer.append(a);
+    }
+    if(item.message_type==='notice' && item.reply_enabled===true){
+      const reply=document.createElement('button');reply.type='button';reply.className='gnosis-communication-reply-link';reply.textContent='Reply';
+      reply.addEventListener('click',()=>openCommunicationReply(item,reply));footer.append(reply);
+    }
+    card.append(footer);noticeItems.append(card);
   }
   if(!noticeItems.children.length)noticeItems.append(par('gnosis-message-placeholder','No new account messages.'));
 }
@@ -181,6 +303,7 @@ async function getNotices(epoch){
     if(epoch===generation&&isAuthed())appendNotices(data);
   }catch{if(epoch===generation&&isAuthed())appendNotices(null);}
 }
+
 function syncAuth() {
   const authenticated=isAuthed();root.hidden=!authenticated;noticeRoot.hidden=!authenticated;
   if(!authenticated){reset();return;}

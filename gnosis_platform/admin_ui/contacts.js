@@ -16,26 +16,37 @@ let contactOffset=0, contactBusy=false, currentSendEnabled=false;
 const node=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=text;if(cls)x.className=cls;return x;};
 const mailStatus=s=>{$('mail-feedback').textContent=s;};
 
+let quarantineView=false;
+const spamSummary=node('p','Spam protection: loading…');
+spamSummary.setAttribute('role','status');
+const quarantineToggle=node('button','Review quarantine','secondary');quarantineToggle.type='button';
+$('contact-unread-status').insertAdjacentElement('beforebegin',spamSummary);
+spamSummary.insertAdjacentElement('afterend',quarantineToggle);
+quarantineToggle.addEventListener('click',()=>{if(contactBusy)return;quarantineView=!quarantineView;loadContacts();});
+
 async function loadContacts({more=false}={}){
   if(contactBusy)return;contactBusy=true;
   if(!more){contactOffset=0;$('site-contact-list').replaceChildren();}
   $('contact-unread-status').textContent='Loading contact submissions…';
   try{
-    const p=await request('/api/v1/admin/contact-messages?limit=50&offset='+contactOffset);
+    const p=await request('/api/v1/admin/contact-messages?limit=50&offset='+contactOffset+'&quarantine='+quarantineView);
     if(!p.configured){
       $('contact-native-summary').textContent='Native site inbox: not enabled';
       $('contact-unread-count').textContent='— unread';
-      $('contact-unread-status').textContent='Contact storage is disabled pending migration and activation; Formspree remains live.';
+      $('contact-unread-status').textContent='Contact storage is disabled pending migration and activation; Contact form is unavailable.';
       $('site-contact-more').hidden=true;return;
     }
     $('contact-native-summary').textContent=`Native submissions: ${fmt(p.counts.total)} total · ${fmt(p.counts.unread)} unread`;
     $('contact-unread-count').textContent=`${fmt(p.counts.unread)} unread`;
+    if(p.spam)spamSummary.textContent=`Last 24h: ${fmt(p.spam.accepted)} accepted · ${fmt(p.spam.quarantined)} quarantined · ${fmt(p.spam.rejected)} rejected · ${fmt(p.spam.rate_limited)} rate limited`;
+    quarantineToggle.textContent=quarantineView?'Return to inbox':`Review quarantine (${fmt(p.counts.quarantine)})`;
     if(Number(p.counts.unread)>0) $('site-contact-disclosure').open=true;
     $('contact-unread-status').textContent=p.messages.length?'Unread items appear in black; use the controls to mark reviewed or archive.':'No messages in this page.';
     for(const message of p.messages){
       const item=node('details',undefined,'contact-message'+(!message.read_at&&!message.archived_at?' contact-message--unread':''));
       const head=node('summary');
       head.append(node('span',message.name),node('time',message.created_at.slice(0,16).replace('T',' ')+' UTC'));
+      if(message.quarantine_reason)head.append(node('span',message.quarantine_reason.replaceAll('_',' '),'contact-mini-tag'));
       if(message.archived_at)head.append(node('span','Archived','contact-mini-tag'));
       item.append(head);
       const content=node('div',undefined,'contact-message-body');
@@ -76,7 +87,15 @@ async function loadContacts({more=false}={}){
           method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'delete'})
         });await loadContacts();}catch(e){$('contact-unread-status').textContent=e.message;deleteButton.disabled=false;}
       });
-      actions.append(readButton,archiveButton,replyButton,deleteButton);
+      if(message.quarantine_reason){
+        const release=node('button','Release to inbox','secondary');release.type='button';
+        release.addEventListener('click',async()=>{
+          release.disabled=true;
+          try{await request('/api/v1/admin/contact-messages/'+message.id+'/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'release'})});await loadContacts();}
+          catch(e){$('contact-unread-status').textContent=e.message;release.disabled=false;}
+        });
+        actions.append(release,deleteButton);
+      }else actions.append(readButton,archiveButton,replyButton,deleteButton);
       content.append(actions);item.append(content);$('site-contact-list').append(item);
     }
     contactOffset+=p.messages.length;

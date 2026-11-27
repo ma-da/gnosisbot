@@ -12,6 +12,23 @@ def submit_rune(body,user,connect):
     from .consultations_api import _own_request,_receipt,_map_transaction_error,consultation_status
     if body.service_id not in SERVICES:
         raise HTTPException(400,{'code':'unsupported_service'})
+    if body.service_id.endswith('.quantum_future'):
+        from .future_trial import allowed as trial_allowed
+        if not trial_allowed(user,body.service_id):
+            raise HTTPException(403,{'code':'future_unavailable'})
+        try:
+            with closing(connect()) as db:
+                req=begin_consultation(db,account_id=user['account_id'],service_id=body.service_id,
+                    idempotency_key=body.idempotency_key,question=body.question,inquiry_style=body.inquiry_style,
+                    research_publication_consent=body.research_publication_consent,admin_future_trial=True)
+                cid=req['consultation_id'];receipt=_receipt(_own_request(db,user['account_id'],cid))
+                if req['status']=='completed':
+                    return JSONResponse(content={'state':'completed','receipt':receipt,'result':consultation_status(cid,user)['result']},headers={'Cache-Control':'no-store'})
+                if req['status']=='failed':
+                    raise HTTPException(502,{'code':'rune_reading_failed','consultation_id':cid})
+                return JSONResponse(status_code=202,content={'state':'pending','receipt':receipt},headers={'Cache-Control':'no-store'})
+        except TransactionError as exc:
+            raise _map_transaction_error(exc) from exc
     allowed,why=availability(body.service_id,connect)
     if not allowed:
         # A completed/failed or staged Past request remains idempotently accessible

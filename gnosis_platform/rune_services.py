@@ -43,4 +43,4 @@ def catalog_entry(p, connect_db=None):
     return dict(service_id=p.service_id,application_id=APP_ID,mode=mode,credits=p.credits,
                 min_balance=p.min_balance,cooldown_seconds=p.cooldown_seconds,async_job=p.async_job,
                 provider=p.provider,fallback_active=False,available=available,availability=label,
-                price_provisional=source.startswith('quantum_'))
+                price_provisional=(source == 'quantum_future'))

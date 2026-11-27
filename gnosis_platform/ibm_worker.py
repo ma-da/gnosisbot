@@ -161,11 +161,18 @@ def stage_result(db, request_id, *, result, spool, min_free_bytes=1024*1024*1024
 
 def retrieve_one(db, request_id, *, spool):
     """Retrieve a known job ID only; never submit. Nonfinal jobs remain pending."""
+    service=db.execute('SELECT service_id FROM service_requests WHERE request_id=?',(request_id,)).fetchone()
+    if service and service['service_id'].startswith('runes.'):
+        from .future_execution import retrieve_rune
+        return retrieve_rune(db,request_id)
     row = db.execute('SELECT * FROM ibm_future_jobs WHERE request_id=?', (request_id,)).fetchone()
     if not row or not row['external_job_id'] or row['status'] not in ('submitted', 'running', 'result_ready'):
         raise ValueError('No retrievable IBM job')
     if row['status'] == 'result_ready':
         return {'status': 'result_ready', 'request_id': request_id}
+    if json.loads(row['metadata_json'] or '{}').get('trial'):
+        from .future_execution import retrieve
+        return retrieve(db,request_id,spool)
     from qiskit_ibm_runtime import QiskitRuntimeService
     job = QiskitRuntimeService().job(row['external_job_id'])
     status = str(job.status()).upper()
@@ -204,6 +211,10 @@ def settle_staged(db, request_id, *, spool):
     for result, research projection, and credit settlement. The JSON payload
     includes all shots, so no separately committed raw data are required.
     """
+    service_type=db.execute('SELECT service_id FROM service_requests WHERE request_id=?',(request_id,)).fetchone()
+    if service_type and service_type['service_id'].startswith('runes.'):
+        from .future_execution import settle_rune
+        return settle_rune(db,request_id)
     row, payload = _valid_stage(db, request_id, spool)
     service = db.execute('SELECT service_id,status,credits_cost,consultation_id FROM service_requests WHERE request_id=?',
                          (request_id,)).fetchone()
@@ -217,6 +228,8 @@ def settle_staged(db, request_id, *, spool):
                            (utcnow(), utcnow(), request_id))
                 db.commit()
             except Exception: db.rollback(); raise
+        from .reading_completion import wake_for
+        wake_for(db)
         return {'status': 'completed', 'replayed': True}
     if service['status'] != 'pending':
         raise ValueError('IBM request no longer pending')
@@ -250,6 +263,8 @@ def settle_staged(db, request_id, *, spool):
                    (utcnow(), utcnow(), request_id))
         db.commit()
     except Exception: db.rollback(); raise
+    from .reading_completion import wake_for
+    wake_for(db)
     return {'status': 'completed', 'replayed': False,
             'selected_shot_index': payload['selection']['selected_shot_index']}
 

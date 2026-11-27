@@ -1,0 +1,701 @@
+/* Gnosis.bot — account page styles. */
+
+/* ===== AUTHENTICATION AND DASHBOARD ===== */
+/* gnosis.bot / Your Gnosis — compact dashboard, scoped to the account page. */
+.account-page {
+  --account-edge: var(--light, #e0e3e0);
+  --account-paper: var(--paper, #fff);
+  --account-ink: var(--text, #202527);
+  --account-secondary: var(--ink-soft, #4d5658);
+  --account-muted: var(--muted, #707779);
+  --account-accent: var(--teal, #1ea8b3);
+  --account-mono: var(--font-display, 'Space Mono', monospace);
+  background: var(--bg, #faf9f5);
+  color: var(--account-ink);
+}
+.account-page [hidden] { display: none !important; }
+.account-page .account-skip:focus {
+  position: fixed !important; inset: 12px auto auto 12px;
+  width: auto; height: auto; padding: 8px 12px; background: var(--account-ink);
+  color: #fff; z-index: 9999; clip: auto;
+}
+.account-page .account-topbar { width: 100%; max-width: 1100px; }
+.account-page .account-top-nav { display: flex; gap: clamp(13px, 3vw, 30px); align-items: center; margin-left: auto; }
+.account-page .account-top-nav a { color: var(--account-secondary); font-size: 12px; font-weight: 600; text-decoration: none; }
+.account-page .account-top-nav a:hover { color: var(--account-accent); }
+.account-page .account-shell { width: min(100%, 1100px); max-width: 1100px; margin: 0 auto; padding: 26px 24px 64px; }
+.account-page .account-page-heading { margin-bottom: 24px; }
+.account-page .account-eyebrow { margin: 0 0 7px; color: var(--account-muted); font: 700 10px/1.5 var(--account-mono); letter-spacing: .12em; }
+.account-page .account-page-heading h1 { margin: 0; font: 600 clamp(34px, 4.5vw, 51px)/1.1 var(--font-body, 'DM Sans', sans-serif); letter-spacing: -.055em; }
+.account-page .account-deck { margin: 8px 0 0; color: var(--account-secondary); font-size: 13px; }
+.account-page .account-loading { color: var(--account-muted); font-size: 13px; }
+.account-page :is(a, button, input, textarea):focus-visible { outline: 2px solid var(--account-accent); outline-offset: 3px; }
+.account-page :is(button, input, textarea) { font: inherit; }
+.account-page button { max-width: 100%; cursor: pointer; }
+.account-page button:disabled { opacity: .38; cursor: not-allowed; }
+.account-page input[type='text'],
+.account-page input[type='email'],
+.account-page input[type='file'],
+.account-page textarea,
+.account-page #invitation {
+  display: block; width: 100%; min-width: 0; border: 1px solid var(--account-edge);
+  background: var(--account-paper); color: var(--account-ink);
+  padding: 10px 12px; margin: 6px 0 12px; border-radius: 0; font-size: 13px;
+}
+.account-page textarea { resize: vertical; line-height: 1.5; }
+.account-page button.account-primary-button { background: var(--account-ink); color: #fff; border: 1px solid var(--account-ink); padding: 10px 15px; font-weight: 600; font-size: 12px; }
+.account-page button.account-primary-button:hover:not(:disabled) { background: var(--account-accent); border-color: var(--account-accent); }
+.account-page button.account-secondary-button,
+.account-page button.account-quiet-button { background: var(--account-paper); border: 1px solid var(--account-edge); color: var(--account-secondary); padding: 9px 13px; font-size: 12px; font-weight: 600; }
+.account-page button.account-secondary-button:hover:not(:disabled),
+.account-page button.account-quiet-button:hover:not(:disabled) { border-color: var(--account-accent); color: var(--account-ink); }
+
+/* Signed-out invitation, with no dashboard data or billing displayed. */
+.account-auth-view { max-width: 970px; }
+.account-auth-intro { margin-bottom: 15px; }
+.account-auth-intro > p:last-child { margin: 0; font-size: 13px; color: var(--account-secondary); }
+.account-auth-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.account-page .account-auth-card { min-width: 0; margin: 0; padding: 21px; border: 1px solid var(--account-edge); background: var(--account-paper); border-radius: 0; }
+.account-page .account-auth-card legend { font-weight: 650; padding: 0 7px; margin-left: -7px; font-size: 17px; letter-spacing: -.02em; }
+.account-page .account-auth-card label { display: block; color: var(--account-secondary); font-size: 12px; font-weight: 600; }
+.account-page .account-auth-card .account-optional { color: var(--account-muted); font-weight: 400; }
+.account-auth-login > button, .account-auth-create > button { margin-top: 4px; }
+.account-page .account-key-warning { border-left: 2px solid var(--magenta, #cc315b); padding-left: 12px; font-size: 12px; }
+.account-key-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 9px 0; }
+.account-page label.confirm { display: flex; align-items: flex-start; gap: 9px; margin: 15px 0; font-weight: 400; }
+.account-page label.confirm input { width: auto; margin: 4px 0 0; flex-shrink: 0; }
+.account-auth-status { margin-top: 15px; color: var(--account-secondary); font-size: 13px; }
+.account-auth-status[data-error='true'] { color: #b73550; }
+.account-security-note { max-width: 850px; margin: 18px 0 0; font-size: 11px; color: var(--account-muted); line-height: 1.7; }
+
+/* Authenticated portal */
+.account-page .gnosis-hub { width: 100%; max-width: none;  padding: 0; border: 0; }
+.gnosis-hub-topline { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.gnosis-hub-topline-heading h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.035em; }
+.account-session-tools { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.account-session-label { margin: 0 3px 0 0; color: var(--account-muted); font: 400 10px/1.3 var(--account-mono); overflow-wrap: anywhere; max-width: 240px; }
+.account-page .gnosis-hub-status { margin: 0 0 13px; color: var(--account-muted); font-size: 11px; }
+
+.gnosis-hub-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(270px, .9fr); gap: 14px; align-items: start; }
+.gnosis-hub-aside { display: grid; gap: 14px; min-width: 0; }
+.gnosis-hub-card { min-width: 0; background: var(--account-paper); border: 1px solid var(--account-edge); border-radius: 0; padding: 18px 19px; }
+.gnosis-hub-card h3 { margin: 0; font-size: 17px; letter-spacing: -.025em; line-height: 1.25; font-weight: 650; }
+.gnosis-hub-card > p:not(.account-eyebrow), .gnosis-hub-description { margin: 7px 0 12px; font-size: 12px; line-height: 1.65; color: var(--account-secondary); }
+.gnosis-hub-section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
+.gnosis-hub-section-head .account-eyebrow { margin-bottom: 3px; }
+
+.gnosis-hub-email-status { margin: 7px 0 12px; font-size: 12px; color: var(--account-secondary); overflow-wrap: anywhere; }
+.gnosis-hub-email-form { margin: 0; padding: 0; border: 0; background: transparent; }
+.gnosis-hub-email-form label { font-size: 11px; color: var(--account-muted); }
+.gnosis-hub-email-form button { width: 100%; }
+.gnosis-hub-email-form p[role='status'], .gnosis-hub-verify p[role='status'] { margin: 8px 0 0; color: var(--account-secondary); font-size: 11px; }
+.gnosis-hub-verify { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--account-edge); }
+.gnosis-hub-verify > p { font-size: 12px; color: var(--account-secondary); }
+
+/* Activity compact rows, no fake progress bars for IBM jobs. */
+.gnosis-activity-item { position: relative; margin: 0; padding: 14px 0; background: transparent; border: 0; border-top: 1px solid var(--account-edge); overflow-wrap: anywhere; }
+.gnosis-activity-item:first-child { border-top: 0; }
+.gnosis-activity-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 14px; flex-wrap: wrap; }
+.gnosis-activity-item h3 { margin: 0; font-size: 13px; font-weight: 650; }
+.gnosis-activity-state { padding: 3px 7px; border: 1px solid var(--account-edge); background: var(--bg, #faf9f5); font: 500 10px/1.45 var(--account-mono); color: var(--account-secondary); white-space: nowrap; }
+.gnosis-activity-item[data-status='pending'] .gnosis-activity-state { border-color: #d9c391; color: #84651f; }
+.gnosis-activity-item[data-status='completed'] .gnosis-activity-state { border-color: #a0cbc6; color: #126e66; }
+.gnosis-activity-item[data-status='failed'] .gnosis-activity-state { border-color: #e0bcc3; color: #b33a52; }
+.gnosis-activity-meta, .gnosis-activity-note { margin: 5px 0; color: var(--account-muted); font-size: 11px; line-height: 1.5; }
+.gnosis-activity-note { color: var(--account-secondary); }
+.gnosis-activity-question { margin: 8px 0; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; }
+.gnosis-activity-open { display: inline-block; margin-top: 7px; font-size: 12px; font-weight: 700; text-decoration-color: var(--gold, #bb9236); text-underline-offset: 3px; }
+.gnosis-highlight { outline: 2px solid var(--account-accent); outline-offset: -2px; padding-inline: 10px; }
+.gnosis-empty { margin: 10px 0; padding: 24px 0; color: var(--account-muted); font-size: 12px; }
+.gnosis-hub-controls { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 10px; padding-top: 12px; border-top: 1px solid var(--account-edge); }
+.gnosis-hub-controls span { font: 400 10px var(--account-mono); color: var(--account-muted); }
+
+/* Gnosis account key upload */
+
+.key-dropzone {
+  border: 1px dashed var(--ring-muted, #bcc5c5);
+  background: var(--paper, #ffffff);
+  padding: 20px;
+  margin: 12px 0;
+  text-align: center;
+  transition:
+    border-color .2s ease,
+    background-color .2s ease;
+}
+
+.key-dropzone:hover,
+.key-dropzone.is-dragover,
+.key-dropzone:focus-within {
+  border-color: var(--teal, #1ea8b3);
+  background: #1ea8b30a;
+}
+
+.key-dropzone-title {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+/* Native file input */
+.account-shell #login-file {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: 12px var(--font-body);
+  cursor: pointer;
+}
+
+/* Style the Browse button */
+.account-shell #login-file::file-selector-button {
+  background: var(--bg, #faf9f5);
+  color: var(--text, #202527);
+  border: 1px solid var(--light, #e0e3e0);
+  border-radius: 0;
+  padding: 9px 16px;
+  margin-right: 12px;
+  font: 600 12px var(--font-body);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+
+.account-shell #login-file::file-selector-button:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.key-drop-feedback {
+  margin: 10px 0 0;
+  font: 10px/1.5 var(--font-display);
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key-dropzone,
+  .account-shell #login-file::file-selector-button {
+    transition: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .gnosis-hub-layout { grid-template-columns: minmax(0, 1fr); }
+  .gnosis-hub-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gnosis-hub-security { grid-column: 1 / -1; }
+}
+@media (max-width: 590px) {
+  .account-page .account-shell { padding: 19px 14px 48px; }
+  .account-page .account-topbar { padding-inline: 14px; }
+  .account-page .account-top-nav { gap: 12px; }
+  .account-page .account-top-nav a { font-size: 11px; }
+  .account-page .account-page-heading { margin-bottom: 17px; }
+  .account-auth-grid, .gnosis-hub-aside { grid-template-columns: minmax(0, 1fr); }
+
+  .gnosis-hub-topline { align-items: flex-start; flex-direction: column; }
+  .account-session-tools { justify-content: flex-start; }
+  .gnosis-hub-card { padding: 15px; }
+  .gnosis-hub-security { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .account-page *, .account-page *::before, .account-page *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
+
+/* Gnosis reading resonance v1 */
+.gnosis-hub .gnosis-resonance{display:inline-flex;align-items:center;gap:.4rem;vertical-align:middle;margin-inline-start:.5rem}
+.gnosis-hub .gnosis-resonance-face{display:inline-grid;place-items:center;width:44px;height:44px;padding:9px;border:0;border-radius:50%;box-shadow:none;background:transparent;color:inherit;opacity:.65;cursor:pointer;flex-shrink:0}
+.gnosis-hub .gnosis-resonance-face svg{display:block;width:26px;height:26px}
+.gnosis-hub .gnosis-resonance-face[aria-pressed="true"]{color:var(--teal,#028090);opacity:1}
+.gnosis-hub .gnosis-resonance-face:hover{opacity:1;background:#02809012}
+.gnosis-hub .gnosis-resonance-face:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.gnosis-hub .gnosis-resonance-face:disabled{cursor:wait;opacity:.5}
+.gnosis-resonance-note{font-size:.75rem;max-width:16rem}
+.gnosis-resonance-note:empty{display:none}
+.gnosis-resonance-hint{font-size:.82rem;opacity:.78;margin:.65rem 0}
+
+/* ===== CREDIT STORE AND MESSAGES ===== */
+/* GNOSIS.BOT / account commerce & targeted information, UI-only v1.
+   All content is beneath authenticated account UI; never enable payment without a server quote. */
+.account-page .gnosis-credit-store {
+  border: 1px solid var(--account-edge, #e0e3e0);
+  background: var(--account-paper, #fff);
+  padding: clamp(14px, 2.25vw, 23px);
+  margin: 0 0 17px;
+  color: var(--account-ink, #202527);
+  min-width: 0;
+  border-radius: 0;
+}
+.account-page .gnosis-credit-head,
+.account-page .gnosis-message-head {display:flex;align-items:flex-start;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;margin-bottom:15px}
+.account-page :is(.gnosis-credit-head,.gnosis-message-head) h3 {font:650 20px/1.22 var(--font-body,'DM Sans',sans-serif);letter-spacing:-.035em;margin:0 0 4px}
+.account-page :is(.gnosis-credit-head,.gnosis-message-head) p {font-size:12px;line-height:1.55;margin:0;color:var(--account-muted,#707779)}
+.account-page .gnosis-credit-eyebrow{font:700 10px/1.5 var(--font-display,'Space Mono',monospace)!important;letter-spacing:.1em;color:var(--account-muted,#707779);margin:0 0 5px!important}
+.account-page .gnosis-credit-state{font:500 10px/1.5 var(--font-display,'Space Mono',monospace);color:var(--account-muted,#707779);padding-top:4px}
+.account-page .gnosis-credit-grid {display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:20px;align-items:start}
+.account-page .gnosis-credit-fieldset {border:0;padding:0;margin:0 0 14px;min-width:0}
+.account-page .gnosis-credit-fieldset legend,
+.account-page .gnosis-credit-review h4 {font:650 12px/1.4 var(--font-body,'DM Sans',sans-serif);color:var(--account-ink,#202527);margin-bottom:7px}
+.account-page .gnosis-credit-methods {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.account-page .gnosis-credit-method {display:flex;align-items:center;gap:7px;min-height:58px;min-width:0;padding:10px;border:1px solid var(--account-edge,#e0e3e0);cursor:pointer;font-size:12px;line-height:1.25;background:var(--account-paper,#fff)}
+.account-page .gnosis-credit-method:has(input:checked) {border-color:var(--account-accent,#00bfb2);box-shadow:inset 0 -2px var(--account-accent,#00bfb2)}
+.account-page .gnosis-credit-method:has(input:disabled) {opacity:.55;cursor:not-allowed}
+.account-page .gnosis-credit-method input {accent-color:var(--account-accent,#028090);margin:0;flex:none}
+.account-page .gnosis-credit-method strong {display:block;font-weight:650;overflow-wrap:anywhere}
+.account-page .gnosis-credit-method small{display:block;font-size:10px;color:var(--account-muted,#707779);margin-top:2px}
+.account-page .gnosis-credit-offers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.account-page .gnosis-credit-offer {text-align:left;min-width:0;padding:9px 11px;border:1px solid var(--account-edge,#e0e3e0);background:var(--account-paper,#fff);font:600 12px/1.4 var(--font-body,'DM Sans',sans-serif)}
+.account-page .gnosis-credit-offer span{display:block;color:var(--account-muted,#707779);font-size:10px;font-weight:400;margin-top:3px}
+.account-page .gnosis-credit-offer[aria-pressed='true']{border-color:var(--account-accent,#028090);box-shadow:inset 0 -2px var(--account-accent,#028090)}
+.account-page .gnosis-credit-offer:disabled {opacity:.55}
+.account-page .gnosis-credit-empty{border:1px dashed var(--account-edge,#e0e3e0);font-size:12px;line-height:1.6;color:var(--account-muted,#707779);padding:13px;grid-column:1/-1;margin:0}
+.account-page .gnosis-credit-review {border-left:1px solid var(--account-edge,#e0e3e0);padding-left:20px;min-width:0}
+.account-page .gnosis-credit-review h4 {margin:0 0 9px}
+.account-page .gnosis-credit-total{font:650 clamp(22px,3vw,29px)/1.2 var(--font-body,'DM Sans',sans-serif);letter-spacing:-.04em;margin:3px 0 8px}
+.account-page .gnosis-credit-summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;font-size:12px;margin:0 0 13px}
+.account-page .gnosis-credit-summary dt {color:var(--account-muted,#707779)}
+.account-page .gnosis-credit-summary dd {text-align:right;margin:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.account-page .gnosis-credit-policy {font-size:11px;line-height:1.65;color:var(--account-secondary,#4d5658);margin:0 0 11px}
+.account-page .gnosis-credit-refund{border-left:2px solid var(--account-edge,#e0e3e0);padding-left:9px;font-size:11px;line-height:1.55;color:var(--account-secondary,#4d5658);margin:0 0 11px;white-space:pre-wrap}
+.account-page .gnosis-credit-agreement {display:flex;align-items:start;gap:8px;font-size:12px;line-height:1.55;margin:0 0 10px}
+.account-page .gnosis-credit-agreement input {accent-color:var(--account-accent,#028090);margin:3px 0 0;flex:none}
+.account-page :is(.gnosis-credit-agreement,.gnosis-credit-policy) a {color:var(--account-secondary,#4d5658);text-decoration:underline;text-underline-offset:2px}
+.account-page .gnosis-credit-submit{width:100%;min-height:41px;background:var(--account-ink,#202527);border:1px solid var(--account-ink,#202527);color:#fff;font:650 12px/1.4 var(--font-body,'DM Sans',sans-serif);padding:10px 12px}
+.account-page .gnosis-credit-submit:disabled{opacity:.48}
+.account-page .gnosis-credit-status{font-size:11px;line-height:1.55;color:var(--account-muted,#707779);margin:8px 0 0;min-height:17px}
+.account-page .gnosis-credit-status[data-error='true']{color:#9e344b}
+.account-page .gnosis-account-messages{margin:24px 0 0}
+.account-page .gnosis-message-items {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.account-page .gnosis-message-item{border-top:1px solid var(--account-edge,#e0e3e0);padding:12px 0 2px;min-width:0}
+.account-page .gnosis-message-item h4{font-size:14px;margin:0 0 4px;font-weight:650}
+.account-page .gnosis-message-item p{font-size:12px;line-height:1.6;white-space:pre-wrap;margin:0 0 7px;color:var(--account-secondary,#4d5658);overflow-wrap:anywhere}
+.account-page .gnosis-message-item small{color:var(--account-muted,#707779);font:400 10px/1.4 var(--font-display,'Space Mono',monospace)}
+.account-page .gnosis-message-item a{font-size:12px;color:var(--account-ink,#202527);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.account-page .gnosis-message-placeholder{margin:0;font-size:12px;color:var(--account-muted,#707779)}
+@media(max-width:760px){.account-page .gnosis-credit-grid{grid-template-columns:1fr;gap:14px}.account-page .gnosis-credit-review{border-left:0;border-top:1px solid var(--account-edge,#e0e3e0);padding:14px 0 0}}
+@media(max-width:480px){.account-page .gnosis-credit-methods{grid-template-columns:1fr}.account-page .gnosis-credit-method{min-height:48px}.account-page .gnosis-message-items{grid-template-columns:1fr}.account-page .gnosis-credit-offers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== CREDIT REDEMPTION ===== */
+/* Small extension of the Gnosis account hub. Brand palette and square controls. */
+.account-page .gnosis-credit-redeem-card { border-radius: 0; }
+.account-page .gnosis-credit-redeem-card label { display: block; margin: 12px 0 6px; font-weight: 600; font-size: 13px; }
+.account-page .gnosis-credit-redeem-card input {
+  box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px;
+  color: var(--text, #202527); background: var(--paper, #fff);
+  border: 1px solid var(--light, #d5dcdb); border-radius: 0;
+  font-family: 'Space Mono', monospace; font-size: 12px;
+}
+.account-page .gnosis-credit-redeem-card input:focus-visible { outline: 2px solid var(--teal, #1ea8b3); outline-offset: 2px; }
+.account-page .gnosis-credit-redeem-card button { margin-top: 11px; border-radius: 0; }
+.account-page .gnosis-credit-redeem-card p[role="status"] { min-height: 1.25em; margin: 10px 0 0; font-size: 12px; }
+.account-page #gnosis-claim-message[data-error="true"] { color: #ae3343; }
+.account-page .gnosis-invite-create { margin-top: 10px; border-radius: 0; }
+
+/* ===== CREDIT PURCHASE DIALOG ===== */
+/* Gnosis Buy Credits modal v1.2 — confined to #gnosis-buy-credits-dialog.
+   Visual-only refinement; all existing quote, checkout and account controls remain. */
+.gcm-buy-trigger{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 14px;margin-right:7px;border:1px solid #028090;border-radius:0;background:#028090;color:white;font:700 13px/1.4 'DM Sans',sans-serif;cursor:pointer}
+.gcm-buy-trigger:hover,.gcm-buy-trigger:focus-visible{background:#1a5e63;border-color:#1a5e63;color:#fff}
+.gcm-buy-trigger[hidden]{display:none!important}
+#gnosis-buy-credits-dialog:not([open]){display:none!important}
+#gnosis-buy-credits-dialog.gcm-dialog[open]{position:fixed!important;inset:0!important;display:block!important;box-sizing:border-box!important;width:min(1270px,calc(100vw - 32px))!important;max-width:1270px!important;min-width:0!important;max-height:calc(100dvh - 32px)!important;height:max-content!important;margin:auto!important;padding:0!important;overflow:auto!important;overscroll-behavior:contain;border:1px solid #becdcb!important;border-radius:0!important;background:#fff!important;color:#222d2f!important;box-shadow:0 24px 70px rgba(7,31,34,.25)!important;font-family:'DM Sans',sans-serif}
+#gnosis-buy-credits-dialog::backdrop{background:rgba(11,29,33,.68)}
+#gnosis-buy-credits-dialog,#gnosis-buy-credits-dialog *{box-sizing:border-box}
+#gnosis-buy-credits-dialog .gcm-toolbar{position:sticky;z-index:20;top:0;display:flex;justify-content:flex-end;align-items:center;padding:10px 22px;background:#fff;border-bottom:1px solid #e2e9e7;min-height:52px}
+#gnosis-buy-credits-dialog .gcm-close{padding:7px 15px;min-height:34px;border:1px solid #bac7c5;border-radius:0;background:#fff;color:#283435;font:700 13px 'DM Sans',sans-serif;cursor:pointer}
+#gnosis-buy-credits-dialog .gcm-close:hover,#gnosis-buy-credits-dialog .gcm-close:focus-visible{border-color:#028090;color:#028090}
+#gnosis-buy-credits-dialog .gcm-content-root{display:block!important;max-width:none!important;width:100%!important;margin:0!important;padding:22px 26px 26px!important;border:0!important;border-radius:0!important;box-shadow:none!important;min-width:0!important}
+#gnosis-buy-credits-dialog .gcm-content-root > header,#gnosis-buy-credits-dialog .gcm-content-root > .account-commerce-head{margin-bottom:20px!important}
+#gnosis-buy-credits-dialog .gcm-content-root *{min-width:0;max-width:100%}
+#gnosis-buy-credits-dialog h2,#gnosis-buy-credits-dialog h3{letter-spacing:-.015em}
+/* Left / right functional panels. */
+#gnosis-buy-credits-dialog .gcm-main-layout{display:grid!important;grid-template-columns:minmax(0,1.66fr) minmax(0,1fr)!important;align-items:start!important;gap:24px!important;width:100%!important;min-width:0!important}
+#gnosis-buy-credits-dialog .gcm-main-layout > *{min-width:0!important;max-width:none!important;width:100%!important}
+#gnosis-buy-credits-dialog .gcm-choice-grid{display:grid!important;grid-template-columns:minmax(180px,.92fr) minmax(0,1.48fr)!important;gap:16px!important;align-items:start!important;min-width:0!important;width:100%!important;max-width:100%!important}
+#gnosis-buy-credits-dialog .gcm-choice-grid > .gcm-method-group,#gnosis-buy-credits-dialog .gcm-choice-grid > .gcm-pack-group{min-width:0!important;max-width:none!important;width:100%!important;margin:0!important;padding:0!important;display:block!important}
+#gnosis-buy-credits-dialog .gcm-choice-grid :is(h3,h4,legend){font-size:13px!important;font-weight:700!important;margin:0 0 10px!important;color:#263234!important;line-height:1.35!important}
+/* Tile grids are also set as inline important by the JavaScript to beat the
+   previous commerce stylesheet's three-across !important rules. */
+#gnosis-buy-credits-dialog .gcm-choice-grid .gcm-method-tiles{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:10px!important;width:100%!important;min-width:0!important}
+#gnosis-buy-credits-dialog .gcm-choice-grid .gcm-pack-tiles{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:100%!important;min-width:0!important}
+#gnosis-buy-credits-dialog .gcm-method-tiles > *,#gnosis-buy-credits-dialog .gcm-pack-tiles > *{display:flex!important;min-height:76px!important;min-width:0!important;max-width:none!important;width:100%!important;margin:0!important;padding:13px 14px!important;align-items:center!important;border-radius:0!important;overflow-wrap:normal!important;word-break:normal!important;}
+#gnosis-buy-credits-dialog .gcm-pack-tiles > *{position:relative;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;min-height:112px!important;padding:14px 14px 46px!important;text-align:left!important;gap:5px!important}
+#gnosis-buy-credits-dialog .gcm-method-tiles > *{display:flex!important;gap:9px!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important}
+#gnosis-buy-credits-dialog .gcm-method-tiles input[type=radio]{flex:0 0 auto!important;max-width:22px!important;margin:0 3px 0 0!important;accent-color:#028090}
+#gnosis-buy-credits-dialog .gcm-pack-tiles .gcm-face-price{position:absolute;display:block;left:14px;bottom:12px;font:700 20px/1.05 'Space Mono',monospace;color:#1a5e63;letter-spacing:-.045em;max-width:calc(100% - 28px);pointer-events:none}
+#gnosis-buy-credits-dialog .gcm-pack-tiles .gcm-placeholder-hidden{display:none!important}
+#gnosis-buy-credits-dialog .gcm-method-tiles > :is([aria-checked=true],.selected,.active),#gnosis-buy-credits-dialog .gcm-pack-tiles > :is([aria-pressed=true],.selected,.active){border-color:#028090!important;box-shadow:inset 0 -3px #028090}
+/* Review — no inherited microscopic label column or enormous quote title. */
+#gnosis-buy-credits-dialog .gcm-review{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;max-width:none!important;min-width:0!important;width:100%!important;padding:3px 0 0 22px!important;margin:0!important;border-left:1px solid #dbe4e1!important;overflow-wrap:normal!important;word-break:normal!important}
+#gnosis-buy-credits-dialog .gcm-review > :is(h1,h2,h3,h4,h5){font:700 16px/1.4 'DM Sans',sans-serif!important;letter-spacing:0!important;margin:0 0 14px!important;color:#263234!important}
+#gnosis-buy-credits-dialog .gcm-review .gcm-review-total{display:block!important;box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-width:0!important;padding:13px 14px!important;margin:0 0 16px!important;border:1px solid #dce8e5!important;border-left:3px solid #028090!important;background:#f6f9f8!important;color:#233538!important;font:700 16px/1.45 'DM Sans',sans-serif!important;letter-spacing:-.015em!important;text-transform:none!important;text-align:left!important;white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important}
+#gnosis-buy-credits-dialog .gcm-review :is(h1,h2,h3,h4,strong,output,p)[class*='total']:not(.gcm-review-total){max-width:100%!important;overflow-wrap:break-word!important;word-break:normal!important}
+#gnosis-buy-credits-dialog .gcm-review dl,#gnosis-buy-credits-dialog .gcm-review :is(div,section):has(> dt):has(> dd){display:grid!important;grid-template-columns:minmax(102px,0.35fr) minmax(0,1fr)!important;gap:9px 12px!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0 0 16px!important;align-items:start!important}
+#gnosis-buy-credits-dialog .gcm-review dt,#gnosis-buy-credits-dialog .gcm-review dd{display:block!important;min-width:0!important;max-width:none!important;width:auto!important;float:none!important;clear:none!important;position:static!important;margin:0!important;padding:0!important;white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;text-align:left!important;line-height:1.45!important;font-size:13px!important}
+#gnosis-buy-credits-dialog .gcm-review dt{color:#657276!important;font-weight:600!important}
+#gnosis-buy-credits-dialog .gcm-review dd{color:#263234!important;font-weight:600!important}
+#gnosis-buy-credits-dialog .gcm-review :is(p,span,div,small,output,strong){min-width:0;max-width:100%;overflow-wrap:break-word;word-break:normal;white-space:normal}
+#gnosis-buy-credits-dialog .gcm-review label{font-size:13px!important;line-height:1.55!important;max-width:100%!important}
+#gnosis-buy-credits-dialog .gcm-review input[type=checkbox]{accent-color:#028090;flex:0 0 auto}
+#gnosis-buy-credits-dialog .gcm-review :is(button,input,textarea,select){max-width:100%!important;min-width:0!important;border-radius:0!important}
+#gnosis-buy-credits-dialog .gcm-review button{white-space:normal!important;line-height:1.35!important}
+#gnosis-buy-credits-dialog .gcm-review :is([class*='note'],[class*='disclosure']){font-size:12px!important;line-height:1.6!important}
+#gnosis-buy-credits-dialog .gcm-content-root :is(p,[class*='notice']){line-height:1.55}
+@media(max-width:1040px){
+ #gnosis-buy-credits-dialog .gcm-main-layout{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+ #gnosis-buy-credits-dialog .gcm-review{border-left:0!important;border-top:1px solid #dbe4e1!important;padding:20px 0 0!important}
+}
+@media(max-width:680px){
+ #gnosis-buy-credits-dialog.gcm-dialog[open]{width:calc(100vw - 12px)!important;max-height:calc(100dvh - 12px)!important}
+ #gnosis-buy-credits-dialog .gcm-content-root{padding:18px 14px 22px!important}
+ #gnosis-buy-credits-dialog .gcm-choice-grid{grid-template-columns:minmax(0,1fr)!important;gap:18px!important}
+ #gnosis-buy-credits-dialog .gcm-method-tiles{grid-template-columns:minmax(0,1fr)!important}
+ #gnosis-buy-credits-dialog .gcm-pack-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #gnosis-buy-credits-dialog .gcm-pack-tiles > *{min-height:106px!important}
+ #gnosis-buy-credits-dialog .gcm-toolbar{padding:8px 14px}
+ #gnosis-buy-credits-dialog .gcm-review .gcm-review-total{font-size:15px!important}
+}
+@media(max-width:370px){
+ #gnosis-buy-credits-dialog .gcm-pack-tiles{grid-template-columns:minmax(0,1fr)!important}
+ #gnosis-buy-credits-dialog .gcm-review dl{grid-template-columns:minmax(90px,.35fr) minmax(0,1fr)!important}
+}
+
+/* ===== WORKSPACE AND DASHBOARD LAYOUT ===== */
+/* Four-column workspace: unboxed icon + label navigation. */
+.account-page .gnosis-account-messages.gnosis-workspace {
+  margin: 0 0 15px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  min-width: 0;
+  overflow: visible;
+}
+.account-page .gnosis-workspace-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  position: relative;
+  z-index: 20;
+  min-height: 64px;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.account-page .gnosis-workspace-grid > .gnosis-workspace-module {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 64px;
+  height: 64px;
+  padding: 10px 11px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.account-page .gnosis-workspace-module-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  height: 44px;
+}
+.account-page .gnosis-workspace-module h4 {
+  font: 650 16px/1.25 var(--font-body, 'DM Sans', sans-serif);
+  letter-spacing: -.025em;
+  margin: 0;
+  color: var(--account-ink);
+}
+.account-page .gnosis-workspace-module-head h4 {
+  font: 700 clamp(12px, 1.2vw, 15px)/1.25 var(--font-body, 'DM Sans', sans-serif);
+  letter-spacing: -.02em;
+  min-width: 0;
+}
+.account-page .gnosis-workspace-opener {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--account-accent);
+  cursor: pointer;
+  transition: color .12s ease;
+}
+.account-page .gnosis-workspace-opener svg { width: 30px; height: 30px; display: block; }
+.account-page .gnosis-workspace-opener:hover,
+.account-page .gnosis-workspace-opener[aria-expanded="true"] { color: var(--account-ink); }
+.account-page .gnosis-workspace-opener:focus-visible,
+.account-page .gnosis-workspace-panel-close:focus-visible {
+  outline: 2px solid var(--account-ink);
+  outline-offset: 3px;
+}
+@media (max-width: 960px) {
+  .account-page .gnosis-workspace-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .account-page .gnosis-workspace-grid { grid-template-columns: minmax(0, 1fr); }
+  .account-page .gnosis-workspace-grid > .gnosis-workspace-module { height: 60px; min-height: 60px; padding: 8px 12px; }
+  .account-page .gnosis-workspace-module-head h4 { font-size: 14px; }
+}
+.account-page .gnosis-workspace-module .gnosis-workspace-deck{font-size:11px;line-height:1.55;color:var(--account-muted,#707779);margin:0;min-height:32px}
+.account-page .gnosis-workspace-kicker{font:700 9px/1.5 var(--font-display,'Space Mono',monospace);letter-spacing:.075em;color:var(--account-muted,#707779);text-transform:uppercase;margin:0}
+.account-page .gnosis-workspace-muted{font-size:11px;line-height:1.55;color:var(--account-secondary,#4d5658);margin:0}
+.account-page .gnosis-workspace-status{font-size:11px;line-height:1.5;color:var(--account-muted,#707779);margin:0}
+.account-page .gnosis-workspace-card{border-top:1px solid var(--account-edge,#e0e3e0);padding:12px 0 0}
+.account-page .gnosis-workspace-card h5{font:650 13px/1.4 var(--font-body,'DM Sans',sans-serif);margin:3px 0 6px;color:var(--account-ink,#202527)}
+.account-page .gnosis-workspace-card p{font-size:11px;line-height:1.55;color:var(--account-secondary,#4d5658);margin:0 0 8px}
+.account-page .gnosis-workspace-tabs{display:flex;gap:0;border-bottom:1px solid var(--account-edge,#e0e3e0)}
+.account-page .gnosis-workspace-tab{background:transparent;color:var(--account-secondary,#4d5658);border:0;border-bottom:2px solid transparent;border-radius:0;padding:8px 10px 7px;font:650 11px/1.4 var(--font-body,'DM Sans',sans-serif);cursor:pointer}
+.account-page .gnosis-workspace-tab[aria-pressed='true']{border-bottom-color:var(--account-accent,#028090);color:var(--account-ink,#202527)}
+.account-page .gnosis-workspace-tab:focus-visible,.account-page .gnosis-workspace-action:focus-visible,.account-page .gnosis-workspace-source:focus-visible{outline:2px solid var(--account-accent,#028090);outline-offset:3px}
+.account-page .gnosis-workspace-action{appearance:none;align-self:flex-start;background:transparent;color:var(--account-ink,#202527);border:1px solid var(--account-edge,#e0e3e0);border-radius:0;font:600 11px/1.4 var(--font-body,'DM Sans',sans-serif);padding:8px 11px;cursor:pointer;text-decoration:none}
+.account-page .gnosis-workspace-action:hover{border-color:var(--account-accent,#028090)}
+.account-page .gnosis-workspace-brief{border-left:2px solid var(--account-accent,#028090);padding-left:10px;margin:10px 0 0;font-size:11px;line-height:1.55;color:var(--account-secondary,#4d5658)}
+.account-page .gnosis-workspace-brief ul{margin:5px 0 0;padding-left:17px}
+.account-page .gnosis-workspace-pill{display:inline-block;border:1px solid var(--account-edge,#e0e3e0);font:700 9px/1.5 var(--font-display,'Space Mono',monospace);letter-spacing:.03em;padding:2px 6px;color:var(--account-secondary,#4d5658);margin-right:4px}
+.account-page .gnosis-workspace-source{font-size:11px;color:var(--account-ink,#202527);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;margin-top:auto}
+.account-page .gnosis-workspace-module .gnosis-message-items{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;min-width:0}
+.account-page .gnosis-workspace-module .gnosis-message-item{border-top:1px solid var(--account-edge,#e0e3e0);padding:11px 0 0;min-width:0}
+.account-page .gnosis-workspace-module .gnosis-message-item h4{font-size:12px;overflow-wrap:anywhere}
+.account-page .gnosis-workspace-module .gnosis-message-item p{font-size:11px}
+/* A compact, readable fixed list; symbols are traditional for the seven classical planets,
+   with later astronomical symbols for Earth/Uranus/Neptune. */
+.account-page .gnosis-planet-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:0;min-width:0}
+.account-page .gnosis-planet-row{display:grid;grid-template-columns:minmax(0,1fr) 31px minmax(66px,auto);align-items:center;gap:6px;min-height:35px;padding:5px 0;border-bottom:1px solid var(--account-edge,#e0e3e0);font-size:12px;line-height:1.3;color:var(--account-ink,#202527)}
+.account-page .gnosis-planet-row:first-child{border-top:1px solid var(--account-edge,#e0e3e0)}
+.account-page .gnosis-planet-name{font-weight:600;white-space:nowrap}
+.account-page .gnosis-planet-symbol{font-family:'DejaVu Sans','Segoe UI Symbol','Noto Sans Symbols 2','Noto Sans Symbols',sans-serif;text-align:center;font-weight:400;font-size:20px;line-height:1;min-width:25px;color:var(--account-accent,#028090)}
+.account-page .gnosis-planet-temp{text-align:right;font:600 12px/1.35 var(--font-display,'Space Mono',monospace);font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-.04em}
+.account-page .gnosis-workspace-module .gnosis-planet-context{line-height:1.6;margin:0}
+.account-page .gnosis-planet-sources{display:flex;gap:8px 12px;flex-wrap:wrap;margin-top:auto}
+.account-page .gnosis-planet-sources .gnosis-workspace-source{margin-top:0}
+.account-page .gnosis-robot-item{border-top:1px solid var(--account-edge,#e0e3e0);padding:10px 0 0}
+.account-page .gnosis-robot-item a{font:650 12px/1.4 var(--font-body,'DM Sans',sans-serif);color:var(--account-ink,#202527);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.account-page .gnosis-robot-item p{margin:4px 0 0;color:var(--account-secondary,#4d5658);font-size:10px;line-height:1.5}
+.account-page .gnosis-workspace-note{font-size:10px;line-height:1.5;color:var(--account-muted,#707779);margin:0}
+.account-page .gnosis-workspace-weather .gnosis-workspace-deck {min-height:0;}
+.account-page .gnosis-workspace-weather .gnosis-planet-row {
+  grid-template-columns:minmax(0,1fr) 20px auto; min-height:29px;
+  font-size:11px;
+}
+.account-page .gnosis-workspace-weather .gnosis-planet-symbol{min-width:18px;font-size:16px;}
+
+.account-page .gnosis-workspace-weather .gnosis-planet-context{max-width:100%;}
+.account-page .gnosis-workspace-weather .gnosis-planet-sources{gap:12px;}
+.account-page .gnosis-hub {margin:0;}
+.account-page .gnosis-hub-topline-heading {display:flex;align-items:baseline;gap:8px 17px;flex-wrap:wrap;}
+.account-page .gnosis-hub-topline-heading h2{font-size:clamp(19px,2.15vw,25px);}
+.account-page .gnosis-dashboard-summary {font-size:12px;line-height:1.5;color:var(--account-secondary,#4d5658);margin:0;}
+.account-page .gnosis-dashboard-summary strong{font-weight:700;color:var(--account-accent,#028090);font-variant-numeric:tabular-nums;}
+.account-page .gnosis-hub-layout-v03 {grid-template-columns:minmax(0,1.75fr) minmax(290px,0.92fr);align-items:start;gap:14px;}
+.account-page .gnosis-hub-layout-v03 .gnosis-hub-aside {display:block;min-width:0;}
+.account-page .gnosis-hub-layout-v03 .gnosis-account-info{padding:17px 19px 15px;}
+.account-page .gnosis-account-info > h3 {font-size:17px;margin:0 0 10px;}
+.account-page .gnosis-account-info-block{padding:13px 0 12px;border-top:1px solid var(--account-edge,#e0e3e0);}
+.account-page .gnosis-account-info-block h4{font-size:12px;font-weight:700;margin:0 0 8px;color:var(--account-ink,#202527);}
+.account-page .gnosis-account-info-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.account-page .gnosis-account-id-display{display:block;overflow-wrap:anywhere;font:11px/1.6 var(--font-display,'Space Mono',monospace);padding:7px 9px;background:var(--bg,#faf9f5);border:1px solid var(--account-edge,#e0e3e0);user-select:all;}
+.account-page .gnosis-account-form-status{display:block;font-size:10px;line-height:1.6;color:var(--account-muted,#707779);margin:6px 0 0;}
+.account-page .gnosis-account-info-block :is(label,input,button){font-size:11px;}
+.account-page .gnosis-account-info-block input{margin:5px 0 8px;}
+.account-page .gnosis-account-info-block .gnosis-hub-email-status{font-size:11px;margin:0 0 8px;}
+.account-page .gnosis-account-info-block .gnosis-legal-form-links{font-size:10px;line-height:1.6;margin:9px 0 0;}
+.account-page .gnosis-account-security-link{display:inline-block;border:0;padding:9px 0 0;margin:0;background:transparent;text-decoration:underline;text-underline-offset:3px;font-size:12px;font-weight:600;color:var(--account-ink,#202527);cursor:pointer;}
+.account-page .gnosis-reading-tabs {display:flex;gap:4px;border-bottom:1px solid var(--account-edge,#e0e3e0);margin:15px 0 5px;}
+.account-page .gnosis-reading-tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:10px 17px;font:700 12px/1.3 var(--font-body,'DM Sans',sans-serif);color:var(--account-muted,#707779);}
+.account-page .gnosis-reading-tabs button[aria-selected='true']{border-bottom-color:var(--account-accent,#028090);color:var(--account-ink,#202527);}
+.account-page .gnosis-hub-controls{margin-top:10px;}
+.account-page .gnosis-screen-reader-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+.account-page .gnosis-account-security-dialog{width:min(92vw,550px);max-height:min(80vh,720px);border:1px solid var(--account-edge,#e0e3e0);border-radius:0;background:var(--account-paper,#fff);color:var(--account-ink,#202527);padding:22px 24px;box-shadow:0 10px 40px #0002;overflow:auto;}
+.account-page .gnosis-account-security-dialog::backdrop{background:#151b1fc2;}
+.account-page .gnosis-account-security-dialog-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:11px;}
+.account-page .gnosis-account-security-dialog-heading h2{font-size:21px;letter-spacing:-.03em;margin:0;}
+.account-page .gnosis-account-security-dialog p{font-size:12px;line-height:1.7;color:var(--account-secondary,#4d5658);margin:9px 0;}
+.account-page .gnosis-account-security-dialog p strong{color:var(--account-ink,#202527);}
+.account-page .gnosis-account-security-dialog a{color:var(--account-ink,#202527);}
+
+@media(max-width:820px){
+ .account-page .gnosis-hub-layout-v03{grid-template-columns:1fr;}
+ .account-page .gnosis-hub-layout-v03 .gnosis-hub-aside{display:block;}
+}
+@media(max-width:560px){
+ .account-page .gnosis-hub-layout-v03 .gnosis-hub-card{padding:15px;}
+ .account-page .gnosis-hub-topline-heading{gap:4px 10px;}
+ .account-page .gnosis-reading-tabs button{padding:10px 12px;}
+}
+.account-page .gnosis-hub-topline {margin:0 0 9px; align-items:center;}
+.account-page .account-session-tools {gap:8px; flex:none;}
+.account-page .gnosis-workspace-weather .gnosis-planet-list {display:grid;grid-template-columns:minmax(0,1fr);gap:0;}
+.account-page .gnosis-workspace-weather .gnosis-planet-row {grid-template-columns:minmax(0,1fr) 21px auto;gap:4px;min-height:31px;padding:5px 0;}
+.account-page .gnosis-workspace-weather .gnosis-planet-name{font-size:11px;}
+.account-page .gnosis-workspace-weather .gnosis-planet-temp{font-size:10px;}
+.account-page .gnosis-workspace-weather .gnosis-planet-symbol{font-size:17px;}
+.account-page .gnosis-account-info-toprow {display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:32px;margin:0 0 10px;}
+.account-page .gnosis-account-info-toprow h3 {margin:0;font-size:17px;}
+.account-page .gnosis-account-info-toprow .account-eyebrow {margin:0 0 2px;}
+.account-page .gnosis-account-info-toprow #copy-account-id{flex:none;}
+.account-page .gnosis-account-info-block > h4{margin-bottom:9px;}
+@media(max-width:620px){
+  .account-page .gnosis-hub-topline{align-items:flex-start;}
+  .account-page .account-session-tools{flex-wrap:nowrap;}
+}
+.account-page .gnosis-workspace-grid>.gnosis-workspace-module.is-open {z-index: 30;}
+.account-page .gnosis-workspace-panel {
+  position: absolute;
+  left: 0;
+  right: auto;
+  top: calc(100% - 1px);
+  z-index: 35;
+  width: max(100%, 340px);
+  max-width: calc(100vw - 30px);
+  max-height: min(480px, 65dvh);
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--account-paper,#fff);
+  color: var(--account-ink,#202527);
+  border: 1px solid var(--account-edge,#e0e3e0);
+  border-top: 3px solid var(--account-accent,#028090);
+  box-shadow: 0 13px 25px rgba(24,39,39,.17);
+  padding: 12px 14px 17px;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+.account-page .gnosis-workspace-grid>.gnosis-workspace-module:nth-child(n+3)>.gnosis-workspace-panel {
+  left: auto;
+  right: 0;
+}
+.account-page .gnosis-workspace-panel-bar {
+  position: sticky;
+  z-index: 2;
+  top: -12px;
+  background: var(--account-paper,#fff);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: -12px -14px 10px;
+  padding: 10px 14px;
+  font: 700 12px/1.4 var(--font-body,'DM Sans',sans-serif);
+}
+.account-page .gnosis-workspace-panel-close {
+  border: 0;
+  border-radius: 0;
+  padding: 6px 0 6px 12px;
+  background: transparent;
+  color: var(--account-secondary,#4d5658);
+  cursor: pointer;
+  font: 650 11px/1.4 var(--font-body,'DM Sans',sans-serif);
+}
+.account-page .gnosis-workspace-panel .gnosis-workspace-deck {
+  min-height: 0;
+  margin: 0 0 11px;
+  font-size: 11px;
+}
+.account-page .gnosis-workspace-panel .gnosis-planet-list {display:grid;grid-template-columns:minmax(0,1fr);}
+.account-page .gnosis-workspace-panel .gnosis-planet-row {grid-template-columns:minmax(0,1fr) 25px auto;}
+
+@media(max-width:960px) {
+  .account-page .gnosis-workspace-grid>.gnosis-workspace-module:nth-child(2)>.gnosis-workspace-panel,
+  .account-page .gnosis-workspace-grid>.gnosis-workspace-module:nth-child(4)>.gnosis-workspace-panel {left:auto;right:0;}
+  .account-page .gnosis-workspace-grid>.gnosis-workspace-module:nth-child(3)>.gnosis-workspace-panel {left:0;right:auto;}
+}
+@media(max-width:620px) {
+  .account-page .gnosis-workspace-panel {
+    position: fixed;
+    top: auto;
+    bottom: max(12px,env(safe-area-inset-bottom));
+    left: 12px!important;
+    right: 12px!important;
+    width: auto;
+    max-width: none;
+    max-height: min(72dvh,590px);
+    z-index: 1101;
+    box-shadow: 0 12px 32px rgba(0,0,0,.24);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .account-page .gnosis-workspace-opener {transition: none;}
+}
+
+/* ===== COMMUNICATIONS ===== */
+/* Gnosis Communications V0.4.1 — safe account message actions, compact drawer. */
+.account-page #gnosis-workspace-panel-communicate .gnosis-message-items{display:block;min-width:0}
+.account-page #gnosis-message-items .gnosis-message-item{position:relative;padding:10px 0 13px}
+.account-page #gnosis-message-items .gnosis-communication-item-head{display:flex;align-items:start;gap:8px;justify-content:space-between}
+.account-page #gnosis-message-items .gnosis-communication-item-head h4{margin:0 0 6px;min-width:0;overflow-wrap:anywhere}
+.account-page #gnosis-message-items .gnosis-communication-item-actions{display:flex;flex:none;gap:2px;align-items:center}
+.account-page #gnosis-message-items .gnosis-communication-icon{width:28px;height:28px;padding:5px;border:1px solid transparent;border-radius:0;display:grid;place-items:center;background:transparent;color:var(--account-secondary,#4d5658);cursor:pointer}
+.account-page #gnosis-message-items .gnosis-communication-icon svg{display:block;width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.25;stroke-linecap:square;stroke-linejoin:miter}
+.account-page #gnosis-message-items .gnosis-communication-icon:hover{border-color:var(--account-accent,#028090);color:var(--account-accent,#028090)}
+.account-page #gnosis-message-items .gnosis-communication-icon:disabled{opacity:.4;cursor:wait}
+.account-page #gnosis-message-items .gnosis-communication-footer{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.account-page #gnosis-message-items .gnosis-communication-reply-link{border:0;background:transparent;color:var(--account-ink,#202527);padding:0;font:700 12px/1.5 var(--font-body,'DM Sans',sans-serif);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.account-page #gnosis-message-items .gnosis-communication-reply-link:hover{color:var(--account-accent,#028090)}
+.account-page #gnosis-message-items .gnosis-communication-from{margin:4px 0;font:400 10px/1.4 var(--account-mono,monospace);color:var(--account-muted,#707779)}
+.account-page .gnosis-communication-dialog{box-sizing:border-box;width:min(95vw,480px);max-height:min(85dvh,640px);padding:19px 20px;border:1px solid var(--account-ink,#202527);border-radius:0;background:var(--account-paper,#fff);color:var(--account-ink,#202527);box-shadow:0 17px 40px #20252744}
+.account-page .gnosis-communication-dialog::backdrop{background:#10191d88}
+.account-page .gnosis-communication-dialog h2{font:650 20px/1.2 var(--font-body,'DM Sans',sans-serif);margin:0}
+.account-page .gnosis-communication-dialog .gnosis-communication-dialog-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.account-page .gnosis-communication-dialog .gnosis-communication-dialog-heading button{background:transparent;border:1px solid #d1d8d6;border-radius:0;padding:6px 9px;font-size:12px}
+.account-page .gnosis-communication-dialog p{font-size:12px;line-height:1.55;color:var(--account-secondary,#4d5658)}
+.account-page .gnosis-communication-dialog label{display:block;font-size:12px;font-weight:600;margin:10px 0 5px}
+.account-page .gnosis-communication-dialog textarea{width:100%;box-sizing:border-box;min-height:140px;resize:vertical;font-size:13px}
+.account-page .gnosis-communication-dialog .gnosis-communication-send{padding:10px 15px;border:1px solid var(--account-ink,#202527);background:var(--account-ink,#202527);color:white;border-radius:0;font-weight:700;font-size:12px}
+.account-page .gnosis-communication-dialog .gnosis-communication-status{min-height:18px;font-size:11px}
+.account-page .gnosis-communication-dialog .gnosis-communication-status[data-error="true"]{color:#b73550}
+
+/* ===== WALLET ===== */
+/* GNOSIS account identity v0.5: square, compact, branded, scoped to account page. */
+.account-page .gnosis-email-change{padding:0;border:0;background:transparent;color:var(--teal,#028090);font:600 11px/1.5 var(--font-body,Arial,sans-serif);text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin:0 0 9px;}
+.account-page .gnosis-email-change[hidden]{display:none!important;}
+.account-page .gnosis-wallet-block{display:grid;gap:8px;min-width:0;}
+.account-page .gnosis-wallet-block .account-secondary-button{width:auto;justify-self:start;}
+.account-page .gnosis-wallet-data{display:grid;gap:7px;min-width:0;}
+.account-page .gnosis-wallet-address-row{display:flex;align-items:start;gap:8px;justify-content:space-between;}
+.account-page .gnosis-wallet-public-address{font:600 11px/1.55 var(--font-display,'Space Mono',monospace);overflow-wrap:anywhere;word-break:break-word;min-width:0;}
+.account-page .gnosis-wallet-icon-button{padding:6px!important;min-width:30px;line-height:1;background:transparent!important;border:1px solid var(--light,#d4dcda)!important;flex-shrink:0;}
+.account-page .gnosis-wallet-balances{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.account-page .gnosis-wallet-balance{padding:9px;border:1px solid var(--light,#d4dcda);min-width:0;}
+.account-page .gnosis-wallet-balance small{display:block;font:700 10px/1.5 var(--font-display,monospace);color:var(--muted,#707779);}
+.account-page .gnosis-wallet-balance strong{font:700 16px/1.4 var(--font-body,Arial,sans-serif);overflow-wrap:anywhere;}
+.account-page .gnosis-wallet-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.account-page .gnosis-wallet-note,.account-page #gnosis-wallet-registration-status{font:400 11px/1.5 var(--font-body,Arial,sans-serif);color:var(--muted,#707779);margin:0;}
+.account-page #gnosis-wallet-registration-status[data-error="true"]{color:#ae374a;}
+.account-page #gnosis-wallet-picker{border:1px solid var(--teal,#028090);border-radius:0!important;background:var(--paper,#fff);color:var(--text,#202527);padding:20px;max-width:min(92vw,390px);width:100%;}
+.account-page #gnosis-wallet-picker::backdrop{background:rgb(0 0 0 / .54)}
+.account-page #gnosis-wallet-picker h3{margin:0 0 12px;}
+.account-page #gnosis-wallet-picker-choices{display:grid;gap:8px;margin:8px 0 16px;}
+.account-page #gnosis-wallet-picker-choices button{width:100%;}
+
+/* ===== QUANTUM CERTIFICATES ===== */
+/* Certificate actions: scoped to saved reading cards. Match the account link treatment. */
+.account-page .gnosis-certificate-actions {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;
+  margin: 8px 0 2px; padding: 0;
+}
+.account-page .gnosis-certificate-actions .gnosis-certificate-action {
+  appearance: none; display: inline-block; border: 0; border-radius: 0;
+  background: transparent; box-shadow: none; margin: 0; padding: 4px 0;
+  min-height: 28px; width: auto; font: 500 12px/1.5 var(--font-body, 'DM Sans', sans-serif);
+  color: var(--account-secondary, #4d5658); text-decoration: underline;
+  text-decoration-color: var(--gold, #bb9236); text-underline-offset: 3px;
+  cursor: pointer; text-align: left;
+}
+.account-page .gnosis-certificate-actions .gnosis-certificate-action:hover:not(:disabled) {
+  color: var(--account-ink, #202527); text-decoration-color: var(--account-accent, #1ea8b3);
+}
+.account-page .gnosis-certificate-actions button:disabled { opacity: .45; cursor: wait; }
+.account-page .gnosis-certificate-status {
+  font: 400 12px/1.6 var(--font-body, 'DM Sans', sans-serif);
+  color: var(--account-secondary, #4d5658); margin: 5px 0 0; overflow-wrap: anywhere;
+}

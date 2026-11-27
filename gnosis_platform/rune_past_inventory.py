@@ -40,7 +40,9 @@ def import_batch(db,meta,records,*,excluded=()):
     mode=meta['mode']; require(mode in PROFILES,'Unknown mode')
     profile,version=PROFILES[mode]
     require(meta['backend']=='ibm_marrakesh' and meta['circuit_sha256']==profile and meta['circuit_version']==version,'Unqualified physical profile')
-    require(isinstance(records,list) and len(records)==128,'Expected frozen 128-casting batch')
+    require(isinstance(records,list) and len(records) in ((128,288) if mode=='pouch' else (128,256)),'Unexpected qualified casting count')
+    if len(records)!=128:
+        require(db.execute('SELECT 1 FROM gnosis_reserve_holds WHERE job_id=? AND engine=? AND promoted_at IS NULL',(meta['external_job_id'],mode)).fetchone() is not None,'Bulk batch requires a reserve hold')
     require(isinstance(meta['external_job_id'],str) and 4<=len(meta['external_job_id'])<=160,'Missing job ID')
     require(isinstance(meta['archive_sha256'],str) and len(meta['archive_sha256'])==64 and set(meta['archive_sha256'])<=set('0123456789abcdef'),'Missing archive hash')
     times=[datetime.fromisoformat(meta[k].replace('Z','+00:00')) for k in ('submitted_at','acquired_at')]
