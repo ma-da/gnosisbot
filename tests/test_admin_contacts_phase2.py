@@ -9,7 +9,7 @@ from cryptography.fernet import Fernet
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from gnosis_platform.db import connect, migrate
-from gnosis_platform import site_contacts
+from gnosis_platform import site_contacts, contact_protection
 from gnosis_platform.site_contact_api import router as public_router
 from gnosis_platform.admin_contacts_api import router as private_router, EmailMessage, perform_send
 from gnosis_platform.auth_api import authenticated
@@ -24,6 +24,10 @@ class ContactPhase2Tests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory()
         self.env=patch.dict(os.environ,{
             'GNOSIS_DATA_DIR':self.temp.name,'GNOSIS_DB_PATH':str(Path(self.temp.name)/'test.db'),
+            'GNOSIS_CONTACT_MIN_SECONDS':'16',
+            'GNOSIS_CONTACT_TOKEN_TTL_SECONDS':'3600',
+            'GNOSIS_CONTACT_EMAIL_PER_DAY':'3',
+            'GNOSIS_CONTACT_GLOBAL_PER_HOUR':'60',
             'GNOSIS_ENABLE_NATIVE_CONTACTS':'1','GNOSIS_CONTACT_ENCRYPTION_KEY':Fernet.generate_key().decode(),
             'GNOSIS_WEB_ORIGIN':'https://gnosis.bot','GNOSIS_ENABLE_ADMIN_DASHBOARD':'1',
             'GNOSIS_ENABLE_ADMIN_RESEND_SEND':'NO','RESEND_API_KEY':'re_stub',
@@ -34,18 +38,39 @@ class ContactPhase2Tests(unittest.TestCase):
         self.client=TestClient(app);self.app=app
     def tearDown(self):
         self.client.close();self.db.close();self.env.stop();self.temp.cleanup()
+    def post_contact(self, data, headers):
+        # Simulate a form opened 17 seconds earlier.
+        # Real production timing enforcement remains unchanged.
+        with patch.object(
+            contact_protection,
+            'now_ms',
+            return_value=contact_protection.now_ms()-17000
+        ):
+            response = self.client.post(
+                '/api/v1/contact/token',
+                headers={'Origin':'https://gnosis.bot'}
+            )
+
+        self.assertEqual(response.status_code, 200)
+
+        return self.client.post(
+            '/api/v1/contact',
+            json={**data, 'token':response.json()['token']},
+            headers=headers
+        )
+
     def test_public_rejects_cross_origin_invalid_and_stores_encrypted(self):
         data={'name':'Ada','email':'ada@example.com','message':'A private message'}
-        self.assertEqual(self.client.post('/api/v1/contact',json=data,headers={'Origin':'https://evil.example'}).status_code,403)
-        self.assertEqual(self.client.post('/api/v1/contact',json={**data,'message':''},headers={'Origin':'https://gnosis.bot'}).status_code,422)
-        self.assertEqual(self.client.post('/api/v1/contact',json=data,headers={'Origin':'https://gnosis.bot'}).status_code,200)
+        self.assertEqual(self.post_contact(data=data,headers={'Origin':'https://evil.example'}).status_code,403)
+        self.assertEqual(self.post_contact(data={**data,'message':''},headers={'Origin':'https://gnosis.bot'}).status_code,422)
+        self.assertEqual(self.post_contact(data=data,headers={'Origin':'https://gnosis.bot'}).status_code,200)
         raw=self.db.execute('SELECT * FROM gnosis_site_contact_messages').fetchone()
         self.assertNotIn(b'private',raw['message_ciphertext'])
         self.assertNotIn(b'ada@example.com',raw['email_ciphertext'])
-        self.assertEqual(site_contacts.counts(self.db),{'total':1,'unread':1})
+        self.assertEqual(site_contacts.counts(self.db),{'total':1,'unread':1,'quarantine':0})
         self.assertEqual(site_contacts.list_messages(self.db)['messages'][0]['message'],'A private message')
     def test_admin_only_read_and_origins_for_mutation(self):
-        self.client.post('/api/v1/contact',json={'name':'Ada','email':'ada@example.com','message':'hi'},headers={'Origin':'https://gnosis.bot'})
+        self.post_contact(data={'name':'Ada','email':'ada@example.com','message':'hi'},headers={'Origin':'https://gnosis.bot'})
         self.assertEqual(self.client.get('/api/v1/admin/contact-messages').status_code,401)
         self.app.dependency_overrides[authenticated]=lambda:{'is_admin':0,'account_id':'admin-fixture'}
         self.assertEqual(self.client.get('/api/v1/admin/contact-messages').status_code,403)
@@ -63,10 +88,10 @@ class ContactPhase2Tests(unittest.TestCase):
     def test_rate_limit_honeypot_and_manual_mail_gate(self):
         headers={'Origin':'https://gnosis.bot'}
         data={'name':'Ada','email':'ada@example.com','message':'some thoughts'}
-        self.assertEqual(self.client.post('/api/v1/contact',json={**data,'website':'spam'},headers=headers).status_code,200)
+        self.assertEqual(self.post_contact(data={**data,'website':'spam'},headers=headers).status_code,200)
         self.assertEqual(site_contacts.counts(self.db)['total'],0)
-        for _ in range(4):self.assertEqual(self.client.post('/api/v1/contact',json=data,headers=headers).status_code,200)
-        self.assertEqual(self.client.post('/api/v1/contact',json=data,headers=headers).status_code,429)
+        for _ in range(3):self.assertEqual(self.post_contact(data=data,headers=headers).status_code,200)
+        self.assertEqual(self.post_contact(data=data,headers=headers).status_code,429)
         with self.assertRaises(RuntimeError):
             perform_send(self.db,actor='admin-fixture',body=EmailMessage(from_address='support@gnosis.bot',to_address='test@example.com',subject='Test',message='Hello'))
         self.assertEqual(self.db.execute('SELECT count(*) FROM gnosis_admin_manual_emails').fetchone()[0],0)

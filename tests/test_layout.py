@@ -48,8 +48,8 @@ class LayoutTests(unittest.TestCase):
         parsed.feed(html)
         asset_styles = [x for x in parsed.stylesheets if x.startswith('/assets/css/')]
         self.assertEqual(
-            asset_styles[:3],
-            ['/assets/css/global.css', '/assets/css/system-health.css', '/assets/css/site-shell-v2.css']
+            asset_styles,
+            ['/assets/css/style.css', '/assets/css/quantum-oracle.css']
         )
         self.assertEqual(len(asset_styles), len(set(asset_styles)), 'Duplicate local stylesheets')
         missing_styles = [
@@ -87,7 +87,7 @@ class LayoutTests(unittest.TestCase):
         self.assertNotIn("onPhase('becoming')",vizjs)
 
     def test_viewport_constrained_ring_and_responsive_order(self):
-        css=(STATIC / 'css' / 'global.css').read_text(encoding='utf8')
+        css=(STATIC / 'css' / 'style.css').read_text(encoding='utf8')
         self.assertIn('--viewport-height: 100dvh',css)
         self.assertIn('--ring-size: min(',css)
         self.assertIn('var(--viewport-height) - var(--header-h)',css)

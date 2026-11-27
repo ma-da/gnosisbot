@@ -8,7 +8,7 @@ class ApiSmokeTests(unittest.TestCase):
         cls.client=TestClient(app)
 
     def test_single_stylesheet_is_served(self):
-        response=self.client.get('/assets/css/global.css')
+        response=self.client.get('/assets/css/style.css')
         self.assertEqual(response.status_code,200)
         self.assertIn('--ring-size',response.text)
         self.assertIn('--char-opacity',response.text)
