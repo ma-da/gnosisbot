@@ -47,9 +47,29 @@ class RuneTests(unittest.TestCase):
         for m in ('pouch','sticks'):
             for s in ('classic','qrng_private','qrng_public'): self.assertTrue(rows[f'runes.{m}.{s}']['available'])
             for s in ('quantum_past','quantum_future'):
-                self.assertFalse(rows[f'runes.{m}.{s}']['available']);self.assertEqual(self.post(self.body(s,m)).status_code,503)
-        with patch.dict(os.environ,{'GNOSIS_ENABLE_RUNES':'0'}):self.assertEqual(self.post(self.body()).status_code,503)
+                self.assertFalse(rows[f'runes.{m}.{s}']['available'])
+                response = self.post(self.body(s,m))
+                expected = 403 if s == 'quantum_future' else 503
+                self.assertEqual(response.status_code, expected, response.text)
+                if s == 'quantum_future':
+                    self.assertEqual(
+                        response.json()['detail']['code'],
+                        'future_unavailable'
+                    )
+
+        with patch.dict(os.environ,{'GNOSIS_ENABLE_RUNES':'0'}):
+            self.assertEqual(self.post(self.body()).status_code,503)
+
+        # Rejected requests must never allocate jobs or reserve credits.
         self.assertEqual(self.counts('service_requests'),0)
+        self.assertEqual(self.counts('ibm_future_jobs'),0)
+        self.assertEqual(
+            tuple(self.db.execute(
+                'SELECT available,reserved FROM credit_accounts WHERE account_id=?',
+                (self.a,)
+            ).fetchone()),
+            (5,0)
+        )
     def test_classic_pouch_saved_replay_owner_hub_archive(self):
         body=self.body();res=self.post(body);self.assertEqual(res.status_code,200,res.text)
         data=res.json();cid=data['receipt']['consultation_id'];reading=data['result']['reading']
